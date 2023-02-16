@@ -1,5 +1,5 @@
 {
-"title": "VALIDATE_CONVERSION() function no3!",
+"title": "VALIDATE_CONVERSION() function no4!",
  "sql": "\n\n\n-- On successful conversion, returns 1\nSELECT VALIDATE_CONVERSION('04-Apr-22 14:24:00' AS TIMESTAMP,\n                           'DD-MON-YY HH24:MI:SS') FROM DUAL;\n\n\n-- On failed conversion, returns 0\nSELECT VALIDATE_CONVERSION('$29.99' AS BINARY_FLOAT) FROM DUAL;\n\n\n-- Loads BAD data from external table only if conversion fails\nINSERT INTO error_table\nSELECT created_date FROM external_table\n WHERE VALIDATE_CONVERSION(created_date AS DATE, 'dd-MON-yyyy') = 0;",
  "fontSize": 18,
  "fontName": "Consolas",
