@@ -1,0 +1,22 @@
+{
+"title": "Logical Partition Change Tracking for MVs",
+ "sql": "\nCREATE TABLE mycustomers (cust_id number, age number,\n  gender char(1), member_since date, address varchar(100));\n\ninsert into mycustomers(cust_id, age, gender) values \n(2088, 35, 'F'), (1234, 54, 'M'), (1354, 17, 'F'), (6666, 15, 'F');\n\n-- Creates a Logical Change Partition Tracking with key = age\nCREATE LOGICAL PARTITION TRACKING ON mycustomers\n  PARTITION BY RANGE (age) interval (20.5)\n  ( partition m0 values less than (20) );\n\n-- Creates a MV on top of mysales and mycustomers tables\ncreate materialized view sales_age_time\n  refresh fast\n  enable query rewrite\n  as select sum(s.amount_sold) amount_total,\n  ...;",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "LOGICAL PARTITION TRACKING",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 570, "end": 570, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
