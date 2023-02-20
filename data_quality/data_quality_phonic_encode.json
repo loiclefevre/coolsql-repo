@@ -9,7 +9,7 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 308, "end": 359, "mode": "ROUND_SQUARE", "hint": "", "top": false},
  "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
