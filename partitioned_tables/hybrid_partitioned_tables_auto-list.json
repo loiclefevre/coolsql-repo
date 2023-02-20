@@ -1,0 +1,22 @@
+{
+"title": "Hybrid Partitioning: Interval and Auto-List",
+ "sql": "\n\nCREATE TABLE sales ( salesman_id   NUMBER(5), \n                     salesman_name VARCHAR2(30),\n                     sales_state   VARCHAR2(20),\n                     sales_amount  NUMBER(10), \n                     sales_date    DATE ) \nEXTERNAL PARTITION ATTRIBUTES( TYPE ORACLE_LOADER\n                               DEFAULT DIRECTORY Data_Directory\n                               ACCESS PARAMETERS ( RECORDS DELIMITED BY NEWLINE\n                                                   BADFILE 'saleshyt_%a_%p.bad' LOGFILE 'saleshyt_%a_%p.log'\n                                                   FIELDS TERMINATED BY ',' MISSING FIELD VALUES ARE NULL )\n                               REJECT LIMIT UNLIMITED )\nPARTITION BY LIST(SALES_STATE) AUTOMATIC (\n    PARTITION P_CAL VALUES ('CALIFORNIA'),\n    PARTITION P_NY  VALUES ('NEW YORK')\n        EXTERNAL LOCATION('p_ny.csv') );\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "AUTOMATIC,EXTERNAL,LOCATION,EXTERNAL PARTITION",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.192157, "green": 0.176471, "blue": 0.164706, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.192157, "green": 0.176471, "blue": 0.164706, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
