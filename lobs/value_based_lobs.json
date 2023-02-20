@@ -1,0 +1,22 @@
+{
+"title": "Finally, ANSI Joins in Materialized Views",
+ "sql": "\n\n\n\n-- With support for Query Rewrite!\nCREATE MATERIALIZED VIEW cust_sales_mv\nBUILD IMMEDIATE\nREFRESH COMPLETE\nENABLE QUERY REWRITE AS\nSELECT c.cust_last_name, \n       SUM(amount_sold) AS sum_amount_sold\n  FROM customers c\n       JOIN sales s ON s.cust_id = c.cust_id\n GROUP BY c.cust_last_name;\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "JOIN,MATERIALIZED VIEW,ON,ENABLE QUERY REWRITE",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 296, "end": 296, "mode": "ROUND_SQUARE", "hint": "", "top": false},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
