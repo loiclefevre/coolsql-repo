@@ -1,6 +1,6 @@
 {
 "title": "Finally, ANSI Joins in Materialized Views",
- "sql": "\n\n\n\nCREATE MATERIALIZED VIEW cust_sales_mv\nBUILD IMMEDIATE\nREFRESH COMPLETE\nENABLE QUERY REWRITE AS\nSELECT c.cust_last_name, \n       SUM(amount_sold) AS sum_amount_sold\n  FROM customers c\n       JOIN sales s ON s.cust_id = c.cust_id\nGROUP BY c.cust_last_name;\n",
+ "sql": "\n\n\n\nCREATE MATERIALIZED VIEW cust_sales_mv\nBUILD IMMEDIATE\nREFRESH COMPLETE\nENABLE QUERY REWRITE AS\nSELECT c.cust_last_name, \n       SUM(amount_sold) AS sum_amount_sold\n  FROM customers c\n       JOIN sales s ON s.cust_id = c.cust_id\n GROUP BY c.cust_last_name;\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,7 +9,7 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 260, "end": 260, "mode": "ROUND_SQUARE", "hint": "", "top": false},
+ "selection": {"start": 234, "end": 234, "mode": "ROUND_SQUARE", "hint": "", "top": false},
  "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
