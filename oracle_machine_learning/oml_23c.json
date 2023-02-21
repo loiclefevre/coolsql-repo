@@ -1,0 +1,22 @@
+{
+"title": "Automatic In-Memory 23c",
+ "sql": "\n\n\n\n\n-- Improved Automatic In-Memory Features management:\n-- . Join Groups\n-- . Caching the hash of dictionary values for join key columns\n-- . In-Memory Optimized Arithmetic\nalter system set INMEMORY_AUTOMATIC_LEVEL=HIGH;\n\n\n-- Enable!\nSQL> exec DBMS_AUTOIM.set_parameter('AIM_TASK', 'ENABLE');\n   2 /\n\n\n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "INMEMORY_AUTOMATIC_LEVEL,HIGH,DBMS_AUTOIM",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 235, "end": 235, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
