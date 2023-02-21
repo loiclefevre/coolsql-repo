@@ -1,6 +1,6 @@
 {
 "title": "Automatic In-Memory 23c",
- "sql": "\n\n\n\n-- Improved Automatic In-Memory Features management:\n-- . Join Groups\n-- . Caching the hash of dictionary values for join key columns\n-- . In-Memory Optimized Arithmetic\nalter system set INMEMORY_AUTOMATIC_LEVEL=HIGH;\n\n\n-- Enable!\nSQL> exec DBMS_AUTOIM.set_parameter('AIM_TASK', 'ENABLE');\n   2 /\n\n\n\n",
+ "sql": "\n\n\n\n\n-- Improved Automatic In-Memory Features management:\n-- . Join Groups\n-- . Caching the hash of dictionary values for join key columns\n-- . In-Memory Optimized Arithmetic\nalter system set INMEMORY_AUTOMATIC_LEVEL=HIGH;\n\n\n-- Enable!\nSQL> exec DBMS_AUTOIM.set_parameter('AIM_TASK', 'ENABLE');\n   2 /\n\n\n\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,7 +9,7 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 301, "end": 301, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 4, "end": 4, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
