@@ -1,6 +1,6 @@
 {
-"title": "Create Property Graph from tables/views",
- "sql": "\n\n\n-- Customer, Movie and CustSales are relational tables\n-- Customer <-1..n- CustSales -1..m-> Movie\n-- \n-- Syntax when required metadata exists (primary keys,\n-- foreign keys, unique constraints)\nCREATE PROPERTY GRAPH MovieRentals\nVERTEX TABLES (\n    Customer, Movie\n)\nEDGE TABLES (\n    CustSales\n    LABEL Rented\n    SOURCE Customer DESTINATION Movie\n);\n",
+"title": "SQL/PGQL Query",
+ "sql": "\n\n\nSELECT *\n    FROM GRAPH_TABLE (MovieRentals\n      MATCH \n        (cust1 IS Customer)–[e1 WHERE \n                             e1.Date_Rented > TO_DATE('14-Feb-2021')]->\n        (movie IS Movie WHERE \n         movie.genre='Romantic Comedy')<–[e2]-(cust2 IS Customer)\n      WHERE e2.Date_Rented > e1.Date_Rented\n      COLUMNS(cust1.First_Name AS EarlierRenter, \n              cust2.First_Name AS LaterRenter)\n    )\nORDER BY e1.Date_Rented;\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,7 +9,7 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 197, "end": 197, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
