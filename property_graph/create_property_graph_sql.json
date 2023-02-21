@@ -1,6 +1,6 @@
 {
 "title": "Create Property Graph from tables/views",
- "sql": "\n\n\nCREATE PROPERTY GRAPH MovieRentals\nVERTEX TABLES (\n    Customer, Movie\n)\nEDGE TABLES (\n    CustSales\n    LABEL Rented\n    SOURCE Customer DESTINATION Movie\n);\n",
+ "sql": "\n\n\n-- Customer, Movie and CustSales are relational tables\n-- Customer <-1..n- CustSales -1..m-> Movie\nCREATE PROPERTY GRAPH MovieRentals\nVERTEX TABLES (\n    Customer, Movie\n)\nEDGE TABLES (\n    CustSales\n    LABEL Rented\n    SOURCE Customer DESTINATION Movie\n);\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,7 +9,7 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 158, "end": 158, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 261, "end": 261, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
