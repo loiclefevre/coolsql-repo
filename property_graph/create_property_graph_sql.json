@@ -1,0 +1,22 @@
+{
+"title": "New Machine Learning Algorithms",
+ "sql": "\n\n-- Explicit Semantic Analysis (ESA)\ninsert into esa_settings (setting_name, setting_value)\nvalues ('ESAS_EMBEDDINGS',     'ESAS_EMBEDDINGS_ENABLE'),\n       ('ESAS_EMBEDDING_SIZE', 256);\n\n-- XGBoost\ninsert into xgb_settings (setting_name, setting_value)\nvalues ('monotone_decrease_constraints', 'A1_SEPAL_WIDTH,A3_PETAL_WIDTH'),\n       ('interaction_constraints',       '[[A1_SEPAL_WIDTH,A3_PETAL_WIDTH]]'),\n       ('eval_metric',                   'aft-nloglik'),\n       ('objective',                     'survival:aft'),\n       ('aft_loss_distribution',         'normal'),\n       ('aft_loss_distribution_scale',   1.20),\n       ('aft_right_bound_column_name',   'rbound_col');\n\n-- GLM\ninsert into glm_settings (setting_name, setting_value)\nvalues ('GLMS_LINK_FUNCTION', 'GLMS_CLOGLOG_LINK');\n\n-- EM\ninsert into em_settings (setting_name, setting_value)\nvalues ('EMCS_OUTLIER_RATE', 0.05);",
+ "fontSize": 14,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 687, "end": 687, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 42.000000, "fromY": 100.000000, "toX": 57.000000, "toY": 0.000000,  "colors": [{"rgb": false, "red": 0.000000, "green": 0.000000, "blue": 0.000000, "opacity": 1.000000, "percent": 0}, {"rgb": false, "red": 0.000000, "green": 0.000000, "blue": 0.000000, "opacity": 1.000000, "percent": 13}, {"rgb": false, "red": 0.000000, "green": 0.000000, "blue": 0.000000, "opacity": 1.000000, "percent": 25}, {"rgb": false, "red": 0.260000, "green": 0.226200, "blue": 0.226200, "opacity": 1.000000, "percent": 37}, {"rgb": false, "red": 0.500000, "green": 0.445000, "blue": 0.445000, "opacity": 1.000000, "percent": 50}, {"rgb": false, "red": 0.880000, "green": 0.815467, "blue": 0.792000, "opacity": 1.000000, "percent": 63}, {"rgb": false, "red": 1.000000, "green": 0.965333, "blue": 0.920000, "opacity": 1.000000, "percent": 75}, {"rgb": false, "red": 1.000000, "green": 0.862000, "blue": 0.540000, "opacity": 1.000000, "percent": 87}, {"rgb": false, "red": 1.000000, "green": 0.860000, "blue": 0.160000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
