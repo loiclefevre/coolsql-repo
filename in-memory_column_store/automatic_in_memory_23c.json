@@ -1,0 +1,22 @@
+{
+"title": "External Partition Values in the File Path",
+ "sql": "\n-- Loads object storage data partitioned using folders\n-- example: ..../state=CA/zipcode=94065/sales.csv\nCREATE TABLE sales (\n  state VARCHAR2(2),\n  zipcode NUMBER(5), ... )\nORGANIZATION EXTERNAL (\n  TYPE ORACLE_LOADER DEFAULT DIRECTORY DATA_PUMP_DIR\n  ACCESS PARAMETERS (\n    RECORDS IGNORE_HEADER=0 DELIMITED BY '\\n'\n    filename_columns=\"['state','zipcode']\"\n    file_uri_list=\"https://swiftobjectstorage.us-ashburn-1.oraclecloud.com/v1/.../sales/*.csv\"\n    credential_schema=\"MYSCHEMA\"\n    credential_name=mycredential\n    FIELDS TERMINATED BY ',' CSV WITHOUT EMBEDDED NOTRIM\n  )\n  LOCATION (\n    'https://swiftobjectstorage.us-ashburn-1.oraclecloud.com/v1/.../sales/xxx/*.csv'\n  )\n  ...;",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "filename_columns,state,zipcode,ORACLE_LOADER",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 597, "end": 597, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
