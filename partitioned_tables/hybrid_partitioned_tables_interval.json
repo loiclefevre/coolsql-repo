@@ -1,6 +1,6 @@
 {
 "title": "Hybrid Partitioning: Interval and Auto-List",
- "sql": "\nCREATE TABLE sales ( salesman_id   NUMBER(5), \n                     salesman_name VARCHAR2(30),\n                     sales_state   VARCHAR2(20),\n                     sales_amount  NUMBER(10), \n                     sales_date    DATE ) \nEXTERNAL PARTITION ATTRIBUTES( TYPE ORACLE_LOADER\n                               DEFAULT DIRECTORY Data_Directory\n                               ACCESS PARAMETERS ( RECORDS DELIMITED BY NEWLINE\n                                                   BADFILE 'saleshyt_%a_%p.bad' LOGFILE 'saleshyt_%a_%p.log'\n                                                   FIELDS TERMINATED BY ',' MISSING FIELD VALUES ARE NULL )\n                               REJECT LIMIT UNLIMITED )\nPARTITION BY RANGE (time_id) INTERVAL(NUMTOYMINTERVAL(1,'month')) ( \n    PARTITION P0 values less than (TO_DATE('01-01-2012', 'dd-mm-yyyy')),\n    PARTITION P1 values less than (TO_DATE('01-01-2013', 'dd-mm-yyyy')) \n        EXTERNAL LOCATION('sales_interval_hypt1.csv'),\n    PARTITION P2 values less than (TO_DATE('01-07-2013', 'dd-mm-yyyy')),\n    PARTITION P3 values less than (TO_DATE('01-01-2014', 'dd-mm-yyyy')) );",
+ "sql": "\n\nCREATE TABLE sales ( salesman_id   NUMBER(5), \n                     salesman_name VARCHAR2(30),\n                     sales_state   VARCHAR2(20),\n                     sales_amount  NUMBER(10), \n                     sales_date    DATE ) \nEXTERNAL PARTITION ATTRIBUTES( TYPE ORACLE_LOADER\n                               DEFAULT DIRECTORY Data_Directory\n                               ACCESS PARAMETERS ( RECORDS DELIMITED BY NEWLINE\n                                                   BADFILE 'saleshyt_%a_%p.bad' LOGFILE 'saleshyt_%a_%p.log'\n                                                   FIELDS TERMINATED BY ',' MISSING FIELD VALUES ARE NULL )\n                               REJECT LIMIT UNLIMITED )\nPARTITION BY RANGE (time_id) INTERVAL(NUMTOYMINTERVAL(1,'month')) ( \n    PARTITION P0 values less than (TO_DATE('01-01-2012', 'dd-mm-yyyy')),\n    PARTITION P1 values less than (TO_DATE('01-01-2013', 'dd-mm-yyyy')) \n        EXTERNAL LOCATION('sales_interval_hypt1.csv'),\n    PARTITION P2 values less than (TO_DATE('01-07-2013', 'dd-mm-yyyy')),\n    PARTITION P3 values less than (TO_DATE('01-01-2014', 'dd-mm-yyyy')) );",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,7 +9,7 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 1, "end": 1, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
