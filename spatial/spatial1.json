@@ -8,6 +8,7 @@
  "noMargin": false,
  "transparentBackground": false,
  "displayLineNumbers": false,
+ "displayTabs": false,
  "speedMultiplier": 1.000000,
  "selection": {"start": 709, "end": 709, "mode": "BRIGHT_SQUARE", "hint": "", "top": false},
  "version": "Oracle Database since 10g R1 (2003)", "codePanelTransparency": 183, "whiteOverlay": "Flat Hills", "overlayTransparency": 173,
