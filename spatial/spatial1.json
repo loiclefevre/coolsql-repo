@@ -1,5 +1,5 @@
 {
-"title": "GIS: Coordinate Systems",
+"title": "GIS: Spatial Coordinate Systems",
  "sql": "\n-- View CS_SRS contains the valid coordinate systems available\n-- (SRS: Spatial Reference system)      COUNT(*)\nselect count(*) from cs_srs;           ---------\n                                            6025\n-- The Geodetic coordinate system WGS 84 is the standard for GeoJSON\n-- Its Spatial Reference ID is 4326 (code EPSG:4326) \nselect cs_name, auth_name from cs_srs where srid = 4326;\n\n CS_NAME                                          AUTH_NAME\n-------- --------------------------------------------------\n  WGS 84  EPSG. See 3D CRS for original information source.\n\n-- SDO_GEOMETRY is the object type to use for columns with geographic data\n-- Hereunder, it will use the Coordinate System WGS 84 (EPSG:4326)\nwith points as (select SDO_GEOMETRY('POINT(-79 37)', 4326) as data\n                  from dual)                     LONGITUDE  LATITUDE\nselect p.data.sdo_point.x as longitude,         ---------- ---------\n       p.data.sdo_point.y as latitude                  -79        37\n  from points p;",
  "fontSize": 17,
  "fontName": "Consolas",
