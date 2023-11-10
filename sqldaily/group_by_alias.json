@@ -1,0 +1,18 @@
+{
+"title": "GROUP BY Column Alias and Position",
+ "sql": "\n\n-- Using column alias\nselect extract ( year from hire_date ) as hired_year,\n       count(*)\n  from hr.employees\n group by hired_year\nhaving hired_year > 2003;\n\n-- Using column position; better for quick data analysis\nalter session set group_by_position_enabled = true;\n\nselect extract ( year from hire_date ) as hired_year,\n       count(*)\n  from hr.employees\n group by 1;\n",
+ "fontSize": 21,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "hired_date,1,grouping,grouping_id,position,hired_year,sets",
+ "selection": {"start": 1, "end": 1, "mode": "FULL_BACKGROUND", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

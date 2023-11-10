@@ -1,0 +1,18 @@
+{
+"title": "Get valid JSON documents",
+ "sql": "\n\n\nwith are_these_json ( test_and_see_if_it ) as (\n  select '{ \"an\" : \"object\" }' from dual union all\n  select '[ \"an\", \"array\" ]'   from dual union all\n  select '\"json scalar\"'       from dual union all\n  select 'not json'            from dual\n)\n  select * from are_these_json\n  where  test_and_see_if_it is json;\n  \nTEST_AND_SEE_IF_IT \n-------------------\n{ \"an\" : \"object\" }\n[ \"an\", \"array\" ]\n\"json scalar\"",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 409, "end": 409, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 10g R2 (July 2005)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

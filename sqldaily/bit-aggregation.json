@@ -1,0 +1,23 @@
+{
+"title": "Bitwise aggregation",
+ "sql": "\n\n\nwith rws as (\n  select ( 2 * level ) - 1 n from dual\n  connect by level <= 4\n)\n  select listagg ( n, ',' ) nums,\n         bit_and_agg ( n ) bit_and,\n         bit_xor_agg ( n ) bit_xor,\n         bit_or_agg ( n ) bit_or\n  from   rws;\n  \nNUMS                    BIT_AND    BIT_XOR     BIT_OR\n-------------------- ---------- ---------- ----------\n1,3,5,7                       1          0          7\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 234, "end": 234, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 21c (August 2021)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 125, "end": 220, "text": "These convert the decimal numbers to binary (1 = 001, 3 = 011, 5 = 101, etc.)\nThen AND|OR|XORs the binary values together and converts back to a decimal", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

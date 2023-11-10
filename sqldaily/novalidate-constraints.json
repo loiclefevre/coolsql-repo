@@ -1,0 +1,23 @@
+{
+"title": "Adding constraints on invalid data",
+ "sql": "\ncreate table exam_results (\n  student_id integer, exam_id integer, percent_correct number\n);\n\ninsert into exam_results values ( 1, 1, 9999 );\n\nalter table exam_results add constraint pct_0_to_100_c \n  check ( percent_correct between 0 and 100 );\n  \nORA-02293: cannot validate (CHRIS.PCT_0_TO_100_C) - check constraint violated\n\nalter table exam_results add constraint pct_0_to_100_c \n  check ( percent_correct between 0 and 100 )\n  novalidate;\n  \ninsert into exam_results values ( 2, 2, 1234 );\n\nORA-02290: check constraint (CHRIS.PCT_0_TO_100_C) violated",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "novalidate",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 447, "end": 447, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 202, "end": 245, "text": "The value 9999 is outside the range 0-100\nSo you can't add the constraint", "durationInMS": 8467, "displayAtSemiColon": false}, {"start": 433, "end": 443, "text": "The novalidate clause ignores existing data\nSo you can add the constraint", "durationInMS": 8467, "displayAtSemiColon": false}, {"start": 448, "end": 556, "text": "The constraint applies to all DML statements after you add it\nSo you can't add new data that violates the constraint", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,16 @@
+{
+"title": "Query files on the database server",
+ "sql": "\n\ndeclare\n  f utl_file.file_type;\nbegin\n  f := utl_file.fopen ( 'TMP', 'test.csv', 'w' );\n  utl_file.put_line ( f, 'row1col1,row1col2' );\n  utl_file.put_line ( f, 'row2col1,row2col2' );\n  utl_file.put_line ( f, 'row3col1,row3col2' );\n  utl_file.fclose ( f );\nend;\n/\n\nselect * from external (                    C1         C2        \n  ( c1 varchar2(10), c2 varchar2(10) )      ---------- ----------\n  default directory tmp                     row1col1   row1col2  \n  location ( 'test.csv' )                   row2col1   row2col2  \n);                                          row3col1   row3col2  ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "external",
+ "selection": {"start": 596, "end": 596, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

@@ -1,0 +1,23 @@
+{
+"title": "Get the first, last, and Nth values ",
+ "sql": "\n\nselect employee_id, hire_date,\n  first_value ( employee_id ) over ( order by hire_date ) first_hired,\n  nth_value ( employee_id, 2 ) over ( order by hire_date ) second_hired, \n  last_value ( employee_id ) over ( order by hire_date ) last_hired_current_date, \n  last_value ( employee_id ) over ( \n    order by hire_date rows between current row and unbounded following \n  ) last_hired\nfrom   hr.employees where department_id = 60;\n\nEMPLOYEE_ID HIRE_DATE   FIRST_HIRED SECOND_HIRED LAST_HIRED_CURRENT_DATE LAST_HIRED\n----------- ----------- ----------- ------------ ----------------------- ----------\n        105 25-JUN-2005         105 <null>                           105        104\n        103 03-JAN-2006         105          103                     103        104\n        106 05-FEB-2006         105          103                     106        104\n        107 07-FEB-2007         105          103                     107        104\n        104 21-MAY-2007         105          103                     104        104",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 432, "end": 432, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

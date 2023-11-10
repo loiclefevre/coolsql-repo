@@ -1,0 +1,23 @@
+{
+"title": "Add unique constraints with duplicate rows",
+ "sql": "\ncreate table accounts ( account_id integer, email_address varchar2(320) );\n\ninsert into accounts values ( 1, 'duplicate@email.com' );\ninsert into accounts values ( 2, 'duplicate@email.com' );\n\nalter table accounts\n  add constraint email_u unique ( email_address ) \n  novalidate;\nORA-02299: cannot validate (CHRIS.EMAIL_U) - duplicate keys found\n\nalter table accounts\n  add constraint email_u unique ( email_address )\n  using index ( create index email_u on accounts ( email_address ) )\n  novalidate;\nTable ACCOUNTS altered.\n  \ninsert into accounts values ( 3, 'duplicate@email.com' );\nORA-00001: unique constraint (CHRIS.EMAIL_U) violated",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "novalidate",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 463, "end": 463, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 268, "end": 278, "text": "Despite the NOVALIDATE clause, the database can't create this constraint\nThis is because it creates a unique index to police the constraint by default", "durationInMS": 8467, "displayAtSemiColon": false}, {"start": 420, "end": 486, "text": "You need a non-unique index to add a NOVALIDATEd unique constraint or primary key\nWith the USING INDEX clause you can define the index when adding the constraint", "durationInMS": 8467, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

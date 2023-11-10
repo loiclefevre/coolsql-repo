@@ -1,0 +1,15 @@
+{
+"title": "Case and accent insensitive searches",
+ "sql": " \n \ncreate table your_table (\n  mixed_case_data varchar2(30 char)\n); \n\ninsert into your_table values ( 'ingore case & ??δη?ο?μ??' );\ninsert into your_table values ( 'Ingore Case & ??δη?ο?μ??' );\ninsert into your_table values ( 'INGORE CASE & ??ΔΗ?Ο?Μ??' );\n\nselect mixed_case_data\nfrom   your_table \nwhere  'ingore case & diacritics' = mixed_case_data collate binary_ai;\n\nMIXED_CASE_DATA               \n------------------------------\ningore case & ??δη?ο?μ??\nIngore Case & ??δη?ο?μ??\nINGORE CASE & ??ΔΗ?Ο?Μ??",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 352, "end": 352, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

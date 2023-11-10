@@ -1,0 +1,23 @@
+{
+"title": "Top-N rows per group",
+ "sql": "\nwith rws as (\n  select employee_id, department_id, salary, \n         row_number () over ( \n            partition by department_id order by salary desc \n         ) rn\n  from   hr.employees e\n)\n  select * from rws where rn <= 3;\n  \nEMPLOYEE_ID DEPARTMENT_ID     SALARY         RN\n----------- ------------- ---------- ----------\n        200            10       4400          1\n        201            20      13000          1\n        202            20       6000          2\n        114            30      11000          1\n        115            30       3100          2\n        116            30       2900          3\n...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 518, "end": 518, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 104, "end": 151, "text": "For each department, number the employees by salary from high to low", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 195, "end": 227, "text": "Filter the assigned row numbers to get the 3 highest paid people per department", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,15 @@
+{
+"title": "Query different files with external tables",
+ "sql": " \n \nselect * from external_table\n  external modify ( \n    location ( 'first_file.txt' ) \n  );\n  \nC1                  \n--------------------\nfirst file records\n\nselect * from external_table\n  external modify ( \n    location ( 'second_file.txt' ) \n  );\n  \nC1                  \n--------------------\nsecond file records",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 314, "end": 314, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

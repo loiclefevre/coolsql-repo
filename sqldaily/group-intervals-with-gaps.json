@@ -1,0 +1,15 @@
+{
+"title": "Count rows in N-minute intervals",
+ "sql": "\n\nwith times as (\n  select to_date ( :start_time, 'DD-MON-YYYY HH24:MI' )\n           + ( ( level - 1 ) * :duration_in_minutes / 1440 ) dt\n  from   dual\n  connect by level <= :number_of_intervals\n), intervals as (\n  select dt start_date,\n         dt + ( :duration_in_minutes / 1440 ) end_date\n  from   times\n)\n  select start_date, end_date, count ( datetime )\n  from   intervals i\n  left   join time_data t\n  on     start_date <= datetime\n  and    datetime < end_date\n  group  by start_date, end_date\n  order by start_date;\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 523, "end": 523, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

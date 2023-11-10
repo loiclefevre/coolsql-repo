@@ -1,0 +1,23 @@
+{
+"title": "JSON indexes for ad-hoc & free text searches",
+ "sql": "\n\ncreate search index product_json_i on products ( product_details ) for json;\n\nselect * from products p where p.product_details.colour = 'red';\n\n Id  | Operation                   | Name           \n----------------------------------------------------\n   0 | SELECT STATEMENT            |                \n   1 |  TABLE ACCESS BY INDEX ROWID| PRODUCTS       \n   2 |   DOMAIN INDEX              | PRODUCT_JSON_I \n\nselect * from products where json_textcontains ( product_details, '$', 'ipsum' );\n\n Id  | Operation                   | Name           \n----------------------------------------------------\n   0 | SELECT STATEMENT            |                \n   1 |  TABLE ACCESS BY INDEX ROWID| PRODUCTS       \n   2 |   DOMAIN INDEX              | PRODUCT_JSON_I ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.271429,
+ "selection": {"start": 410, "end": 410, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 441, "end": 492, "text": "This returns rows where \"ipsum\" is anywhere in the JSON stored in PRODUCT_DETAILS", "durationInMS": 7865, "displayAtSemiColon": false}, {"start": 111, "end": 143, "text": "This finds rows where $.colour equals \"red\" in the stored JSON", "durationInMS": 7361, "displayAtSemiColon": false}, {"start": 367, "end": 409, "text": "This shows the database uses the index above to search the table", "durationInMS": 7503, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

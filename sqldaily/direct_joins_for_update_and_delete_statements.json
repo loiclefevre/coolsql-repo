@@ -1,0 +1,18 @@
+{
+"title": "Direct Joins for UPDATE/DELETE",
+ "sql": "\n-- Update\nupdate employees e \n   set e.salary = j.max_salary \n  from jobs j \n where e.job_id = j.job_id \n   and j.type not in ( 'manager', 'CxO' );\n\n-- Delete\ndelete job_history h\n  from employees e\n where e.employee_id  =  h.employee_id\n   and e.department_id  =  90;\n",
+ "fontSize": 23,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "",
+ "selection": {"start": 0, "end": 0, "mode": "FULL_BACKGROUND", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

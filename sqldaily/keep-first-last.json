@@ -1,0 +1,23 @@
+{
+"title": "Find min/max salaries & people paid these",
+ "sql": "\n\nselect department_id, \n       min ( salary ) lowest_salary,\n       min ( first_name ) \n         keep ( dense_rank first order by salary ) lowest_paid, \n       max ( salary ) highest_salary,\n       min ( first_name ) \n         keep ( dense_rank last order by salary ) highest_paid\nfrom   hr.employees\ngroup  by department_id;\n\nDEPARTMENT_ID LOWEST_SALARY LOWEST_PAID          HIGHEST_SALARY HIGHEST_PAID        \n------------- ------------- -------------------- -------------- ----------------\n           10          4400 Jennifer                       4400 Jennifer            \n           20          6000 Pat                           13000 Michael             \n           30          2500 Karen                         11000 Den                 \n           40          6500 Susan                          6500 Susan               \n...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 491, "end": 491, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 98, "end": 139, "text": "Within each department, sort the rows by salary\nFind those with lowest salary & get the minimum first_name of these", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 228, "end": 268, "text": "Like KEEP ( DENSE_RANK FIRST ... ), but returns those rows with the highest salary", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

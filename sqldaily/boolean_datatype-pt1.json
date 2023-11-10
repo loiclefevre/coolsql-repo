@@ -1,0 +1,18 @@
+{
+"title": "Boolean Datatype",
+ "sql": "\n\n\ncreate table tasks (\n    title     varchar2(255) not null,\n    completed BOOLEAN not null\n);\n\ninsert into tasks(title,completed) values('Load data', TRUE);\ninsert into tasks(title,completed) values('Send orders', FALSE);\n\nselect title, completed = false todo\n  from tasks\n where NOT completed;\n\nTITLE       TODO\n----------- -----------\nSend orders TRUE\n\n",
+ "fontSize": 16,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "BOOLEAN,to_Boolean,false,true,TRUE,FALSE,boolean",
+ "selection": {"start": 355, "end": 355, "mode": "ROUND_SQUARE", "hint": "BOOLEAN datatype!", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,23 @@
+{
+"title": "Update-if-exists, insert-if-not-exists",
+ "sql": "\n\ncreate table t ( c1 int, c2 int );\n\ncreate procedure do_merge ( v1 int, v2 int ) as\nbegin\n  merge into t using dual on ( c1 = v1 )\n  when not matched then insert values ( v1, v2 )\n  when matched then     update set c2 = v2;\nend;\n/\n\nexec do_merge ( 1, 0 );           C1         C2\n                          ---------- ----------\nselect * from t;                   1          0\n\nexec do_merge ( 1, 42 );          C1         C2\n                          ---------- ----------\nselect * from t;                   1         42",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 453, "end": 453, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

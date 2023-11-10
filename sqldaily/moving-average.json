@@ -1,0 +1,23 @@
+{
+"title": "Calculate moving averages",
+ "sql": "\nwith rws as (\n  select time_id, count(*) sales# from sales \n  where  prod_id = 13 group by time_id\n)\n  select time_id, sales#,\n    round ( avg ( sales# ) over ( date_sort rows 2 preceding ), 2 ) three_rows,\n    round ( avg ( sales# ) over ( date_sort range 2 preceding ), 2 ) three_days\n  from rws window date_sort as ( order by time_id );\n  \nTIME_ID         SALES# THREE_ROWS THREE_DAYS\n----------- ---------- ---------- ----------\n10-JAN-2018         20      20.00      20.00\n20-JAN-2018         39      29.50      39.00\n30-JAN-2018         41      33.33      41.00\n31-JAN-2018          2      27.33      21.50\n10-FEB-2018         21      21.33      21.00\n21-FEB-2018         39      20.67      39.00\n25-FEB-2018         39      33.00      39.00",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 748, "end": 748, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 132, "end": 287, "text": "ROWS 2 PRECEDING includes the two previous ROWS & current\nRANGE 2 PRECEDING includes the two previous DAYS & current", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 524, "end": 568, "text": "The ROWS frame averages over the first three rows\nBut the prior rows are more than two days before this row\nSo the RANGE average only includes this row", "durationInMS": 8577, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

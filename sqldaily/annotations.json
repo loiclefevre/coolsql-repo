@@ -1,0 +1,23 @@
+{
+"title": "Add metadata to database objects",
+ "sql": "\ncreate table teams (\n  team_id   integer generated as identity primary key not null \n    annotations ( Identity, PK, Display 'Team ID' ),\n  team_name varchar2(100) unique not null\n    annotations ( UC, Display 'Team name' ),\n  home_stadium references locations ( location_id ) not null\n    annotations ( FK 'locations', Display 'Home stadium' )\n) annotations ( Display 'Team details' );\n\nselect column_name, listagg ( annotation_name || ' ' || annotation_value, ', ' ) ann\nfrom   user_annotations_usage where object_name = 'TEAMS' group  by column_name;\n\nCOLUMN_NAME     ANN\n--------------- ----------------------------------            \nTEAM_NAME       UC , DISPLAY Team name                \nHOME_STADIUM    FK locations, DISPLAY Home stadium    \n<null>          DISPLAY Team details                  \nTEAM_ID         IDENTITY , PK , DISPLAY Team ID   ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 532, "end": 532, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

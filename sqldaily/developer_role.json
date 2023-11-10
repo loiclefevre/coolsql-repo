@@ -1,0 +1,18 @@
+{
+"title": "DEVELOPER role",
+ "sql": "\n-- New DEVELOPER role to be granted by DBA/ADMIN users\nset serveroutput on size unlimited\n\ndeclare\n    l_privileges dbms_sql.varchar2_table;\nbegin\n    dbms_output.put_line('Privilege belonging to DEVELOPER role:');\n\n    -- List the privileges associated with the DEVELOPER role\n    DBMS_DEVELOPER_ADMIN.LIST_PRIVS( l_privileges );\n\n    for i in 1 .. l_privileges.COUNT loop\n            dbms_output.put_line('- ' || l_privileges(i));\n        end loop;\nend;\n\n/\n\nPrivilege belonging to DEVELOPER role:\n- ADMINISTER SQL TUNING SET\n- CREATE ANALYTIC VIEW\n- CREATE ATTRIBUTE DIMENSION\n- CREATE CUBE\n- CREATE CUBE BUILD PROCESS\n- CREATE CUBE DIMENSION\n- CREATE DIMENSION\n- CREATE DOMAIN\n- CREATE HIERARCHY\n- CREATE JOB\n- CREATE MATERIALIZED VIEW\n- CREATE MINING MODEL\n- CREATE MLE\n- CREATE PROCEDURE\n- CREATE SEQUENCE\n- CREATE SESSION\n- CREATE SYNONYM\n- CREATE TABLE\n- CREATE TRIGGER\n- CREATE TYPE\n- CREATE VIEW\n- DEBUG CONNECT SESSION\n- EXECUTE DYNAMIC MLE\n- EXECUTE SYS.JAVASCRIPT\n- FORCE TRANSACTION\n- ON COMMIT REFRESH\n- READ SYS.V_$SESSION\n- READ SYS.V_$SESSTAT\n- READ SYS.V_$SQL\n- READ SYS.V_$SQLAREA_PLAN_HASH\n- READ SYS.V_$SQLSTATS\n- READ SYS.V_$SQL_MONITOR\n- READ SYS.V_$SQL_PLAN\n- READ SYS.V_$SQL_PLAN_MONITOR\n- READ SYS.V_$SQL_PLAN_STATISTICS_ALL\n- READ SYS.V_$STATNAME\n- SELECT SYS.DBA_PENDING_TRANSACTIONS\n- SELECT SYS.V_$SESSION\n- SELECT SYS.V_$SQL_PLAN\n- SELECT SYS.V_$SQL_PLAN_STATISTICS_ALL\n- SODA_APP\n\nexec DBMS_DEVELOPER_ADMIN.GRANT_PRIVS('SCOTT');\n\nPL/SQL procedure successfully completed.\n\nexec DBMS_DEVELOPER_ADMIN.REVOKE_PRIVS('SCOTT');\n\nPL/SQL procedure successfully completed.",
+ "fontSize": 19,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "DBMS_DEVELOPER_ADMIN,LIST_PRIVS,GRANT_PRIVS,REVOKE_PRIVS",
+ "selection": {"start": 1414, "end": 1462, "mode": "FULL_BACKGROUND", "hint": ":point_down:new in :23c:, to simplify developers' life :tada:", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

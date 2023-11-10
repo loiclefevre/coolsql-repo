@@ -1,0 +1,22 @@
+{
+"title": "FKs can reference primary or unique keys",
+ "sql": "\n\ncreate table users (\n  user_id       integer primary key,\n  email_address varchar2(320) unique \n);\n\ncreate table orders (\n  order_id      integer primary key,\n  email_address varchar2(320) \n    constraint orde_email_fk references users ( email_address )\n);\n\ncreate table user_addresses (\n  user_id  integer \n    constraint usad_user_fk references users ( user_id ),\n  address  varchar2(4000)\n);",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.196032,
+ "selection": {"start": 366, "end": 366, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 196, "end": 255, "text": "This foreign key points to the unique constraint on USERS.EMAIL_ADDRESS", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 314, "end": 366, "text": "This foreign key points to the primary key USERS.USER_ID", "durationInMS": 7223, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

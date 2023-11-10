@@ -1,0 +1,15 @@
+{
+"title": "Group rows into N minute intervals",
+ "sql": " \n \nwith rws as (\n  select trunc ( datetime ) dy,\n         trunc ( datetime, 'mi' ) mins,\n         :duration_in_minutes / 1440 time_interval\n  from   time_data\n), intervals as (\n  select dy + (\n           floor ( ( mins - dy ) / time_interval ) * time_interval\n         ) start_datetime\n  from   rws\n)\n  select start_datetime, count(*) \n  from   intervals\n  group  by start_datetime\n  order  by start_datetime;",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 1, "end": 1, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

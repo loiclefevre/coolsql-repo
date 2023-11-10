@@ -1,0 +1,23 @@
+{
+"title": "Get values from previous or next rows",
+ "sql": "\n\ncreate table sales ( sale_date date, num_orders int );\n\ninsert into sales values ( date'2023-04-01', 1422 );\ninsert into sales values ( date'2023-04-02', 6501 );\ninsert into sales values ( date'2023-04-03',  600 );\n\nselect sale_date, num_orders,\n       lag ( num_orders ) over ( order by sale_date ) prev_total,\n       num_orders - lag ( num_orders ) over ( order by sale_date ) change,\n       lead ( num_orders ) over ( order by sale_date ) next_total\nfrom   sales;\n\nSALE_DATE   NUM_ORDERS PREV_TOTAL     CHANGE NEXT_TOTAL\n----------- ---------- ---------- ---------- ----------\n01-APR-2023       1422     <null>     <null>       6501\n02-APR-2023       6501       1422       5079        600\n03-APR-2023        600       6501      -5901     <null> ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 217, "end": 217, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

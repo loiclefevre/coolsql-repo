@@ -1,0 +1,23 @@
+{
+"title": "Calculations on JSON arrays",
+ "sql": "\n\n\nwith rws as (\n  select json ( '{ arr : [1, 2, 3] }' ) j from dual\n)\n  select r.j.arr.size() num_elements,\n         r.j.arr[*].sum() arr_total,\n         r.j.arr[*].avg() arr_mean,\n         r.j.arr[*].minNumber() arr_mn,\n         r.j.arr[*].maxNumber() arr_mx\n  from   rws r;\n  \nNUM_ELEMENTS  ARR_TOTAL   ARR_MEAN     ARR_MN     ARR_MX\n------------ ---------- ---------- ---------- ----------\n           3          6          2          1          3",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 21c (August 2021)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,23 @@
+{
+"title": "Count the rows in each group",
+ "sql": "\n\nselect department_id,\n  count (*) total_rows,\n  count ( commission_pct ) non_null_comm_rows,\n  count ( distinct commission_pct ) unique_comm_values\nfrom hr.employees group by department_id order by department_id;\n\nDEPARTMENT_ID TOTAL_ROWS NON_NULL_COMM_ROWS UNIQUE_COMM_VALUES\n------------- ---------- ------------------ ------------------\n           10          1                  0                  0\n           20          2                  0                  0\n           30          6                  0                  0\n           40          1                  0                  0\n           50         45                  0                  0\n           60          5                  0                  0\n           70          1                  0                  0\n           80         34                 34                  7\n...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 191, "end": 191, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

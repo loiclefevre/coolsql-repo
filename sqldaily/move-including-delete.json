@@ -1,0 +1,23 @@
+{
+"title": "Remove lots of data faster",
+ "sql": "\n\ncreate table t as \n  select rownum c1, d.* from dba_objects d cross join \n  ( select * from dual connect by level <= 100 );\n\ndelete t where c1 >= 74260;\n\n7351841 rows deleted.\nElapsed: 00:00:32.16\n\nrollback;\n\nalter table t move including rows where c1 < 74260;\n\nElapsed: 00:00:05.59\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 263, "end": 263, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 156, "end": 198, "text": "Removing 7 million+ rows (~90% of the data) takes over 30 seconds", "durationInMS": 9720, "displayAtSemiColon": false}, {"start": 211, "end": 261, "text": "This moves the rows you want to keep (~10% of the data); \nThe where clause is the opposite condition to the delete", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 264, "end": 284, "text": "The filtered move takes ~5s; about 6x faster than the delete!", "durationInMS": 9180, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,23 @@
+{
+"title": "Compress indexes to save space",
+ "sql": "\n\nselect status, count(*)                                      STATUS       COUNT(*)\nfrom   orders                                                ---------- ----------\ngroup  by status;                                            COMPLETE         9000\n                                                             INPROGRESS        900\n                                                             NEW               100\n \ncreate index orde_status_date_i on orders ( status ) nocompress;\n  \nselect bytes                                                                 BYTES\nfrom   user_segments                                                    ----------\nwhere  segment_name = 'ORDE_STATUS_I';                                      327680\n\nalter index orde_status_i rebuild compress;\n\nselect bytes                                                                 BYTES\nfrom   user_segments                                                    ----------\nwhere  segment_name = 'ORDE_STATUS_I';                                      196608",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 1030, "end": 1030, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 418, "text": "Many rows have the same values for STATUS", "durationInMS": 5182, "displayAtSemiColon": false}, {"start": 782, "end": 1030, "text": "Compressing the index deduplicates values; \nThis reduced its size by 40%!", "durationInMS": 8467, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,18 @@
+{
+"title": "Functions in where clauses limit index use",
+ "sql": "\n\nselect * from hr.job_history\nwhere  employee_id + 1 = 200;\n\n Id  | Operation         | Name        | E-Rows \n------------------------------------------------\n   0 | SELECT STATEMENT  |             |        \n*  1 |  TABLE ACCESS FULL| JOB_HISTORY |      1 \n\nselect start_date from hr.job_history\nwhere  employee_id + 1 = 200;\n\n Id  | Operation        | Name                    | E-Rows \n-----------------------------------------------------------\n   0 | SELECT STATEMENT |                         |        \n*  1 |  INDEX FULL SCAN | JHIST_EMP_ID_ST_DATE_PK |      1 ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "TABLE, ACCESS, FULL, INDEX, SCAN",
+ "selection": {"start": 491, "end": 491, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 31, "end": 60, "text": "Adding one stops the optimizer using indexes on EMPLOYEE_ID\n=> the query does a full table scan", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 259, "end": 326, "text": "There is an index on ( EMPLOYEE_ID, START_DATE )\nDespite adding 1 to EMPLOYEE_ID it only accesses these columns\n=> it can do a full index scan", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

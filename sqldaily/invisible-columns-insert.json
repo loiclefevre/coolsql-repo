@@ -1,0 +1,15 @@
+{
+"title": "Invisible columns - INSERT",
+ "sql": "\n\nCREATE TABLE hide_some_cols ( \n  visible_col INT, hidden_col INT\n);\n\nINSERT INTO hide_some_cols\n  VALUES ( 1, 99 );\n\n1 row inserted.\n\nALTER TABLE hide_some_cols\n  MODIFY hidden_col INVISIBLE;\n\nINSERT INTO hide_some_cols\n  VALUES ( 1, 99 );\n\nORA-00913: too many values\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "Invisible columns",
+ "selection": {"start": 135, "end": 135, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

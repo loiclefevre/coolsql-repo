@@ -1,0 +1,23 @@
+{
+"title": "Define data sets on the fly",
+ "sql": "\n\ncreate table bricks (\n  brick_id int generated as identity \n    constraint brick_pk primary key \n    annotations ( PK, system_genereated )\n) ;\n\nalter index brick_pk annotations ( PK_index );\n\nselect object_name, object_type ,\n  annotation_name, annotation_value\nfrom user_annotations_usage\nwhere  object_name like 'BRICK%';\n\nOBJECT_NAME    OBJECT_TYPE    ANNOTATION_NAME      ANNOTATION_VALUE    \nBRICK_PK       INDEX          PK_INDEX             <null>              \nBRICKS         TABLE          PK                   <null>              \nBRICKS         TABLE          SYSTEM_GENEREATED    <null>              ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 614, "end": 614, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 251, "end": 289, "text": "This provides the table alias and column names for the data set", "durationInMS": 7925, "displayAtSemiColon": false}, {"start": 21, "end": 248, "text": "In the VALUES clause list the values for each column & row", "durationInMS": 8460, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

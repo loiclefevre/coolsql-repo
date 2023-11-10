@@ -1,0 +1,16 @@
+{
+"title": "Compare every or some values in a list",
+ "sql": " \n\n\n\nselect min ( salary ) from hr.employees\nwhere  salary > all ( 10, 9999 );\n\nMIN(SALARY)\n-----------\n      10000\n\nselect min ( salary ) from hr.employees\nwhere  salary > any ( 10, 9999 );\n\nMIN(SALARY)\n-----------\n       2100",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 227, "end": 227, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 19c (April 2019)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 61, "end": 77, "text": "Return rows with salaries greater than every value\n=> salary > 9999"}, {"start": 173, "end": 189, "text": "Return rows with salaries greater than at least one value\n=> salary > 10"}]
+
+}

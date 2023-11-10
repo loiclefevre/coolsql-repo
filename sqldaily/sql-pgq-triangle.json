@@ -1,0 +1,23 @@
+{
+"title": "Find rock-scissors-paper triangles in data",
+ "sql": "\n\n\nselect * from graph_table ( results_graph\n  match ( a ) -[ g1 where g1.home_team_score > g1.away_team_score ]-> ( b )\n              -[ g2 where g2.home_team_score > g2.away_team_score ]-> ( c )\n              -[ g3 where g3.home_team_score > g3.away_team_score ]-> ( a )\n  columns ( \n    a.team || ' > ' || b.team || ' > ' || c.team || ' > ' || a.team as res\n  )\n);\n\nRES                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      \n------------------------------------------------------------------\nChampions United > Runner-up City > Upstart FC > Champions United\nRunner-up City > Upstart FC > Champions United > Runner-up City\nUpstart FC > Champions United > Runner-up City > Upstart FC",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.346825,
+ "selection": {"start": 1403, "end": 1403, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 17, "end": 44, "text": "GRAPH_TABLE indicates this is a SQL/PGQ query;\nRESULTS_GRAPH is the name of the property graph", "durationInMS": 7424, "displayAtSemiColon": false}, {"start": 53, "end": 272, "text": "This finds the edges (games) where the home team has a higher score than the away team\nThe query follows the edges from A to B to C and back to A to complete the triangle", "durationInMS": 7424, "displayAtSemiColon": false}, {"start": 1214, "end": 1403, "text": "There's one triangle (A > B > C > A); the query returns three rows\nbecause it shows the triangle starting with each team", "durationInMS": 7424, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

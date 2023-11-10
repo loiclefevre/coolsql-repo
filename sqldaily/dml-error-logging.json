@@ -1,0 +1,18 @@
+{
+"title": "Ignore exceptions when writing data",
+ "sql": "\n\ncreate table t ( c1 int check ( c1 > 0 ) );\n\ninsert into t \n  select level - 2 x from dual\n  connect by level <= 5;\n  \nORA-02290: check constraint (CHRIS.SYS_C0037927) violated\n\nexec dbms_errlog.create_error_log ( 't' );\n\ninsert into t \n  select level - 2 x from dual\n  connect by level <= 5\n  log errors reject limit unlimited;\n  \n3 rows inserted.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 350, "end": 350, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 10g R2 (July 2005)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 47, "end": 117, "text": "This tries to insert the values 0 and -1 which violate the constraint", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 296, "end": 330, "text": "This stores the invalid rows in the error table (ERR$_<tab> by default)\nIt loads all other rows and the statement completes successfully", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

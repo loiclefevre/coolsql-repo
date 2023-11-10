@@ -1,0 +1,23 @@
+{
+"title": "Remove all rows from parent and child",
+ "sql": "\n\ncreate table parent_t ( c1 primary key ) as\n  select level c1 from dual connect by level <= 100;\n  \ncreate table child_t ( c1 references parent_t on delete cascade );\n\ninsert into child_t select c1 from parent_t;\n\nselect count(*)        COUNT(*)\nfrom   child_t;      ----------\n                            100\n\ntruncate table parent_t cascade;\n\nselect count(*)        COUNT(*)\nfrom   child_t;      ----------\n                              0\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 410, "end": 410, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 125, "end": 165, "text": "This creates a foreign key from child_t to parent_t\nWhen you delete a row from parent_t, the database \nremoves rows in child_t with the same value for C1 automatically", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 313, "end": 345, "text": "This wipes all the rows in parent_t instantly\nThe CASCADE clause applies this to child_t too\nIt requires the FK to be ON DELETE CASCADE to do this", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

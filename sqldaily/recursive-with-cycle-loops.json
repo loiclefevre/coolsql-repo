@@ -1,0 +1,23 @@
+{
+"title": "Find loops in hierarchical data",
+ "sql": "\nupdate employees\nset    manager_id = 107\nwhere  employee_id = 100;\n\nwith org_chart ( \n  employee_id, first_name, last_name, manager_id, department_id\n) as (\n  select employee_id, first_name, last_name, manager_id, department_id\n  from   employees where employee_id = 100\n  union  all\n  select e.employee_id, e.first_name, e.last_name, e.manager_id, e.department_id \n  from   org_chart oc join employees e on e.manager_id = oc.employee_id\n) cycle employee_id set looped to 'Y' default 'N'\n  select * from org_chart where looped = 'Y';\n  \nEMPLOYEE_ID FIRST_NAME     LAST_NAME      MANAGER_ID DEPARTMENT_ID L\n----------- -------------- -------------- ---------- ------------- -\n        100 Steven         King                  107            90 Y",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.241270,
+ "selection": {"start": 744, "end": 744, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 1, "end": 67, "text": "Employee 100 is the CEO; Make someone else their manager => a loop in the hierarchy", "durationInMS": 8056, "displayAtSemiColon": false}, {"start": 441, "end": 488, "text": "If a previous & current row in the chain have the same EMPLOYEE_ID, we have a loop!\nThe CYCLE clause detects when this happens & sets the LOOPED column to 'Y'", "durationInMS": 8056, "displayAtSemiColon": false}, {"start": 491, "end": 534, "text": "Find the row which was read twice", "durationInMS": 3915, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

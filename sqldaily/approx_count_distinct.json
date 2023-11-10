@@ -1,0 +1,15 @@
+{
+"title": "Estimate the number of unique values",
+ "sql": "\n\n\nselect count ( * ) from t;\n\n  COUNT(*)\n 128000000\n\nselect approx_count_distinct ( c2 ) from t;\n\nAPPROX_COUNT_DISTINCT(C2)\n                   430425\n\nElapsed: 00:00:08.98\n\nselect count ( distinct c2 ) from t;\n\nCOUNT(DISTINCTC2)\n           445425\n\nElapsed: 00:00:13.69",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 99, "end": 172, "mode": "ROUND_SQUARE", "hint": "Within 96.6% of the true value but 35% faster!", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

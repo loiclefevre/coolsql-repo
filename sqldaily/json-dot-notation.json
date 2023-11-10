@@ -1,0 +1,23 @@
+{
+"title": "Access JSON with dot-notation",
+ "sql": "\nwith rws as (\n  select treat ( \n    ' { \n        \"attr1\" : \"value1\", \n        \"arr1\" : [ 1, 2, 3 ],\n        \"obj1\" : { \"attr2\" : \"value2\" },\n        \"obj2\" : { \"arr2\" : [4, 5, 6] }\n      } ' as json \n  ) j from dual\n)\n  select r.j.attr1 attr1, r.j.arr1[0]   arr1_first, \n         r.j.obj1  obj1,  r.j.obj2.arr2 arr2\n  from   rws r;\n\nATTR1     ARR1_FIRST  OBJ1                ARR2                \n--------- ----------- ------------------- --------\nvalue1    1           {\"attr2\":\"value2\"}  [4,5,6]    ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.226190,
+ "selection": {"start": 376, "end": 376, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 228, "end": 269, "text": "Get the value of attr1 and the first element of arr1", "durationInMS": 7560, "displayAtSemiColon": false}, {"start": 281, "end": 316, "text": "Get the whole object obj1 and array obj2.arr2", "durationInMS": 6840, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

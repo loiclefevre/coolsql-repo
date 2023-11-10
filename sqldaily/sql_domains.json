@@ -1,0 +1,18 @@
+{
+"title": "SQL Domains",
+ "sql": "\n\n-- Create a SQL domain\ncreate DOMAIN Celsius as number \n   constraint is_above_absolute_zero CHECK (Celsius >= ?273.15)\n   DISPLAY Celsius || '°C';\n\ncreate table Readings(\n    id          number,\n    temperature DOMAIN Celsius -- column inherits SQL Domain\n);\n\n-- Retrieve my SQL Domains\nselect * from user_domains;\n\n-- Create a multi-column domain\nCreate DOMAIN Customer as ( \n  f_n as varchar2(100 char), l_n as varchar2(100 char) \n) DISPLAY initcap(f_n) || ' ' || initcap(l_n);\n\nCreate table customers (\n    first_name varchar2(100 char),\n    last_name varchar2(100 char),\n    -- SQL Domain applied on 2 columns\n    DOMAIN Customer(first_name, last_name)\n);\n\ninsert into customers (first_name, last_name) \nvalues( 'loïc', 'lefèvre' );\ncommit;\n                                                                 TITLE\nselect DOMAIN_DISPLAY( first_name, last_name ) as title   -------------        \n  from customers;                                          Loïc Lefèvre\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "DOMAIN,CHECK,DISPLAY,DOMAIN_DISPLAY",
+ "selection": {"start": 437, "end": 437, "mode": "BRIGHT_SQUARE", "hint": "New in :23c: SQL Domains :tada:", "top": false},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

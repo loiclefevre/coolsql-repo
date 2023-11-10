@@ -1,0 +1,23 @@
+{
+"title": "Define common data types",
+ "sql": "\ncreate domain goal as integer\n  default on null 0 constraint goal_gt_zero check ( goal >= 0 );\n  \ncreate table games (\n  home_team_id    int,  away_team_id    int,\n  home_team_goals goal, away_team_goals goal\n);\n\ninsert into games values ( 1, 2, 3, -1 );\nORA-11534: check constraint (CHRIS.SYS_C008322) due to domain constraint \nORA-11534: CHRIS.GOAL_GT_ZERO of domain CHRIS.GOAL violated\n\ninsert into games values ( 3, 4, null, null );\nselect * from games;\n\nHOME_TEAM_ID AWAY_TEAM_ID HOME_TEAM_GOALS AWAY_TEAM_GOALS\n------------ ------------ --------------- ---------------\n           3            4               0               0",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "goal",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 390, "end": 390, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 33, "end": 95, "text": "Columns with this domain must have values >= 0 \nand will default to zero if you insert null", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 240, "end": 252, "text": "Negative one violates the domain constraint, so this errors", "durationInMS": 9180, "displayAtSemiColon": false}, {"start": 424, "end": 434, "text": "The domain default kicks in, so these will be zero", "durationInMS": 7380, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

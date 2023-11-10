@@ -1,0 +1,22 @@
+{
+"title": "Beware multi-column nullable FKs",
+ "sql": "\n\ncreate table student_courses (\n  student_id integer, course_id integer, \n  primary key ( student_id, course_id )\n);\n\ncreate table student_course_exams (\n  student_id integer, course_id integer, exam_id integer,\n  constraint stce_student_course_fk \n    foreign key ( student_id, course_id )\n    references student_courses\n);\n\ninsert into student_courses values ( 1, 1 );\n--1 row inserted.\ninsert into student_course_exams values ( 9999, null, 1 );\n--1 row inserted.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.196032,
+ "selection": {"start": 466, "end": 466, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 430, "end": 447, "text": "There is no STUDENT_ID = 9999 in the parent table\nBut because COURSE_ID is NULL you can insert this row \nEven though there is a foreign key to STUDENT_COURSES :scream:!", "durationInMS": 8360, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

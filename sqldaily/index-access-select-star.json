@@ -1,0 +1,18 @@
+{
+"title": "Only access the columns you need",
+ "sql": "\n\nselect * from hr.job_history\nwhere  employee_id = 200;\n\n Id  | Operation                   | Name                    | E-Rows \n----------------------------------------------------------------------\n   0 | SELECT STATEMENT            |                         |        \n   1 |  TABLE ACCESS BY INDEX ROWID| JOB_HISTORY             |      2 \n*  2 |   INDEX RANGE SCAN          | JHIST_EMP_ID_ST_DATE_PK |      2 \n\nselect start_date from hr.job_history\nwhere  employee_id = 200;\n\n Id  | Operation        | Name                    | E-Rows \n-----------------------------------------------------------\n   0 | SELECT STATEMENT |                         |        \n*  1 |  INDEX RANGE SCAN| JHIST_EMP_ID_ST_DATE_PK |      2 ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 718, "end": 718, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 56, "text": "SELECT * accesses all the table's columns\nThere's no index including all the columns\nSo the database must read the table", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 414, "end": 477, "text": "This only accesses EMPLOYEE_ID & START_DATE\nThere is an index with both these columns\nSo the database only needs to read the index; it can bypass the table", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

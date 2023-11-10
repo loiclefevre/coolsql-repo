@@ -1,0 +1,23 @@
+{
+"title": "Running totals of previous N",
+ "sql": "\n\nselect hire_date\n  , count(*) over ( order by hire_date rows 3 preceding ) prev3_rows\n  , count(*) over ( order by hire_date range 3 preceding ) prev3_days \n  , count(*) over ( order by hire_date groups 3 preceding ) prev3_values\nfrom   employees\nwhere  hire_date >= date'2015-03-03'\nfetch first 5 rows only;\n\nHIRE_DATE   PREV3_ROWS PREV3_DAYS PREV3_VALUES\n----------- ---------- ---------- ------------\n03-MAR-2015          1          1            1\n10-MAR-2015          2          2            3\n10-MAR-2015          3          2            3\n11-MAR-2015          4          3            4\n19-MAR-2015          4          1            5",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 640, "end": 640, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 21c (August 2021)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 58, "end": 74, "text": "Include the previous three rows", "durationInMS": 3963, "displayAtSemiColon": false}, {"start": 127, "end": 144, "text": "Include rows within three days of the current hire_date", "durationInMS": 6899, "displayAtSemiColon": false}, {"start": 198, "end": 216, "text": "Include rows with the previous three values of hire_date", "durationInMS": 7046, "displayAtSemiColon": false}, {"start": 594, "end": 640, "text": "PREV3_ROWS = 4 rows (previous three rows + current)\nPREV3_DAYS = 1 row (dates from 16th-19th March)\nPREV3_VALUES = 5 rows (last three dates (3rd, 10th, & 11th March) + current)", "durationInMS": 8155, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

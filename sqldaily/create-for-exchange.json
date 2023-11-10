@@ -1,0 +1,15 @@
+{
+"title": "Create table for exchange",
+ "sql": "\n\n\ncreate table partitioned_table (\n  c1 int, c2 date\n) partition by range ( c2 ) (\n  partition p0 values less than ( date'2022-05-01' )\n);\n\ncreate table staging_data \n  for exchange \n  with table partitioned_table;\n  \nalter table partitioned_table\n  exchange partition p0 \n  with table staging_data;\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "Create table for exchange",
+ "selection": {"start": 191, "end": 191, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

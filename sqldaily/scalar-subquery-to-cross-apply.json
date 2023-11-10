@@ -1,0 +1,23 @@
+{
+"title": "Optimizing scalar subqueries",
+ "sql": "\n\nselect j.*,\n  ( select min ( salary ) from employees e where j.job_id = e.job_id ) min_sal,\n  ( select max ( salary ) from employees e where j.job_id = e.job_id ) max_sal,\n  ( select count (*) from employees e where j.job_id = e.job_id ) count_emps\nfrom   jobs j\n\nselect * from jobs j\nouter apply (\n  select min ( salary ) min_sal, max ( salary ) max_sal, count (*) count_emps\n  from   employees e where j.job_id = e.job_id\n)\n\nselect j.*,\n  min ( salary ) over ( partition by e.job_id ) min_sal, \n  max ( salary ) over ( partition by e.job_id ) max_sal, \n  count ( e.job_id ) over ( partition by e.job_id ) count_emps\nfrom   jobs j left join employees e on j.job_id = e.job_id",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 440, "end": 440, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 14, "end": 250, "text": "These subqueries access the same table 3x! \nThat's lots of unnecessary work", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 301, "end": 425, "text": "You can combine the three subqueries into one outer apply subquery\nThis means accessing employees once", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 441, "end": 619, "text": "Or you can change the query to be a join \nThen use window functions to get the totals", "durationInMS": 7772, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

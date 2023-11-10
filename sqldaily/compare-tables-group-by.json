@@ -1,0 +1,23 @@
+{
+"title": "Compare tables to find row differences",
+ "sql": "\ncreate table t1 ( c1, c2 ) as \n  select level, mod ( level, 2 ) from dual connect by level <= 5;\n\ncreate table t2 ( c1, c2 ) as \n  select level, mod ( level, 4 ) from dual connect by level <= 5;\n\nwith rws as (\n  select 'T1' t, t1.* from t1 union all select 'T2' t, t2.* from t2\n)\n  select c1, c2, min ( t ) table_name from rws \n  group by c1, c2 having count (*) <> 2;\n\n        C1         C2 TABLE_NAME\n---------- ---------- ----------\n         2          0 T1        \n         3          1 T1        \n         2          2 T2        \n         3          3 T2  ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 331, "end": 368, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 213, "end": 278, "text": "This combines the rows from each table into one, \ntagging them with the source table name", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 331, "end": 368, "text": "There will be two rows for (C1, C2) values that are same in both tables\n=> to find the differences, group by (C1, C2) and get those where the count is not two", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,18 @@
+{
+"title": "Boolean Datatype",
+ "sql": "\nselect 1 as alwaystrue where true;\n\nALWAYSTRUE\n----------\n         1\n\nselect 1 where false;\n\nno rows selected\n\n-- Creating a table with a BOOLEAN column\ncreate table tasks (\n    id        number generated always as identity,\n    title     varchar2(255) not null,\n    completed BOOLEAN not null,\n    archived  varchar2(50) default 'No' check(archived in ('Yes','No')) not null\n);\n\ninsert into tasks(title,completed) values('Send orders', FALSE);\ncommit;\n\n-- Add a Boolean virtual column using the new to_Boolean function\n-- where 'true', 'yes', 'on', '1', 't', 'y' will be converted to TRUE\n--   and 'false', 'no', 'off', '0', 'f', 'n' will be converted to FALSE\n-- Remarks: case insensitive, leading/trailing spaces are ignored\n-- In case of numbers, 0 means FALSE, all other values mean TRUE\nalter table tasks add (archived_vc as ( to_Boolean( archived ) ) );\n\nselect title, completed, archived, archived_vc \n  from tasks\n where NOT ARCHIVED_VC;\n\nTITLE       COMPLETED   ARCHIVED ARCHIVED_VC\n----------- ----------- -------- -----------\nSend orders FALSE       No       FALSE\n\n-- Interoperability between SQL and PL/SQL for boolean datatype\ncreate or replace function xor( p_left boolean, p_right boolean ) return boolean\ndeterministic is\nbegin\n    return (p_left and not p_right) or (not p_left and p_right);\nend;\n/\n\nSELECT xor( TRUE, FALSE ) as xor;        XOR\n                                        ----\n                                        TRUE\n\nselect d.data.flag.boolean() is true \n  from (select json_object( 'flag': true ) as data) d;\n\nD.DATA.FLAG\n-----------\nTRUE",
+ "fontSize": 16,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "BOOLEAN,to_Boolean,false,true,TRUE,FALSE,boolean",
+ "selection": {"start": 1320, "end": 1454, "mode": "ROUND_SQUARE", "hint": "BOOLEAN datatype!", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

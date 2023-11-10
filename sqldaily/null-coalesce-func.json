@@ -1,0 +1,23 @@
+{
+"title": "Null vs coalesce",
+ "sql": "\n\nselect nvl ( 1, 1/0 ) from dual;\n\nORA-01476: divisor is equal to zero\n\nselect coalesce ( 1, 1/0 ) short_circuit from dual;\n\nSHORT_CIRCUIT\n-------------\n            1\n\nselect nvl ( null, nvl ( null, 1 ) ) many_nvl, \n       coalesce ( null, null, 1 ) many_coalesce \nfrom   dual;\n\n  MANY_NVL MANY_COALESCE\n---------- -------------\n         1             1",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

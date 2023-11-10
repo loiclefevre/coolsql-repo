@@ -1,0 +1,15 @@
+{
+"title": "Get the first non-null value",
+ "sql": " \n \n\n\n \nselect coalesce ( 1,    2,    3    ) first, \n       coalesce ( null, 2,    3    ) second, \n       coalesce ( null, null, 3    ) third , \n       coalesce ( null, null, null ) nothing\nfrom   dual;\n\n     FIRST     SECOND      THIRD NOTHING\n---------- ---------- ---------- -------\n         1          2          3 <null> \n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 328, "end": 328, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 10g R1 (2003)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

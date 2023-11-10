@@ -1,0 +1,16 @@
+{
+"title": "Calculate group subtotals",
+ "sql": " \n \n\n\nselect                                 DEPARTMENT_ID JOB_ID     TOTAL\n  department_id,                     ---------------- -------- -------\n  job_id,                                         50 SH_CLERK   64300\n  sum ( salary ) total                            50 ST_CLERK   55700\nfrom   hr.employees                               50 ST_MAN     36400\nwhere  department_id in ( 50, 80 )                50 <null>    156400\ngroup  by rollup (                                80 SA_MAN     61000\n  department_id, job_id                           80 SA_REP    243500\n)                                                 80 <null>    304500\norder  by department_id, job_id;              <null> <null>    460900",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "rollup",
+ "selection": {"start": 669, "end": 669, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

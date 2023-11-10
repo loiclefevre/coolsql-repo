@@ -1,0 +1,23 @@
+{
+"title": "Find V patterns in data",
+ "sql": "\n\ncreate table prices ( price_date date, price int );\n\ninsert into prices values ( date'2023-01-01', 42 );\ninsert into prices values ( date'2023-01-02', 10 );\ninsert into prices values ( date'2023-01-03', 3 );\ninsert into prices values ( date'2023-01-04', 10 );\ninsert into prices values ( date'2023-01-05', 42 );\n\nselect * from prices                        PRICE_DATE  VAR             PRICE\nmatch_recognize (                           ----------- ---------- ----------\n  order by price_date                       01-JAN-2023 INIT               42\n  measures classifier() as var              02-JAN-2023 DOWN               10  \n  all rows per match                        03-JAN-2023 DOWN                3\n  pattern ( init down+ up+ )                04-JAN-2023 UP                 10\n  define down as price < prev ( price ),    05-JAN-2023 UP                 42\n         up as price > prev ( price )\n);",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 900, "end": 900, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 551, "end": 579, "text": "This returns the name of the pattern variable (below) the row matches", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 709, "end": 735, "text": "This searches for a initial row, \nfollowed by one or more DOWN rows, \nthen one or more UP rows", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 794, "end": 900, "text": "This defines UP & DOWN:\nA DOWN row is one where the current price is lower than the previous price\nAn UP row is one where the current price is higher than the previous price", "durationInMS": 7682, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

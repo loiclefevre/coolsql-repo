@@ -1,0 +1,23 @@
+{
+"title": "View data as it was in the past",
+ "sql": "\n\nselect *                                        COLOUR     SHAPE          WEIGHT\nfrom   bricks;                                  ---------- ---------- ----------\n                                                red        cylinder            1\n                                                blue       cube                4\n\ndelete bricks where colour = 'blue';\ninsert into bricks values ( 'green', 'cone', 9 );\n\nselect *                                        COLOUR     SHAPE          WEIGHT\nfrom bricks;                                    ---------- ---------- ----------\n                                                red        cylinder            1\n                                                green      cone                9\n\nselect * from bricks                            COLOUR     SHAPE          WEIGHT\n  as of timestamp                               ---------- ---------- ----------\n  sysdate - interval '5' second;                red        cylinder            1\n                                                blue       cube                4",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "as of timestamp",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.271428,
+ "selection": {"start": 534, "end": 534, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 821, "end": 934, "text": "This views the data as it was five seconds ago\nThis is before the DML above, so returns the blue cube instead of green cone", "durationInMS": 7865, "displayAtSemiColon": false}, {"start": 706, "end": 739, "text": "The green cone replaces the blue cube", "durationInMS": 4388, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

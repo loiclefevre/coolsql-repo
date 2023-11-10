@@ -1,0 +1,15 @@
+{
+"title": "Counting rows in outer joins",
+ "sql": " \n \nselect \n  department_id, \n  count (*) rows_in_group,\n  count ( employee_id ) employees_in_dept\nfrom   hr.departments d\nleft   join hr.employees e\nusing  ( department_id )\ngroup  by department_id\norder  by employees_in_dept\nfetch  first 3 rows only;\n\nDEPARTMENT_ID ROWS_IN_GROUP EMPLOYEES_IN_DEPT\n          210             1                 0\n          200             1                 0\n          270             1                 0\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "rows_in_group, employees_in_dept, ROWS_IN_GROUP, EMPLOYEES_IN_DEPT",
+ "selection": {"start": 438, "end": 438, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

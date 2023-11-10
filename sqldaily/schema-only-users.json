@@ -1,0 +1,23 @@
+{
+"title": "Create schema-only users",
+ "sql": "\n\ncreate user data_owner no authentication;\ngrant connect, resource to data_owner;\n\ngrant create session to proxy_user identified by proxy_user;\nalter user data_owner grant connect through proxy_user;\n\nconn data_owner/data_owner@db\nORA-01017: invalid username/password; logon denied\n\nconn proxy_user[data_owner]/proxy_user@db\n\nselect user, sys_context ( 'userenv', 'proxy_user' ) proxy_user from dual;\n\nUSER                 PROXY_USER\n-------------------- --------------------\nDATA_OWNER           PROXY_USER\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.150794,
+ "selection": {"start": 476, "end": 476, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 43, "text": "DATA_OWNER has no password, you can't connect directly as this user!", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 145, "end": 200, "text": "This enables you to connect using PROXY_USER's credentials, but act as DATA_OWNER", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 299, "end": 311, "text": "The name in square brackets is the schema you'll be connecting to", "durationInMS": 8446, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

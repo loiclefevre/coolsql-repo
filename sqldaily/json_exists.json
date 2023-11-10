@@ -1,0 +1,22 @@
+{
+"title": "Search JSON documents with path expressions",
+ "sql": "\n\n\nwith rws as (\n  select json ( '{ \"arr\" : [1, 2, 3] }' ) j from dual union all\n  select json ( '{ \"arr\" : [4, 5, 6] }' ) j from dual union all\n  select json ( '{ \"arr\" : [7, 8, 9] }' ) j from dual\n)\n  select * from rws\n  where  json_exists (\n    j, '$.arr[*]?(@ == 2)'\n  );\n  \nJ       \n---------------           \n{\"arr\":[1,2,3]} ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "json_exists",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 278, "end": 278, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 251, "end": 270, "text": "This is true for any document which includes the value 2 in the array \"arr\"", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

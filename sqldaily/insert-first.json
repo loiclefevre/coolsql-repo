@@ -1,0 +1,15 @@
+{
+"title": "Conditionally insert into one of many tables",
+ "sql": "\n\ninsert first\n  when n <= 3 then\n    into low_values ( c1 ) values ( n )\n  else\n    into high_values ( c1 ) values ( n )\nselect level n from dual connect by level <= 10;\n\nselect count(*), sum ( c1 ), max ( c1 ) from low_values;\n\n  COUNT(*)    SUM(C1)    MAX(C1)\n         3          6          3\n\nselect count(*), sum ( c1 ), max ( c1 ) from high_values;\n\n  COUNT(*)    SUM(C1)    MAX(C1)\n         7         49         10",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 296, "end": 296, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

@@ -1,0 +1,15 @@
+{
+"title": "ORDER BY column alias",
+ "sql": " \n \n \nselect employee_id, \n       floor ( \n         months_between ( sysdate, hire_date ) / 12 \n       ) as years_employed\nfrom   hr.employees\norder  by years_employed desc\nfetch  first 3 rows only\n\nEMPLOYEE_ID YEARS_EMPLOYED\n----------- --------------\n        102             21\n        109             19\n        108             19\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "YEARS_EMPLOYED, years_employed",
+ "selection": {"start": 168, "end": 168, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

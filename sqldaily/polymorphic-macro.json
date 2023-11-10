@@ -1,0 +1,22 @@
+{
+"title": "Generic get Nth row function",
+ "sql": "\ncreate function get_nth_row ( \n  table_name dbms_tf.table_t, sort_col dbms_tf.columns_t, nth_row integer\n) return clob sql_macro as\nbegin\n  return 'select * from ( \n     select t.*, row_number () over ( order by ' || sort_col(1) || ' ) rn\n     from   table_name t\n  ) where  rn = nth_row';\nend get_nth_row;\n\nselect first_name, rn from get_nth_row (          FIRST_NAME           RN\n  hr.employees, columns ( employee_id ), 10       --------------- -------\n);                                                Daniel               10\n    \nselect department_name, rn from get_nth_row (     DEPARTMENT_NAME      RN\n  hr.departments, columns ( department_id ), 2    --------------- -------\n);                                                Marketing             2\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "get_nth_row",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.150794,
+ "selection": {"start": 725, "end": 725, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 19c (April 2019)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 141, "end": 290, "text": "The inner query assigns row numbers\nThe outer query filters to find the one at position NTH_ROW\nAt parse time the database replaces TABLE_NAME and NTH_ROW\nThe sort_col is an array, so you have to concatenate it in manually", "durationInMS": 8689, "displayAtSemiColon": false}, {"start": 385, "end": 426, "text": "Find the 10th row in EMPLOYEES, sorted by EMPLOYEE_ID", "durationInMS": 7038, "displayAtSemiColon": false}, {"start": 609, "end": 654, "text": "Find the 2nd row in DEPARTMENTS, sorted by DEPARTMENT_ID", "durationInMS": 7507, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

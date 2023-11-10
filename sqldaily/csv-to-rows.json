@@ -1,0 +1,23 @@
+{
+"title": "CSV to rows function",
+ "sql": "\n\ncreate or replace function split_string ( \n  str varchar2, sep varchar2 default ','\n) return clob sql_macro as\nbegin\n\n  return '\n    select  regexp_substr ( str, ''[^'' || sep || '']+'', 1, level ) str, level pos\n    from    dual \n    connect by level <= length ( str ) - length ( replace ( str, sep ) ) + 1';\n  \nend split_string;\n\nselect *                                          STR               POS\nfrom   split_string ( 'split,to,rows' );          ---------- ----------\n                                                  split               1\n                                                  to                  2\n                                                  rows                3",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 682, "end": 682, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 19c (April 2019)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 143, "end": 199, "text": "Matches all characters that are not the separator\nReturns the Nth match for row N", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 257, "end": 309, "text": "The number of values is the difference between \nthe string length and its length with separators removed; plus one", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

@@ -1,0 +1,23 @@
+{
+"title": "Define monetary values with domains",
+ "sql": "\n\ncreate domain currency as (\n  amount as number(20, 2), currency_code as char(3 char)\n)\nconstraint supported_currencies_c check ( currency_code in ( 'USD', 'GBP', 'EUR' ) )\ndisplay case currency_code\n  when 'USD' then '$' when 'GBP' then '£' when 'EUR' then '€'\nend || to_char(amount, '999,999.00')\norder currency_code || to_char(amount, '999,999.00');\n\nalter table order_items modify ( amount, currency_code ) add domain currency;     \n\nselect                                              ORDER_ID PRODUCT_ID AMT\n  order_id, product_id,                           ---------- ---------- ------------\n  domain_display ( amount, currency_code ) amt             3          3 €   4,321.00\nfrom   order_items                                         4          4 £       3.14\norder  by domain_order ( amount, currency_code );          2          2 $       9.99\n                                                           1          1 $   1,234.56",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 438, "end": 438, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 174, "end": 299, "text": "Swap the currency codes for symbols", "durationInMS": 5400, "displayAtSemiColon": false}, {"start": 300, "end": 353, "text": "Sort by currency, then amount", "durationInMS": 4500, "displayAtSemiColon": false}, {"start": 379, "end": 431, "text": "Associate the domain with these columns", "durationInMS": 6120, "displayAtSemiColon": false}, {"start": 602, "end": 642, "text": "Format the values according to the DISPLAY expression in the domain", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 780, "end": 818, "text": "Sort the rows according to the ORDER expression in the domain", "durationInMS": 7135, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

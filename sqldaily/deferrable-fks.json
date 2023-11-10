@@ -1,0 +1,23 @@
+{
+"title": "Delay constraint checking until commit",
+ "sql": "\n\nalter table departments \n  add constraint dept_fk foreign key ( manager_id )\n  references employees ( id ) \n  deferrable;\n\ninsert into departments ( id, name, manager_id ) values ( 1, 'New dept', 1403 );\nORA-02291: integrity constraint (CHRIS.DEPT_FK) violated - parent key not found\n\nalter session set constraints = deferred;\n\ninsert into departments ( id, name, manager_id ) values ( 1, 'New dept', 1403 );\n--1 row inserted.\n\ncommit;\nORA-02091: transaction rolled back\nORA-02291: integrity constraint (CHRIS.DEPT_FK) violated - parent key not found",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.105556,
+ "selection": {"start": 437, "end": 437, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 151, "end": 233, "text": "The database enforces this constraint when refreshing MV during commit", "durationInMS": 9045, "displayAtSemiColon": false}, {"start": 287, "end": 389, "text": "The total for rows with GROUP_ID = 1 is 42\nThis violates the constraint and the database rolls the change back", "durationInMS": 9045, "displayAtSemiColon": false}, {"start": 494, "end": 501, "text": "The total for GROUP_ID = 2 is 100, so the commit is successful", "durationInMS": 8140, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

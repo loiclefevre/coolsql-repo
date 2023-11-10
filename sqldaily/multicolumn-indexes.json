@@ -1,0 +1,23 @@
+{
+"title": "Multicolumn index use",
+ "sql": "\n\ncreate index two_col on t ( c1, c2 );\n\nselect * from t where c1 = 1;\n\n   Id   Operation                             Name       Rows   \n---------------------------------------------------------------\n    0   SELECT STATEMENT                                       \n    1    TABLE ACCESS BY INDEX ROWID BATCHED  T            91  \n    2     INDEX RANGE SCAN                    TWO_COL      91  \n\nselect * from t where c1 = 1 and c2 = 1 and c3 = 1;\n\n   Id   Operation                             Name       Rows   \n---------------------------------------------------------------\n    0   SELECT STATEMENT                                       \n    1    TABLE ACCESS BY INDEX ROWID BATCHED  T             1  \n    2     INDEX RANGE SCAN                    TWO_COL       9   \n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "TWO_COL, two_col",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 639, "end": 639, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 41, "end": 70, "text": "C1 is the first column in the index TWO_COL =>\nthe optimizer can range scan it to process this query", "durationInMS": 8467, "displayAtSemiColon": false}, {"start": 394, "end": 445, "text": "It can also range scan it to process queries with more columns in the WHERE clause", "durationInMS": 8467, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

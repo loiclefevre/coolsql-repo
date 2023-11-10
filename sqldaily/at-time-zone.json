@@ -1,0 +1,15 @@
+{
+"title": "Convert the time zone for timestamps",
+ "sql": " \n \nwith rws as (\n  select timestamp'2022-07-11 00:00:00 UTC' ts,\n         tzname\n  from   v$timezone_names\n  where  regexp_substr ( tzname, '[A-z]+$' ) \n           in ( 'London', 'Los_Angeles', 'Kolkata' )\n  and    tzabbrev = 'LMT'\n)\n  select ts utc_time, \n         ts at time zone tzname local_time\n  from   rws;\n  \nUTC_TIME              LOCAL_TIME                           \n--------------------- -------------------------------------\n11-Jul-2022 00:00 UTC 10-Jul-2022 17:00 America/Los_Angeles\n11-Jul-2022 00:00 UTC 11-Jul-2022 05:30 Asia/Kolkata       \n11-Jul-2022 00:00 UTC 11-Jul-2022 01:00 Europe/London ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 164, "end": 164, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

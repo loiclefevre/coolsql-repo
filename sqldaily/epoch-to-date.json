@@ -1,0 +1,18 @@
+{
+"title": "Convert UNIX epochs to/from datetime values",
+ "sql": "\n\nselect timestamp '1970-01-01 00:00:00 UTC'    \n  + numtodsinterval (                                                   T\n      1580674922000 / 1000, 'second' ) t         ------------------------\nfrom   dual;                                     02-FEB-2020 20.22.02 UTC \n\nwith rws as (    \n  select timestamp '2020-02-02 20:22:02 UTC' \n    - timestamp '1970-01-01 00:00:00 UTC' t    \n  from   dual     \n)    \n  select     \n    extract ( day from t ) * 24 * 60 * 60 * 1000 +     \n    extract ( hour from t ) * 60 * 60 * 1000 +     \n    extract ( minute from t ) * 60 * 1000 +                         EPOCH\n    round ( extract ( second from t ) * 1000 ) epoch        -------------\n  from   rws;                                               1580674922000",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 551, "end": 551, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

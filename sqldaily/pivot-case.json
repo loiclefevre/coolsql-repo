@@ -1,0 +1,23 @@
+{
+"title": "Conditional row counts as columns",
+ "sql": "\nwith rws as (\n  select exam_id, case\n           when percent_correct >= 90 then 'A'\n           when percent_correct >= 80 then 'B'\n           when percent_correct >= 70 then 'C'\n           when percent_correct >= 60 then 'D'\n           when percent_correct >= 50 then 'E'\n           else 'F'\n         end grade\n  from   exam_results\n)\n  select * from rws\n  pivot ( count(*) for grade in ( 'A', 'B', 'C', 'D', 'E', 'F' ) );\n  \n   EXAM_ID        'A'        'B'        'C'        'D'        'E'        'F'\n---------- ---------- ---------- ---------- ---------- ---------- ----------\n         1          2         14         31         40         12          2\n         2          2         11         32         44         11          1",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.316667,
+ "selection": {"start": 311, "end": 311, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 38, "end": 272, "text": "CASE provides IF-THEN logic in SQL to map percentages to grades", "durationInMS": 7245, "displayAtSemiColon": false}, {"start": 366, "end": 420, "text": "This generates a column in the results for each grade letter\nThese return the number of rows in the table for each grade", "durationInMS": 7594, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

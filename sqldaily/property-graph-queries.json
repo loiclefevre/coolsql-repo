@@ -1,0 +1,23 @@
+{
+"title": "Graph queries in SQL",
+ "sql": "\ncreate property graph friendship_graph\n  vertex tables ( persons as person key ( person_id ) )\n  edge tables (\n    friendships as friends key ( friendship_id )\n    source key ( person_a ) references person ( person_id )\n    destination key ( person_b ) references person ( person_id )\n  );\n\nselect * from graph_table (\n  friendship_graph\n  match ( a is person where a.name = 'Mary' ) - [ e is friends ]-> ( b is person )\n  columns ( a.name as a, b.name as b, e.meeting_date )\n);\n\nA          B          MEETING_DATE     \n---------- ---------- -----------------\nMary       Alice      19-SEP-2000 00:00\nMary       John       19-SEP-2000 00:00",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 480, "end": 480, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 58, "end": 93, "text": "The rows in the persons table are the verticies of the graph", "durationInMS": 7565, "displayAtSemiColon": false}, {"start": 116, "end": 285, "text": "The rows in the friendships table are the edges of the graph\nThey link perons verticies together via the columns PERSON_A & PERSON_B", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 341, "end": 421, "text": "The MATCH clause traverses the graph to find Mary's friends\n( a is person where a.name = 'Mary' ) starts with people called Mary\n[ e is friends ] finds the friends edges from Mary to \n( b is person ) any other person vertex", "durationInMS": 8577, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

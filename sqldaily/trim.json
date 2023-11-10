@@ -1,0 +1,15 @@
+{
+"title": "Remove leading or trailing characters",
+ "sql": " \n \n \nwith rws as (\n  select '##string##' str from dual\n)\n  select ltrim ( str, '#' ) left_removed, \n         rtrim ( str, '#' ) right_removed, \n         trim ( leading '#' from str ) start_removed,\n         trim ( trailing '#' from str ) end_removed,\n         trim ( both '#' from str ) both_removed\n  from   rws;\n  \nLEFT_REMOVED  RIGHT_REMOVED  START_REMOVED  END_REMOVED  BOTH_REMOVED    \nstring##      ##string       string##       ##string     string ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 456, "end": 456, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

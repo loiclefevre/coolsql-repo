@@ -1,0 +1,15 @@
+{
+"title": "Edit JSON documents",
+ "sql": " \n \n\nselect json_transform ( ' { \n    \"change\" : \"me\", \n    \"erase\"  : \"me\" \n  } ', \n  insert '$.add' = 'this',\n  replace '$.change' = 'something new',\n  remove '$.erase'\n) \nfrom   dual;\n\n{ \n  \"change\" : \"something new\",\n  \"add\"    : \"this\"\n}",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 240, "end": 240, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 19c (April 2019)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

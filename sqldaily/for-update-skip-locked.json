@@ -1,0 +1,23 @@
+{
+"title": "Fetch data bypassing locked rows",
+ "sql": "\ncreate table t as\n  select level c1, mod ( level, 2 ) c2 from dual connect by level <= 4;\n  \ncreate procedure p as pragma autonomous_transaction;\nbegin\n  for rws in ( select * from t for update skip locked ) loop\n    dbms_output.put_line ( 'Fetched ' || rws.c1 || ', ' || rws.c2 );\n  end loop;\n  commit;\nend;\n/\nbegin\n  update t set c1 = -c1 where c2 = 0;\n  \n  p();\nend;\n/\nFetched 1, 1\nFetched 3, 1",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "for update skip locked",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.316667,
+ "selection": {"start": 370, "end": 370, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 168, "end": 206, "text": "This fetches all rows NOT locked by another transaction", "durationInMS": 8460, "displayAtSemiColon": false}, {"start": 320, "end": 355, "text": "This locks the rows (2, 0) & (4, 0)", "durationInMS": 4860, "displayAtSemiColon": false}, {"start": 361, "end": 365, "text": "The procedure starts a new transaction,\nso its SELECT ... FOR UPDATE SKIP LOCKED\ncan only see the unlocked rows where c2 = 1", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

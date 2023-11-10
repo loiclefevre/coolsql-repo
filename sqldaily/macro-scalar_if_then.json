@@ -1,0 +1,16 @@
+{
+"title": "Create reusable SQL expressions",
+ "sql": "\n\n \ncreate function if_then_macro ( p int ) \n  return varchar2 sql_macro ( scalar ) as\nbegin\n  return q'! case p\n    when 1 then 'this'\n    else 'that'\n  end !';\nend;\n/\n\nselect if_then_macro ( 1 ), if_then_macro ( 2 ) from dual;\n\nIF_T IF_T\n---- ----\nthis that",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 1, "end": 1, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

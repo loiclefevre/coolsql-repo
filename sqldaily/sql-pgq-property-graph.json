@@ -1,0 +1,23 @@
+{
+"title": "Define graph relationships within data",
+ "sql": "\n\n\ncreate property graph results_graph\n  vertex tables (\n    teams\n      key ( team_id )\n      properties all columns\n  )\n  edge tables (\n    games \n      source key ( home_team_id ) references teams ( team_id )\n      destination key ( away_team_id ) references teams ( team_id )\n      properties all columns\n  );",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.346825,
+ "selection": {"start": 313, "end": 313, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 41, "end": 121, "text": "Each row in the TEAMS table is a node/point in the graph\nThey're identified by the TEAM_ID column", "durationInMS": 7424, "displayAtSemiColon": false}, {"start": 124, "end": 312, "text": "The edges connect the vertices together\nEach row links a home team node to an away team node", "durationInMS": 7424, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

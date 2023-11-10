@@ -1,0 +1,23 @@
+{
+"title": "Grant access to every table in a schema",
+ "sql": "\n\n\ngrant read any table \n  on schema data_owner \n  to reporting_user;\n\ncreate table data_owner.table_report_user_can_query ( c1 int );\n\nconn reporting_user@23cfree\n\nselect user, count(*) from data_owner.table_report_user_can_query;\n\nUSER                   COUNT(*)\n-------------------- ----------\nREPORTING_USER                0\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.196032,
+ "selection": {"start": 264, "end": 264, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 9, "end": 23, "text": "READ = SELECT without FOR UPDATE", "durationInMS": 4860, "displayAtSemiColon": false}, {"start": 27, "end": 69, "text": "REPORTING_USER can now query every table in DATA_OWNER\nThis also applies to any new tables created", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 71, "end": 134, "text": "REPORTING_USER automatically gets query privileges on this table", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

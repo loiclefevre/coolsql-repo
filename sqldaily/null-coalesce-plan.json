@@ -1,0 +1,23 @@
+{
+"title": "Null vs coalesce",
+ "sql": "\nselect * from hr.employees where job_id = coalesce ( :job_id, job_id );\n\n Id  | Operation                 | Name      | E-Rows \n------------------------------------------------------\n   0 | SELECT STATEMENT          |           |        \n*  1 |  TABLE ACCESS STORAGE FULL| EMPLOYEES |      6 \n\nselect * from hr.employees where job_id = nvl ( :job_id, job_id );\n\n Id  | Operation                              | Name            | E-Rows \n-------------------------------------------------------------------------\n   0 | SELECT STATEMENT                       |                 |        \n   1 |  VIEW                                  | VW_ORE_B4851255 |    108 \n   2 |   UNION-ALL                            |                 |        \n*  3 |    FILTER                              |                 |        \n   4 |     TABLE ACCESS BY INDEX ROWID BATCHED| EMPLOYEES       |      1 \n*  5 |      INDEX RANGE SCAN                  | EMP_JOB_IX      |      1 \n*  6 |    FILTER                              |                 |        \n   7 |     TABLE ACCESS STORAGE FULL          | EMPLOYEES       |    107 ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 1, "end": 1, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

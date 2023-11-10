@@ -1,0 +1,16 @@
+{
+"title": "Get parts of a timestamp (years, days, etc.)",
+ "sql": " \n \nselect \n  extract ( year            from systimestamp ) yr,\n  extract ( month           from systimestamp ) mth,\n  extract ( day             from systimestamp ) dy,\n  extract ( hour            from systimestamp ) hr,\n  extract ( minute          from systimestamp ) mn,\n  extract ( second          from systimestamp ) s,\n  extract ( timezone_hour   from systimestamp ) tzhr,\n  extract ( timezone_minute from systimestamp ) tzmn,\n  extract ( timezone_region from systimestamp ) tzr,\n  extract ( timezone_abbr   from systimestamp ) tza\nfrom   dual;\n\n    YR   MTH    DY    HR     MN         S  TZHR  TZMN TZR            TZA\n----- ----- ----- ----- ------ --------- ----- ----- -------------- ----\n  2022     8    29    12     00 35.063073     1     0 Europe/London  BST ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "extract",
+ "selection": {"start": 728, "end": 728, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

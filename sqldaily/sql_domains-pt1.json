@@ -1,0 +1,18 @@
+{
+"title": "SQL Domains for business type definitions",
+ "sql": "\n-- Create a SQL domain with type contraint\ncreate DOMAIN Celsius as number \n   constraint is_above_absolute_zero CHECK (Celsius >= -273.15)\n   DISPLAY Celsius || '°C';\n\ncreate table Readings (\n    id          number,\n    temperature DOMAIN Celsius -- column inherits SQL Domain\n);\n\n-- Violates domain constraint\ninsert into Readings values ( 1, -9999 );\n\nORA-02290: check constraint (CHRIS.SYS_C008486) violated\n\n-- Retrieve my SQL Domains\nselect * from user_domains;",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "DOMAIN,CHECK,DISPLAY,DOMAIN_DISPLAY",
+ "selection": {"start": 287, "end": 287, "mode": "BRIGHT_SQUARE", "hint": "New in :23c: SQL Domains :tada:", "top": false},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

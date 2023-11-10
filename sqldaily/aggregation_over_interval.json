@@ -1,0 +1,18 @@
+{
+"title": "Aggregation over INTERVAL datatype",
+ "sql": "\n\ndesc DBA_SCHEDULER_JOB_RUN_DETAILS\n\nName          Type\n------------- ----------------------------\nJOB_NAME      VARCHAR2(261)\nCPU_USED      INTERVAL DAY(3) TO SECOND(2)\n...\n\nselect job_name, sum( cpu_used )\n  from DBA_SCHEDULER_JOB_RUN_DETAILS \n group by job_name\nhaving sum( cpu_used ) > interval '5' minute;\n\n         JOB_NAME                 SUM(CPU_USED)\n------------------ -----------------------------\nUTL_RECOMP_SLAVE_2 +000000000 00:10:43.950000000\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "sum, INTERVAL",
+ "selection": {"start": 1, "end": 1, "mode": "BRIGHT_SQUARE", "hint": "Compute aggregated sum of INTERVALs", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.545098, "green": 0.694118, "blue": 0.756863, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

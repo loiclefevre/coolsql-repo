@@ -1,0 +1,23 @@
+{
+"title": "Get the old and new values after an update",
+ "sql": "\n\n\ndeclare\n  old_sal number;\n  new_sal number;\nbegin \n  update hr.employees\n  set    salary = salary * 1.1\n  where  employee_id = 204\n  returning old salary, new salary \n  into old_sal, new_sal;\n  \n  dbms_output.put_line ( 'Changed salary from ' || old_sal || ' to ' || new_sal );\nend;\n/\n--Changed salary from 10000 to 11000",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.120635,
+ "selection": {"start": 324, "end": 324, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 136, "end": 168, "text": "Capture the prior (old) and current (new) values of columns;\nIf you omit old/new it defaults to new", "durationInMS": 8923, "displayAtSemiColon": false}, {"start": 78, "end": 106, "text": "Increase the current salary by 10%", "durationInMS": 4658, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

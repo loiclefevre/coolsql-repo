@@ -1,0 +1,22 @@
+{
+"title": "Use bind variables for secure SQL",
+ "sql": "\n\ndeclare\n  cur      sys_refcursor;\n  name_var varchar2(1000) := \n    ' ''King'' union all select table_name from user_tables';\nbegin\n  open cur for \n    'select first_name from hr.employees where last_name = ' || name_var;\n  for rws varchar2(128) in cur loop\n    dbms_output.put_line ( rws );\n  end loop;\nend;\n\nJanette\nSteven\nORDER_ITEMS\nINVOICE_ITEMS\n...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.196032,
+ "selection": {"start": 310, "end": 310, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 327, "end": 352, "text": "So the query returns table names alongside staff names!", "durationInMS": 7073, "displayAtSemiColon": false}, {"start": 154, "end": 223, "text": "This uses string concatenation to construct the SQL statement;\nenabling hackers to inject extra operations to the query", "durationInMS": 8360, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

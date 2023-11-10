@@ -1,0 +1,22 @@
+{
+"title": "Beware NULL for CHECK constraints",
+ "sql": "\n\ncreate table exam_results (\n  exam_id integer, student_id integer,\n  percent_correct number check ( percent_correct between 0 and 100 )\n);\n\ninsert into exam_results values ( 1, 1, null );\n\nselect * from exam_results \nwhere  percent_correct between 0 and 100;\n\nno rows selected\n\nselect * from exam_results;\n\n   EXAM_ID STUDENT_ID PERCENT_CORRECT\n---------- ---------- ---------------\n         1          1 <null>      ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "speedMultiplier": 1.316667,
+ "selection": {"start": 278, "end": 278, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 174, "end": 189, "text": "Check constraints only reject rows that are FALSE\nNULL BETWEEN 0 AND 100 => UNKNOWN\nSo you can insert NULL for PERCENT_CORRECT", "durationInMS": 7594, "displayAtSemiColon": false}, {"start": 226, "end": 259, "text": "WHERE clauses only return rows that are TRUE\nThe condition evaluates to NULL for the added row\nSo this query omits it row!", "durationInMS": 7594, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

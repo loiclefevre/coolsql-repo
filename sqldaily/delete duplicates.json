@@ -1,0 +1,23 @@
+{
+"title": "Find & remove duplicate rows",
+ "sql": "\ncreate table duplicate_rows ( dup_col1, dup_col2 ) as \n  select mod ( level, 2 ), mod ( level, 3 )\n  from   dual connect by level <= 8;\n\nselect dup_col1, dup_col2, count(*)     DUP_COL1   DUP_COL2   COUNT(*)\nfrom   duplicate_rows                 ---------- ---------- ----------\ngroup  by dup_col1, dup_col2                   1          1          2\nhaving count (*) > 1;                          0          2          2\n\n\ndelete duplicate_rows where rowid not in (\n  select min ( rowid ) from duplicate_rows group by dup_col1, dup_col2\n);\n--2 rows deleted.\n\nselect dup_col1, dup_col2, count(*) from duplicate_rows\ngroup  by dup_col1, dup_col2 having count (*) > 1;\n--no rows selected",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "VALIDATE_CONVERSION",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.241270,
+ "selection": {"start": 615, "end": 615, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 139, "end": 423, "text": "This finds all the ( DUP_COL1, DUP_COL2 ) values with 2+ rows in the table", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 424, "end": 540, "text": "The subquery finds the lowest ROWID for each ( DUP_COL1, DUP_COL2 ) pair\nThe DELETE removes all the other rows - i.e. the duplicates", "durationInMS": 8056, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

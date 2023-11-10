@@ -1,0 +1,23 @@
+{
+"title": "Find months between dates",
+ "sql": "\nwith rws as (\n  select date'2023-02-28' st_dt,\n         date'2023-03-26' + level en_dt\n  from   dual connect by level <= 5\n)\n  select st_dt, en_dt, \n    en_dt - st_dt dys, \n    months_between ( en_dt, st_dt ) mths,\n    round ( months_between ( en_dt, st_dt ) * 31 ) mths_between_days\n  from rws;\n  \nST_DT      EN_DT             DYS       MTHS MTHS_BETWEEN_DAYS\n---------- ---------- ---------- ---------- -----------------\n28-Feb-23  27-Mar-23          27 .967741935                30\n28-Feb-23  28-Mar-23          28          1                31\n28-Feb-23  29-Mar-23          29 1.03225806                32\n28-Feb-23  30-Mar-23          30 1.06451613                33\n28-Feb-23  31-Mar-23          31          1                31",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 296, "end": 296, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}

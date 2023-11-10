@@ -1,0 +1,16 @@
+{
+"title": "Detect loops in hierarchical data",
+ "sql": "\n\nwith tree ( employee_id, manager_id ) as (\n  select employee_id, manager_id\n  from   hr.employees\n  where  employee_id = 100\n  union  all\n  select e.employee_id, e.manager_id\n  from   hr.employees e join tree t\n  on     t.employee_id = e.manager_id\n) search depth first by employee_id set seq\n  cycle employee_id set is_loop to '1' default '0'\n  select * from tree;\n  \nEMPLOYEE_ID MANAGER_ID SEQ IS_LOOP\n----------- ---------- --- -------\n        100        101   1 0\n        101        100   2 0\n        100        101   3 1",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "cycle",
+ "selection": {"start": 367, "end": 367, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 441, "end": 527, "text": "Employees 100 & 101 both are the other's manager! \nSet the loop flag and stop the infinite loop"}]
+
+}

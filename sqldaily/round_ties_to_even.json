@@ -1,0 +1,15 @@
+{
+"title": "Round to the nearest even number",
+ "sql": "\n\nwith rws as (\n  select 0.5 + level - 1 c1 from dual connect by level <= 5\n)\n  select c1, \n    round_ties_to_even ( c1 ) even_int, round ( c1 ) nearest_int, \n    round_ties_to_even ( c1/10, 1 ) even_tenth, round ( c1/10, 1 ) tenth\n  from   rws;\n  \n        C1   EVEN_INT NEAREST_INT EVEN_TENTH      TENTH\n---------- ---------- ----------- ---------- ----------\n        .5          0           1          0         .1\n       1.5          2           2         .2         .2\n       2.5          2           3         .2         .3\n       3.5          4           4         .4         .4\n       4.5          4           5         .4         .5",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "selection": {"start": 640, "end": 640, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}

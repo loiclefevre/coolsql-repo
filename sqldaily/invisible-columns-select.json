@@ -1,0 +1,15 @@
+{
+"title": "Invisible columns - SELECT",
+ "sql": "\nINSERT INTO hide_some_cols ( visible_col )\n  VALUES ( 2 );\n\nSELECT * FROM hide_some_cols;\n\nVISIBLE_COL\n-----------\n          1\n          2\n\nSELECT visible_col, hidden_col \nFROM   hide_some_cols;\n\nVISIBLE_COL HIDDEN_COL\n----------- ----------\n          1         99\n          2 <null>    ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "Invisible columns",
+ "selection": {"start": 1, "end": 1, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": []
+
+}
