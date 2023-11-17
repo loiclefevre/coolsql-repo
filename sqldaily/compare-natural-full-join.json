@@ -1,0 +1,23 @@
+{
+"title": "Join to find row differences between tables",
+ "sql": "\n\n\n\nselect * from ( \n  select 't1' t1, t.* from ( values ( 1, 1 ), ( 2, 2 ) ) t ( c1, c2 )\n) t1 \nnatural full join ( \n  select 't2' t2, t.* from ( values ( 2, 2 ), ( 2, 2 ), ( 3, 3 ) ) t ( c1, c2 )\n) t2\nwhere  t1 is null or t2 is null\n\n        C1         C2 T1     T2    \n---------- ---------- ------ ------\n         3          3 <null> t2    \n         1          1 t1     <null>\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 380, "end": 380, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 23, "end": 39, "text": "Add a column identifying the source table in a subquery.\nDo this for both tables", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 97, "end": 114, "text": "A natural full join automatically combines the rows based on the column names\nIt returns the matched and unmatched rows from each table", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 203, "end": 234, "text": "For rows in one table but not the other, the identifier column will be null\nSo this returns the values that only exist in one table", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
