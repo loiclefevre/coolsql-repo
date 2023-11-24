@@ -1,0 +1,23 @@
+{
+"title": "Compare strings for similarity",
+ "sql": "\nwith teams as (\n  select * from ( values ( 'Champions United' ), \n    ( 'Runner-up City' ), ( 'Midtable Town' ), ( 'Underdogs United' )\n  ) t ( team_name )\n) select team_name, \n    fuzzy_match ( levenshtein, team_name, 'Champions City' ) as levenshtein,\n    fuzzy_match ( jaro_winkler, team_name, 'Champions City' ) as jaro_winkler,\n    fuzzy_match ( bigram, team_name, 'Champions City' ) as bigram,\n    fuzzy_match ( whole_word_match, team_name, 'Champions City' ) as wwm,\n    fuzzy_match ( longest_common_substring, team_name, 'Champions City' ) as lcs\n  from   teams;\n  \nTEAM_NAME        LEVENSHTEIN JARO_WINKLER     BIGRAM        WWM        LCS\n---------------- ----------- ------------ ---------- ---------- ----------\nChampions United          75           92         66         50         62\nRunner-up City            36           57         30         50         35\nMidtable Town              8           44          0          0          7\nUnderdogs United          32           49         13          0         12",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 574, "end": 574, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 182, "end": 555, "text": "The first argument for FUZZY_MATCH is the algorithm\nThese compare \"Champions City\" to each team name using the algorithm", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
