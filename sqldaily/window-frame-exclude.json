@@ -1,0 +1,23 @@
+{
+"title": "Remove rows from running total calculations",
+ "sql": "\n\nselect hire_date\n, count(*) over ( hire_w rows unbounded preceding exclude no others ) include_all\n, count(*) over ( hire_w rows unbounded preceding exclude current row ) omit_current\n, count(*) over ( hire_w rows unbounded preceding exclude group ) omit_group\n, count(*) over ( hire_w rows unbounded preceding exclude ties ) omit_ties\nfrom   hr.employees\nwhere  hire_date >= date'2015-03-03'\nwindow hire_w as ( order by hire_date )\nfetch first 5 rows only;\n\nHIRE_DATE         INCLUDE_ALL OMIT_CURRENT OMIT_GROUP  OMIT_TIES\n----------------- ----------- ------------ ---------- ----------\n03-MAR-2015 00:00           1            0          0          1\n10-MAR-2015 00:00           2            1          1          2\n10-MAR-2015 00:00           3            2          1          2\n11-MAR-2015 00:00           4            3          3          4\n19-MAR-2015 00:00           5            4          4          5",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 655, "end": 655, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 21c (August 2021)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 19, "end": 337, "text": "CURRENT ROW = remove the row being processed from the calculation.\nGROUP = omit all rows with the same value as the current\nTIES = omit all other rows with the same value as the current\nNO OTHERS = Include all rows in the window in the calculation. This is the default.", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 773, "end": 785, "text": "OMIT_GROUP = 1 because it omits ALL rows for 10th March\nOMIT_TIES = 2 because it omits OTHER rows for 10th March", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
