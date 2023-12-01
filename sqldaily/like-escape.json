@@ -1,0 +1,23 @@
+{
+"title": "Search for strings containing wildcards",
+ "sql": "\n\n\nwith strs ( str ) as (                                        STR     \n  select 'TAB_NAME' str from dual union all                   --------\n  select 'TAB%NAME' str from dual union all                   TAB_NAME\n  select 'TAB\\NAME' str from dual                             TAB%NAME\n)                                                             TAB\\NAME\n  select * from strs where str like 'TAB_NAME';\n\n\nwith strs ( str ) as (                                        STR     \n  select 'TAB_NAME' str from dual union all                   --------\n  select 'TAB%NAME' str from dual union all                   TAB_NAME\n  select 'TAB\\NAME' str from dual \n)\n  select * from strs where str like 'TAB\\_NAME' escape '\\';\n  ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 717, "end": 717, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 385, "end": 404, "text": "Underscore matches any single character; so this returns all the rows", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 694, "end": 716, "text": "To match underscore only, this defines backslash as the escape character", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
