@@ -1,0 +1,23 @@
+{
+"title": "Convert PL/SQL to SQL at runtime",
+ "sql": "\ncreate or replace function get_year ( input_date date ) return int as\nbegin \n  return extract ( year from input_date ); \nend;\n/\n\nalter session set sql_transpiler = on;\n\nselect * from hr.employees where get_year ( hire_date ) = 2018;\n\n Id  | Operation         | Name      \n-------------------------------------\n   0 | SELECT STATEMENT  |           \n*  1 |  TABLE ACCESS FULL| EMPLOYEES \n\nPredicate Information (identified by operation id):\n \n   1 - filter(EXTRACT(YEAR FROM INTERNAL_FUNCTION(\"HIRE_DATE\"))=2018)",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 387, "end": 387, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 130, "end": 168, "text": "This enables the transpiler. The optimizer can then extract\nexpressions out of PL/SQL and place them in SQL at parse time\n=> at runtime the statement is pure SQL", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 456, "end": 510, "text": "The predicate section shows the expression in the function;\nnot the function itself. This shows you it has been transpiled", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
