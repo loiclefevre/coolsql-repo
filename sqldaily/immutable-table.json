@@ -1,0 +1,23 @@
+{
+"title": "Create insert only tables",
+ "sql": "\n\ncreate immutable table insert_only ( c1 int )\n  no drop until 0 days idle\n  no delete until 16 days after insert;\n\ninsert into insert_only values ( 1 );\n\nupdate insert_only set c1 = 2;\nORA-05715: operation not allowed on the blockchain or immutable table\n\ndelete insert_only where c1 = 1;\nORA-05715: operation not allowed on the blockchain or immutable table\n\nselect * from insert_only;\n\n        C1\n----------\n         1\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 389, "end": 389, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 19c (April 2019)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 50, "end": 75, "text": "How many days you have to wait after the last insert to drop the table\nBE WARY OF NON-ZERO VALUES WHEN TESTING!", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 78, "end": 114, "text": "How many days after inserting a row you can delete it from the table", "durationInMS": 7433, "displayAtSemiColon": false}, {"start": 156, "end": 257, "text": "You can never update rows in blockchain or immutable tables", "durationInMS": 6758, "displayAtSemiColon": false}, {"start": 258, "end": 360, "text": "You can only remove rows older than the NO DELETE clause states", "durationInMS": 7028, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
