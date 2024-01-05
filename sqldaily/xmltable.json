@@ -1,0 +1,23 @@
+{
+"title": "Convert XML documents to rows and columns",
+ "sql": "\n\nselect * from xmltable ( '/employees/employee'\n  passing xmltype ( \n   '<employees>\n      <employee id=\"100\">\n        <job>AD_PRES</job><hiredate>17-JUN-2013</hiredate>\n      </employee>\n      <employee id=\"101\">\n        <job>AD_VP</job><hiredate>21-SEP-2015</hiredate>\n      </employee>\n    </employees>' \n  ) columns id path '@id', job path 'job', hiredate path 'hiredate'\n) r;\n           \nID   JOB       HIREDATE   \n---- --------- -----------\n100  AD_PRES   17-JUN-2013    \n101  AD_VP     21-SEP-2015",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 271, "end": 271, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 16, "end": 48, "text": "This generates a row for each <employee> element under <employees>", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 313, "end": 376, "text": "Using @ for the path finds attributes of the path specified; \nWithout this it searches for elements in the path", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
