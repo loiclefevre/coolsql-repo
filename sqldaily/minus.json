@@ -1,0 +1,23 @@
+{
+"title": "Find rows in one table not in another",
+ "sql": "\n\ncreate table t1 as select level c1 from dual connect by level <= 3;\n\ncreate table t2 as select mod ( level, 3 ) c1 from dual connect by level <= 4;\n\nselect * from t1           C1\nminus               ----------\nselect * from t2;           3\n\nselect * from t2           C1\nminus all           ----------\nselect * from t1;           1\n                            0 \n\nselect * from t2           C1\nminus               ----------\nselect * from t1;           0",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 364, "end": 364, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 21c (August 2021)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 151, "end": 242, "text": "This returns the rows in T1 that are not in T2", "durationInMS": 4865, "displayAtSemiColon": false}, {"start": 243, "end": 365, "text": "There are two rows where C1 = 1 in T2, but one in T1\nMINUS ALL the T1 row from one of the T2 C1 = 1 rows\nThis leaves one C1 = 1 row in the result", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 366, "end": 456, "text": "MINUS defaults to DISTINCT, removes duplicate rows\nSo the extra C1 = 1 row in T2 is ignored", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
