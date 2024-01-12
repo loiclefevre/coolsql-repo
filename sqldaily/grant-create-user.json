@@ -1,0 +1,23 @@
+{
+"title": "Create users and grant privs in one step",
+ "sql": "\n\ncreate user data_owner\n  identified by data_owner_password;\n  \nconn data_owner/data_owner_password@db\nORA-01045: user DATA_OWNER lacks CREATE SESSION privilege; logon denied\nconn admin_user/admin_pass@db\n\ndrop user data_owner;\n\ngrant create session\n  to data_owner, app_user\n  identified by data_owner_password, app_user_password;\n  \nconn data_owner/data_owner_password@db\n--Connected.\nconn app_user/app_user_password@db\n--Connected.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 387, "end": 387, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 61, "text": "When you use CREATE USER, they have no privileges\nSo they can't even connect to the database!", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 230, "end": 332, "text": "Adding the IDENTIFIED BY clause to GRANT:\n- Creates the user if they don't exist\n- Resets their password if they do\nSo this makes DATA_OWNER & APP_USER with connect privs", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
