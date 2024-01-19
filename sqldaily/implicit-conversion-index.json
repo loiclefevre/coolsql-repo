@@ -1,0 +1,23 @@
+{
+"title": "Implicit conversions stop index access",
+ "sql": "\n\ncreate table t ( t_id varchar2(1000) primary key );\n\n\nselect * from t        Id  | Operation         | Name         \nwhere t_id = 1;       ----------------------------------------\n                         0 | SELECT STATEMENT  |      \n                      *  1 |  TABLE ACCESS FULL| T    \n \n                         1 - filter(TO_NUMBER(\"T_ID\")=1)\n\n\nselect * from t        Id  | Operation         | Name         \nwhere t_id = '1';     ----------------------------------------\n                         0 | SELECT STATEMENT  |              \n                      *  1 |  INDEX UNIQUE SCAN| SYS_C0023659 \n \n                         1 - access(\"T_ID\"='1')",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 112, "end": 112, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 632, "end": 654, "text": "When comparing strings to strings, there's no conversion\n=> The database can use the PK index to find the data", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 318, "end": 350, "text": "When comparing strings to numbers, the database converts the string\nThis is because the texts \"1\", \"1.00\", \"001\", etc. are all the number 1\nThis stops the query using the primary key index => full table scan", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
