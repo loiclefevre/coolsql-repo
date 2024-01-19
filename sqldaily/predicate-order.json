@@ -1,0 +1,23 @@
+{
+"title": "Where clauses can run in any order",
+ "sql": "\n\ncreate table t ( c1, c2, c3 ) as \n  select level-2, 'test', sysdate from dual\n  connect by level <= 100;\n  \nselect count(*) from t\nwhere  c1 > 0\nand    sqrt ( c1 ) > 10;\nORA-01428: argument '-1' is out of range\n\nselect count(*) from t\nwhere  case \n  when c1 > 0 then sqrt ( c1 ) else 0 \nend > 10;\n\n  COUNT(*)\n----------\n         0\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 288, "end": 288, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 252, "end": 288, "text": "Use a CASE expression to avoid this\nThe database only runs THEN ... if the WHEN clause is true\nSo this guarantees SQRT ( C1 ) only runs on positive values", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 133, "end": 171, "text": "The order you write predicates has no impact on execution order\nAlthough C1 > 0 is top, the optimizer may choose to run SQRT ( C1 ) first\nWhich can lead to errors if C1 has negative values", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
