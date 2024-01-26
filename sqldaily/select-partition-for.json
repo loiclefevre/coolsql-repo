@@ -1,0 +1,23 @@
+{
+"title": "Access partitions by value",
+ "sql": "\n\ncreate table t ( c1 int ) partition by range ( c1 ) interval ( 10 ) (\n  partition p0 values less than ( 11 )\n);\n--Table T created.\n\ninsert into t \n  select level from dual connect by level <= 100;\n---100 rows inserted.\n\nselect min ( c1 ), max ( c1 ) from t partition for ( 45 );\n\n   MIN(C1)    MAX(C1)\n---------- ----------\n        41         50\n\nalter table t drop partition for ( 10 );\n--Table T altered.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 303, "end": 303, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 257, "end": 279, "text": "The only accesses the partition which has the value 45", "durationInMS": 6082, "displayAtSemiColon": false}, {"start": 349, "end": 388, "text": "You can also use this syntax to manage partitions, \ne.g. to move, drop or truncate them\nThis removes the partition which stores the value 10", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
