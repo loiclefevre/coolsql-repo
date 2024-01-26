@@ -1,0 +1,23 @@
+{
+"title": "Create local functions in SQL",
+ "sql": "\n\nwith function display_currency ( val number ) return varchar2 as\nbegin\n  return to_char ( val, '$999,990.00' );\nend;\nselect employee_id,\n       display_currency ( salary ) sal,\n       display_currency ( salary * commission_pct ) comm,\n       display_currency ( salary * ( 1 + commission_pct ) ) total\nfrom   hr.employees where commission_pct is not null\n/\n\nEMPLOYEE_ID SAL             COMM            TOTAL          \n----------- --------------- --------------- ---------------\n        145   $14,000.00       $5,600.00      $19,600.00   \n        146   $13,500.00       $4,050.00      $17,550.00   \n        147   $12,000.00       $3,600.00      $15,600.00 \n...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "display_currency",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 357, "end": 357, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 118, "text": "You can define PL/SQL functions in the WITH clause\nThese are local to the SQL statement\nHandy for one-off logic like formatting", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
