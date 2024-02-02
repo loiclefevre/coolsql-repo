@@ -1,0 +1,23 @@
+{
+"title": "Timestamp differences in hours or seconds",
+ "sql": "\nwith rws as (\n  select to_timestamp ( '31-MAY-2023 12:34:56.123456', 'DD-MON-YYYY HH24:MI:SS.FF' ) \n           - timestamp '2023-03-21 00:00:00' interval_diff\n  from   dual\n) select interval_diff, \n           ( extract ( day from interval_diff ) * 24 ) +\n             extract ( hour from interval_diff ) +\n     round ( extract ( minute from interval_diff ) / 60 ) hour_diff,\n     --\n     ( extract ( day from interval_diff ) * 86400 ) +\n     ( extract ( hour from interval_diff ) * 3600 ) +\n     ( extract ( minute from interval_diff ) * 60 ) +\n       extract ( second from interval_diff ) seconds_diff\n  from   rws;\n\nINTERVAL_DIFF        HOUR_DIFF   SECONDS_DIFF\n------------------- ---------- --------------\n+71 12:34:56.123456       1717 6179696.123456",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "display_currency",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 212, "end": 364, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 204, "end": 364, "text": "To get the total hours in an interval, convert each part to hours and sum them:\n=> Multiply the days by the hours in a day (24)\n=> Divide the minutes by mintes in an hour (60)\nIf you need greater precision, include seconds divided by 3,600", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 389, "end": 603, "text": "The method is similar to get the total seconds\nSum the parts converted to seconds:\nDays * 86,400\nHours * 3,600\nMinutes *  60", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
