@@ -1,0 +1,23 @@
+{
+"title": "Get the relative rank of rows",
+ "sql": "\n\nwith rws as (                                           C1         C2      PR_C1\n  select level c1, mod ( level, 3 ) c2          ---------- ---------- ----------\n  from dual connect by level <= 5                        1          1          0 \n)                                                        2          2        .25\nselect c1, c2,                                           3          0         .5\n  percent_rank () over ( order by c1 ) pr_c1             4          1        .75\nfrom   rws order by c1;                                  5          2          1\n\n\nwith rws as (                                           C1         C2      PR_C2\n  select level c1, mod ( level, 3 ) c2          ---------- ---------- ----------\n  from dual connect by level <= 5                        3          0          0\n)                                                        1          1        .25\nselect c1, c2,                                           4          1        .25\n  percent_rank () over ( order by c2 ) pr_c2             2          2        .75\nfrom   rws order by c2, c1;                              5          2        .75\n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "percent_rank",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 1101, "end": 1101, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 410, "end": 452, "text": "The percent_rank of each row is its \n\n( rank - 1 ) / ( row count - 1 )\n\nThis gives a relative position between 0 and 1 determined by the ORDER BY\nThe rank works the same way as the RANK function", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 979, "end": 1021, "text": "There are duplicate values for C2 - the repeated values have the same PERCENT_RANK\nThe max value for C2 is 2; two rows have this value, their RANK is 4 so their PR is\n\n( rank - 1 ) / ( row count - 1 ) = ( 4 - 1 ) / ( 5 - 1 ) = 0.75 \n\n=> no row has the PERCENT_RANK one", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
