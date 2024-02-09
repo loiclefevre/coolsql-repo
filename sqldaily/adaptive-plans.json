@@ -1,0 +1,23 @@
+{
+"title": "The optimizer can choose join type at runtime",
+ "sql": "\n\n\nselect * from hr.employees join hr.departments\nusing  ( department_id )   where first_name like 'A%';\n \n   Id  | Operation                     | Name        | Starts | E-Rows | A-Rows \n--------------------------------------------------------------------------------\n     0 | SELECT STATEMENT              |             |      1 |        |     10 \n  *  1 |  HASH JOIN                    |             |      1 |      3 |     10 \n-    2 |   NESTED LOOPS                |             |      1 |      3 |     10 \n-    3 |    NESTED LOOPS               |             |      1 |      3 |     10 \n-    4 |     STATISTICS COLLECTOR      |             |      1 |        |     10 \n  *  5 |      TABLE ACCESS FULL        | EMPLOYEES   |      1 |      3 |     10 \n- *  6 |     INDEX UNIQUE SCAN         | DEPT_ID_PK  |      0 |      1 |      0 \n-    7 |    TABLE ACCESS BY INDEX ROWID| DEPARTMENTS |      0 |      1 |      0 \n     8 |   TABLE ACCESS FULL           | DEPARTMENTS |      1 |      1 |     27 ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 968, "end": 968, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 606, "end": 626, "text": "The STATISTICS COLLECTOR operation counts the rows fetched from employees\nIf this is below the threshold, the plan uses nested loops \nAbove the threshold it uses a hash join", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 755, "end": 916, "text": "In this case the threshold was exceed, so the plan uses a hash join\nYou can see this by the \"-\" symbols at the start of the nested loops lines \nAnd the starts & rows columns are both zero for these operations", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
