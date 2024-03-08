@@ -1,0 +1,23 @@
+{
+"title": "Efficient access of min/max indexed values",
+ "sql": "\n\nselect min ( job_id ) from hr.employees\n \n Id  | Operation                  | Name       | Buffers \n---------------------------------------------------------\n   0 | SELECT STATEMENT           |            |       1 \n   1 |  SORT AGGREGATE            |            |       1 \n   2 |   INDEX FULL SCAN (MIN/MAX)| EMP_JOB_IX |       1 \n\nselect max ( first_name ) from hr.employees where last_name = 'Grant'\n\n Id  | Operation                    | Name        | Buffers \n------------------------------------------------------------\n   0 | SELECT STATEMENT             |             |       1 \n   1 |  SORT AGGREGATE              |             |       1 \n   2 |   FIRST ROW                  |             |       1 \n*  3 |    INDEX RANGE SCAN (MIN/MAX)| EMP_NAME_IX |       1 \n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 772, "end": 772, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 285, "end": 322, "text": "There's an index on JOB_ID => it's MIN is the first entry in this index\n=> The database only needs to read this entry", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 721, "end": 760, "text": "There's an index on (LAST_NAME, FIRST_NAME)\n=> For MAX ( first_name ) WHERE last_name = ...\n=> The database only needs to read the last index entry matching last_name", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
