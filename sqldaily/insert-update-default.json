@@ -1,0 +1,23 @@
+{
+"title": "Set columns to their default value",
+ "sql": "\n\ncreate table t ( c1 int default 3141, c2 int default 42 );\n\ninsert into t ( c1, c2 ) values ( 1, default );\n\nselect * from t;\n\n        C1         C2\n---------- ----------\n         1         42\n\nupdate t set c1 = default;\n\nselect * from t;\n\n        C1         C2\n---------- ----------\n      3141         42\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 241, "end": 241, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 87, "end": 108, "text": "This uses the DEFAULT value for the column, \nso this inserts 42 in C2", "durationInMS": 7433, "displayAtSemiColon": false}, {"start": 196, "end": 222, "text": "This updates C1 to its default value, setting it to 3141", "durationInMS": 6217, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
