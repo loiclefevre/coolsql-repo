@@ -1,0 +1,23 @@
+{
+"title": "Create new range partitions on insert",
+ "sql": "\n\ncreate table t ( c1 date ) partition by range ( c1 )\n  interval ( interval '1' month ) (\n    partition p0 values less than ( date'2024-01-01' )\n  );\n\ninsert into t values ( date'2024-04-01' );\ninsert into t values ( date'2025-12-31' );\ninsert into t values ( date'2024-06-06' );\n\nselect partition_name, high_value from user_tab_partitions;\n\nPARTITION_NAME       HIGH_VALUE                            \n-------------------- --------------------------------------\nP0                   TO_DATE(' 2024-01-01 00:00:00', ... ) \nSYS_P3183            TO_DATE(' 2024-05-01 00:00:00', ... ) \nSYS_P3184            TO_DATE(' 2026-01-01 00:00:00', ... ) \nSYS_P3185            TO_DATE(' 2024-07-01 00:00:00', ... )\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 2, "end": 2, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 11g R1 (September 2007)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 153, "end": 281, "text": "These inserts create three new partitions, \nwith high values of 1 May 24, 1 Jan 26, and 1 Jul 24 respectively", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 56, "end": 151, "text": "The database will automatically create new partitions on insert\nThey have one month offsets from 1 Jan 2024", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
