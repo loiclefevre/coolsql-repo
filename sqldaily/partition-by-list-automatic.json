@@ -1,0 +1,23 @@
+{
+"title": "Create new list partitions on insert",
+ "sql": "\n\ncreate table solar_system ( solar_object varchar2(10) )\npartition by list ( solar_object ) automatic (\n  partition sun values ( 'sun' )\n);\n\ninsert into solar_system values ( 'mercury' );\ninsert into solar_system values ( 'venus' );\ninsert into solar_system values ( 'earth' );\n\nselect partition_name, high_value from user_tab_partitions;\n\nPARTITION_NAME       HIGH_VALUE\n-------------------- ----------\nSUN                  'sun'     \nSYS_P3192            'mercury' \nSYS_P3193            'venus'   \nSYS_P3194            'earth'   ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 404, "end": 404, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 142, "end": 278, "text": "Each of these inserts also creates a new partition", "durationInMS": 5676, "displayAtSemiColon": false}, {"start": 58, "end": 102, "text": "When you insert a new value for SOLAR_OBJECT, \nthe AUTOMATIC clause means the database creates a new partition", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
