@@ -1,0 +1,23 @@
+{
+"title": "Grant READ to allow select without for update",
+ "sql": "\n\ngrant select on hr.employees to u;\ngrant read on hr.departments to u;\n\nconn u\n\nselect count(*) from hr.employees           COUNT(*)\njoin   hr.departments                     ----------\nusing ( department_id );                         106\n\nselect department_id from hr.departments for update;\nORA-01031: insufficient privileges\n\nselect employee_id from hr.employees for update;\n\nEMPLOYEE_ID\n-----------\n        100\n        ...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 240, "end": 240, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 21c (August 2021)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 71, "text": "U can query both tables, but only run SELECT FOR UPDATE on employees", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
