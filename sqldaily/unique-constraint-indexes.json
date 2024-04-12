@@ -1,0 +1,23 @@
+{
+"title": "Indexes for unique constraints",
+ "sql": "\n\n\ncreate table t ( c1 int, c2 int );\n\ncreate index i on t ( c1, c2 );\n\nalter table t add constraint u1 unique ( c1 );\nalter table t add constraint u2 unique ( c2 );\n\nselect index_name, uniqueness\nfrom   user_indexes where table_name = 'T';\n\nINDEX_NAME UNIQUENES\n---------- ---------\nI          NONUNIQUE\nU2         UNIQUE   ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 240, "end": 240, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 72, "end": 165, "text": "The index I has C1 as the first column, so the constraint U1 uses it\nThere is no index with C2 first, so the database creates a new index for U2", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
