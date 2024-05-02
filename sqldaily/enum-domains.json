@@ -1,0 +1,23 @@
+{
+"title": "Create lists of values with enum domains",
+ "sql": "\n\ncreate domain statuses as enum ( open, closed, cancelled );\n\nselect *                                ENUM_NAME ENUM_VALUE\nfrom   statuses;                        --------- ----------\n                                        OPEN               1\n                                        CLOSED             2\n                                        CANCELLED          3\n\ncreate table orders ( order_id int, status statuses );\n\ninsert into orders values ( 1, statuses.open );\n\nselect order_id, status,                  ORDER_ID     STATUS NAME   \n       domain_display ( status ) name   ---------- ---------- ---------\nfrom   orders;                                   1          1 OPEN   \n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.256349,
+ "selection": {"start": 615, "end": 615, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 63, "end": 368, "text": "You can query an enum like a table to see its names and values", "durationInMS": 7380, "displayAtSemiColon": false}, {"start": 405, "end": 420, "text": "You can use an enum as a column data type\nThis has a check constraint so it can only store the enum's values", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 456, "end": 469, "text": "You can reference enum names in SQL statements\nThis returns its corresponding values", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 474, "end": 686, "text": "Pass enum domain columns to DOMAIN_DISPLAY \nto see the name associated with the value", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
