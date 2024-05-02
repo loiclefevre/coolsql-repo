@@ -1,0 +1,23 @@
+{
+"title": "Write graph search queries",
+ "sql": "\n\ncreate property graph friends_graph\n  vertex tables (\n    persons key ( person_id ) label person \n  )\n  edge tables (\n    friendships as friends\n      key ( friendship_id )\n      source key ( person_a ) references persons ( person_id )\n      destination key ( person_b ) references persons ( person_id )\n  );\n\nselect * from graph_table (                             PERSON_A   PERSON_B\n  friends_graph match                                 ---------- ----------\n  ( a is person ) -[e is friends]->                          Pat       Mary\n  ( b is person where b.name = 'Mary' )                      Ted       Mary\n  columns ( a.name as person_a, b.name as person_b )      Tucker       Mary\n);\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 119, "end": 119, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 311, "text": "This creates the property graph \nEach row in PERSONS is a node in it\nEach row in FRIENDSHIPS is an edge connecting PERSONS", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 312, "end": 695, "text": "Use the GRAPH_TABLE operator to search the graph \nThis finds everyone who is friends with Mary\ni.e. there is a row in FRIENDSHIPS linking someone to Mary", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
