@@ -1,6 +1,6 @@
 {
-"title": "Map relational to JSON",
- "sql": "\ncreate or replace json relational duality view department_employees as\nselect json { 'dId' : department_id, 'dName' : department_name, 'emps' : [\n   ( select json { 'eName' : last_name, 'eId' : employee_id, 'hired' : hire_date }\n     from   hr.employees e with insert update delete\n     where  e.department_id = d.department_id )\n   ] } \nfrom   hr.departments d with insert update delete;\n\ninsert into department_employees values ( \n'{\"dId\":0,\"dName\":\"Try 23c\",\"emps\":[{\"eName\":\"free\",\"eId\":0,\"hired\":\"2023-04-04\"}]}'\n);\n\nselect department_name, last_name, hire_date  from hr.employees \njoin   hr.departments using ( department_id ) where employee_id = 0;\n\nDEPARTMENT_NAME                LAST_NAME                 HIRE_DATE  \n------------------------------ ------------------------- -----------\nTry 23c                        free                      04-APR-2023",
+"title": "Transparent JSON to relational conversion",
+ "sql": "\ncreate or replace json relational duality view department_employees as\nselect json { 'dId' : department_id, 'dName' : department_name, 'emps' : [\n   ( select json { 'eName' : last_name, 'eId' : employee_id, 'hired' : hire_date }\n     from   employees e with insert update delete\n     where  e.department_id = d.department_id )\n   ] } \nfrom   departments d with insert update delete;\n\ninsert into department_employees values ( \n'{\"dId\":0,\"dName\":\"Try 23ai\",\"emps\":[{\"eName\":\"Free\",\"eId\":0,\"hired\":\"2024-05-02\"}]}'\n);\n\nselect department_name, last_name, hire_date  from hr.employees \njoin   hr.departments using ( department_id ) where employee_id = 0;\n\nDEPARTMENT_NAME                LAST_NAME                 HIRE_DATE  \n------------------------------ ------------------------- -----------\nTry 23ai                       Free                      02-MAY-2024",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,13 +10,13 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.165873,
- "selection": {"start": 390, "end": 390, "mode": "ROUND_SQUARE", "hint": "", "top": true},
- "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "selection": {"start": 652, "end": 652, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
  "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 72, "end": 338, "text": "You can use SQL or a subset of GraphQL syntax to generate \nthe JSON document from relational tables", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 363, "end": 389, "text": "This enables you to edit rows in DEPARTMENTS by passing\nJSON documents to INSERT, UPDATE, & DELETE on the view", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 434, "end": 518, "text": "The database translates the JSON into inserts on DEPARTMENTS & EMPLOYEES", "durationInMS": 8577, "displayAtSemiColon": false}],
+ "explanations": [{"start": 72, "end": 335, "text": "You can use SQL or a subset of GraphQL syntax to generate \nthe JSON document from relational tables", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 343, "end": 382, "text": "This enables you to edit rows in DEPARTMENTS by passing\nJSON documents to INSERT, UPDATE, & DELETE on the view", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 385, "end": 517, "text": "The database translates the JSON into inserts on DEPARTMENTS & EMPLOYEES", "durationInMS": 8577, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
  "targetURL": ""
 
