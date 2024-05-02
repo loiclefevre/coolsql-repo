@@ -11,7 +11,7 @@
  "displayTabs": false,
  "speedMultiplier": 1.331746,
  "selection": {"start": 574, "end": 574, "mode": "ROUND_SQUARE", "hint": "", "top": true},
- "version": "Oracle Database since 23c", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
