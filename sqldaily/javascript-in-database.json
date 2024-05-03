@@ -1,0 +1,23 @@
+{
+"title": "Create JavaScript stored procedures",
+ "sql": "\n\ncreate or replace function epoch_to_timestamp ( \"ep\" number ) \n  return timestamp as mle language javascript \n{{\n    var utcSeconds = ep;\n    var d = new Date(0); \n    d.setUTCSeconds(utcSeconds);\n    return d;\n}};\n/\n\nselect \n  epoch_to_timestamp ( 1714662000 ) ep_ts1,\n  epoch_to_timestamp ( 1234567890 ) ep_ts2;\n\nEP_TS1                        EP_TS2                        \n----------------------------- -----------------------------\n02/05/2024 16:00:00.000000000 13/02/2009 23:31:30.000000000\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 212, "end": 212, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 87, "end": 110, "text": "This defines the function body uses JavaScript code", "durationInMS": 5947, "displayAtSemiColon": false}, {"start": 115, "end": 212, "text": "This JavaScript converts UNIX epochs to datetime values", "durationInMS": 6487, "displayAtSemiColon": false}, {"start": 220, "end": 315, "text": "You can run the JavaScript in SQL by calling the function like regular PL/SQL units", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
