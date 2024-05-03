@@ -1,6 +1,6 @@
 {
-"title": "Override NULL on INSERT",
- "sql": "\n\ncreate table t (\n  c1 int, c2 timestamp default on null systimestamp\n);\n\ninsert into t ( c1 ) values ( 1 );\ninsert into t values ( 2, null );\ninsert into t values ( 3, default );\ninsert into t values ( 4, timestamp'2023-01-01 12:34:56' );\n\nselect * from t;\n\n        C1 C2                            \n---------- ------------------------------\n         1 07-SEP-2023 16.51.37.407039000\n         2 07-SEP-2023 16.51.37.414005000\n         3 07-SEP-2023 16.51.37.419583000\n         4 01-JAN-2023 12.34.56.000000000",
+"title": "Use default values instead of null on update",
+ "sql": "\n\ncreate table t ( \n  update_ts timestamp default on null for insert and update systimestamp\n);\n\ninsert into t values ( null );\n\nselect *     UPDATE_TS\nfrom   t;    -----------------------------\n             03/05/2024 10:14:57.798518000\n\n--wait a while...\nupdate t set update_ts = null;\n\nselect *     UPDATE_TS\nfrom   t;    -----------------------------\n             03/05/2024 10:16:32.995202000\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,14 +9,14 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
- "speedMultiplier": 1.316667,
- "selection": {"start": 501, "end": 501, "mode": "ROUND_SQUARE", "hint": "", "top": true},
- "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 237, "end": 237, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
  "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 32, "end": 70, "text": "The default will kick in if you omit C2 or set it to NULL on INSERT", "durationInMS": 7108, "displayAtSemiColon": false}, {"start": 75, "end": 240, "text": "The first three inserts will all use the default (SYSTIMESTAMP)\nProviding your own value will still override the default", "durationInMS": 7594, "displayAtSemiColon": false}],
+ "explanations": [{"start": 42, "end": 79, "text": "If you set this column to NULL in inserts or updates, \nthe database will use the default (SYSTIMESTAMP) instead", "durationInMS": 7508, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
  "targetURL": ""
 
