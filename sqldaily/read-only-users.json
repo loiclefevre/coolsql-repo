@@ -1,0 +1,23 @@
+{
+"title": "Stop users making changes to the database",
+ "sql": "\n\ncreate table t ( c1 int );\ngrant create session to reporting_user identified by \"reporting\"; \ngrant insert on chris.t to reporting_user;\n\nconn reporting_user/reporting\n\ninsert into chris.t values ( 1 );\n-- 1 row inserted.\n\nconn chris\n\nalter user reporting_user read only;\n\nconn reporting_user/reporting\n\ninsert into chris.t values ( 1 );\nORA-28194: Can perform read operations only\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 224, "end": 224, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 171, "end": 224, "text": "REPORTING_USER has INSERT privs on CHRIS.T, so this works", "durationInMS": 6622, "displayAtSemiColon": false}, {"start": 237, "end": 274, "text": "This stops REPORTING_USER writing any data to the database", "durationInMS": 6758, "displayAtSemiColon": false}, {"start": 306, "end": 383, "text": "Setting REPORTING_USER to READ ONLY overrides their insert privileges, so this fails", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
