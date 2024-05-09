@@ -1,6 +1,6 @@
 {
 "title": "Transparent JSON to relational conversion",
- "sql": "\ncreate or replace json relational duality view department_employees as\nselect json { 'dId' : department_id, 'dName' : department_name, 'emps' : [\n   ( select json { 'eName' : last_name, 'eId' : employee_id, 'hired' : hire_date }\n     from   employees e with insert update delete\n     where  e.department_id = d.department_id )\n   ] } \nfrom   departments d with insert update delete;\n\ninsert into department_employees values ( \n'{\"dId\":0,\"dName\":\"Try 23ai\",\"emps\":[{\"eName\":\"Free\",\"eId\":0,\"hired\":\"2024-05-02\"}]}'\n);\n\nselect department_name, last_name, hire_date  from hr.employees \njoin   hr.departments using ( department_id ) where employee_id = 0;\n\nDEPARTMENT_NAME                LAST_NAME                 HIRE_DATE  \n------------------------------ ------------------------- -----------\nTry 23ai                       Free                      02-MAY-2024",
+ "sql": "\ncreate or replace json relational duality view department_employees as\nselect json { '_id' : department_id, 'dName' : department_name, 'emps' : [\n   ( select json { 'eName' : last_name, 'eId' : employee_id, 'hired' : hire_date }\n     from   employees e with insert update delete\n     where  e.department_id = d.department_id )\n   ] } \nfrom   departments d with insert update delete;\n\ninsert into department_employees values ( \n'{\"_id\":0,\"dName\":\"Try 23ai\",\"emps\":[{\"eName\":\"Free\",\"eId\":0,\"hired\":\"2024-05-02\"}]}'\n);\n\nselect department_name, last_name, hire_date  from employees \njoin   departments using ( department_id ) where employee_id = 0;\n\nDEPARTMENT_NAME                LAST_NAME                 HIRE_DATE  \n------------------------------ ------------------------- -----------\nTry 23ai                       Free                      02-MAY-2024",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,7 +10,7 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.165873,
- "selection": {"start": 652, "end": 652, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 89, "end": 89, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
