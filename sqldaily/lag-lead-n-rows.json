@@ -1,0 +1,23 @@
+{
+"title": "Get values N rows before/after current",
+ "sql": "\nwith rws ( c1 ) as ( \n  select level from dual connect by level <= 5\n) \nselect lag ( c1, 2, 0 ) over ( order by c1 ) two_back,\n       lag ( c1 ) over ( order by c1 ) one_back,\n       c1, \n       lead ( c1 ) over ( order by c1 ) one_forward, \n       lead ( c1, 3, 999 ) over ( order by c1 ) three_forward\nfrom   rws;\n\n  TWO_BACK   ONE_BACK         C1 ONE_FORWARD THREE_FORWARD\n---------- ---------- ---------- ----------- -------------\n         0 <null>              1           2             4\n         0          1          2           3             5\n         1          2          3           4           999\n         2          3          4           5           999\n         3          4          5 <null>                999",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 435, "end": 435, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 196, "end": 304, "text": "LEAD defaults to the value from the NEXT row & returns NULL for the LAST row\nThe 2nd parameter controls how many rows to look foward\nThe 3rd parameter is the return value when you go beyond the last", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 80, "end": 176, "text": "LAG defaults to the value from the PREVIOUS row & returns NULL for the FIRST row\nThe 2nd parameter controls how many rows to look back \nThe 3rd parameter is the return value when you go beyond the first", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
