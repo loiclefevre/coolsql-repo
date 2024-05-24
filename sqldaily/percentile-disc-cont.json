@@ -1,0 +1,23 @@
+{
+"title": "Find percentile values",
+ "sql": "\n\nselect last_name, salary, \n       percentile_cont (0.9) within group ( order by salary ) \n         over ( partition by department_id) \"Percentile_Cont\",\n       percentile_disc (0.9) within group ( order by salary ) \n         over ( partition by department_id ) \"Percentile_disc\",\n       percent_rank () \n         over ( partition by department_id order by salary ) \"Percent_Rank\"\nfrom   hr.employees where department_id = 30 order by salary;\n\nLAST_NAME                     SALARY Percentile_Cont Percentile_disc Percent_Rank\n------------------------- ---------- --------------- --------------- ------------\nColmenares                      2500            7050           11000            0\nHimuro                          2600            7050           11000           .2\nTobias                          2800            7050           11000           .4\nBaida                           2900            7050           11000           .6\nKhoo                            3100            7050           11000           .8\nLi                             11000            7050           11000            1",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 281, "end": 281, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 36, "end": 281, "text": "These search the rows ordered by salary for the salary at the 90th percentile\nIf there isn't one, DISC returns the value for the next salary\nCONT interpolates values between the salaries for the previous and next percentiles", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 937, "end": 1100, "text": "There is no salary at the 90th percentile\nPERCENT_DISC returns the salary for the next percentile (1)\nPERCENT_CONT averages salaries for the previous (.8) and next (1) percentiles", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
