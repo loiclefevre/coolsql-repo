@@ -1,0 +1,23 @@
+{
+"title": "Standard definitions for data use cases",
+ "sql": "\n\ncreate usecase domain insert_timestamp\n  as timestamp\n  default on null systimestamp;\n\ncreate table t1 ( c1 int, insert_datetime insert_timestamp );\ncreate table t2 ( c1 int, insert_datetime timestamp );\n\nalter table t2 modify ( insert_datetime ) \n  add domain insert_timestamp;\n\nselect table_name, column_name, data_default, default_on_null \nfrom   user_tab_cols where domain_name = 'INSERT_TIMESTAMP';\n\nTABLE_NAME COLUMN_NAME     DATA_DEFAULT    DEF\n---------- --------------- --------------- ---\nT1         INSERT_DATETIME systimestamp    YES\nT2         INSERT_DATETIME systimestamp    YES\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "insert_timestamp",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 547, "end": 547, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 87, "text": "This creates a standard insert_timestamp definition\nYou can associate it with columns when creating or altering tables\nThe columns inherit the default on null property", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 282, "end": 405, "text": "You can find all the insert_timestamp columns by querying the data dictionary\nThis makes data discovery easier & validates they belong to the same use case", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
