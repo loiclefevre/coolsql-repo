@@ -1,0 +1,23 @@
+{
+"title": "SQL Aggregate functions - ARRAY COLLECT",
+ "sql": "\n\n\nsql-> SELECT dt, sensor_id, value FROM sensor_data ORDER BY dt;\n\n{\n  \"dt\" : \"2023-09-05T07:50:00.000Z\",\n  \"sensor_id\" : \"air-flow-sensor-001\",\n  \"value\" : 1000\n}\n\n{\n  \"dt\" : \"2023-09-05T07:50:00.000Z\",\n  \"sensor_id\" : \"engine-speed-sensor-001\",\n  \"value\" : 100\n}\n\n{\n  \"dt\" : \"2023-09-05T07:50:01.000Z\",\n  \"sensor_id\" : \"engine-speed-sensor-001\",\n  \"value\" : 110\n}\n\n...\n\nX rows returned;\n\nsql-> SELECT dt, array_collect( {sensor_id:value} ) as value\nfrom sensor_data\nwhere sensor_id in (\"air-flow-sensor-001\",\"engine-speed-sensor-001\")\nand dt between  \"2023-09-05T07:50:00.000Z\" and \"2023-09-05T07:50:59.000Z\"\ngroup by dt\norder by dt;\n\n{\n  \"dt\" : \"2023-09-05T07:50:00.000Z\",\n  \"value\" : [\n     { \"engine-speed-sensor-001\" : 100 }, \n     { \"air-flow-sensor-001\" : 1000}\n   ]\n}\n\n{\n  \"dt\" : \"2023-09-05T07:50:01.000Z\",\n  \"value\" : [\n     { \"engine-speed-sensor-001\" : 110}, \n     { \"air-flow-sensor-001\" : 1000}\n   ]\n}\n\n{\n  \"dt\" : \"2023-09-05T07:50:02.000Z\",\n  \"value\" : \n   [\n    {\"air-flow-sensor-001\" : 1000} ,  {\"engine-speed-sensor-001\" : 115 }\n   ]\n}\n\n3 rows returned;\n\n\n",
+ "fontSize": 20,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "array_collect, {sensor_id:value}",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 0.984921,
+ "selection": {"start": 971, "end": 1053, "mode": "ROUND_SQUARE", "hint": "Array_Collect( {sensor_id:value} )", "top": false},
+ "version": "Oracle NoSQL Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 68, "end": 164, "text": "Each row is STORED using three columns\n- date\n- sensor_id\n- value", "durationInMS": 9686, "displayAtSemiColon": false}, {"start": 407, "end": 451, "text": "For each row, we will apply the expression {sensor_id : value}\n- Using the value of the sensor_id as name of the new JSON document\n- Then we return an array with the values of each group", "durationInMS": 10153, "displayAtSemiColon": false}, {"start": 612, "end": 623, "text": "A group per date - metric collected", "durationInMS": 5299, "displayAtSemiColon": false}, {"start": 696, "end": 731, "text": "Here is an example of value generated for one of the row\n{\"sensor_id\":\"engine-speed-sensor-001\", value:100} becomes\n{ \"engine-speed-sensor-001\" : 100 }", "durationInMS": 10153, "displayAtSemiColon": false}, {"start": 971, "end": 1053, "text": "the value returned is an array containing the 2 rows in the group", "durationInMS": 9686, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
