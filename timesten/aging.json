@@ -1,6 +1,6 @@
 {
 "title": "Time-Based Aging in TimesTen Classic",
- "sql": "\n\n\nCREATE ASYNCHRONOUS WRITETHROUGH CACHE GROUP ordered_items\nFROM sales.orders\n (\n  ord_num      NUMBER(10) NOT NULL,\n  cust_num     NUMBER(6) NOT NULL,\n  when_placed  DATE NOT NULL,\n  when_shipped DATE NOT NULL,\n  PRIMARY KEY(ord_num)\n  )\n     AGING USE when_placed \n     LIFETIME 45 DAYS \n     CYCLE 60 MINUTES ON,        \nsales.order_item\n (\n  orditem_id NUMBER(12) NOT NULL,\n  ord_num    NUMBER(10),\n  prod_num   VARCHAR2(6),\n  quantity   NUMBER(3),\n  PRIMARY KEY(orditem_id), FOREIGN KEY(ord_num) REFERENCES sales.orders(ord_num)\n  )\n;",
+ "sql": "\n\n\n\nCREATE ASYNCHRONOUS WRITETHROUGH CACHE GROUP ordered_items\nFROM sales.orders\n (\n  ord_num      NUMBER(10) NOT NULL,\n  cust_num     NUMBER(6) NOT NULL,\n  when_placed  DATE NOT NULL,\n  when_shipped DATE NOT NULL,\n  PRIMARY KEY(ord_num)\n  )\n     AGING USE when_placed \n     LIFETIME 45 DAYS \n     CYCLE 60 MINUTES ON,        \nsales.order_item\n (\n  orditem_id NUMBER(12) NOT NULL,\n  ord_num    NUMBER(10),\n  prod_num   VARCHAR2(6),\n  quantity   NUMBER(3),\n  PRIMARY KEY(orditem_id), FOREIGN KEY(ord_num) REFERENCES sales.orders(ord_num)\n  )\n;",
  "fontSize": 16,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,7 +10,7 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.000000,
- "selection": {"start": 241, "end": 317, "mode": "ROUND_SQUARE", "hint": "Cache instances older than 45 days are candidate for aging", "top": true},
+ "selection": {"start": 4, "end": 4, "mode": "ROUND_SQUARE", "hint": "Cache instances older than 45 days are candidate for aging", "top": true},
  "version": "Oracle TimesTen In-Memory Database ", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
