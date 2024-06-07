@@ -1,0 +1,23 @@
+{
+"title": "Convert PL/SQL types to JSON",
+ "sql": "\n\n\ndeclare \n  type rec is record ( a1 int, a2 varchar2(10 ) );\n  r1 rec := rec ( 1, 'a' );\n  r2 rec;\n  j json;\nbegin\n  j := json ( r1 );\n  dbms_output.put_line ( json_serialize ( j ) );\n\n  r2 := json_value ( j, '$' returning rec );\n  dbms_output.put_line ( r2.a1 || '-' || r2.a2 );\nend;\n\n{\"A1\":1,\"A2\":\"a\"}\n1-a",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 305, "end": 305, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 119, "end": 135, "text": "You can pass PL/SQL variables to the JSON constructor\nThis converts them to the equivalent JSON object or array", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 189, "end": 231, "text": "You can specify a PL/SQL data type in the returning clause of JSON_value\nThe database transforms the JSON to the target data type", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
