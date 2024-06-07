@@ -1,0 +1,23 @@
+{
+"title": "Top-N per group queries",
+ "sql": "\n\nselect                                   DEPARTMENT_ID     SALARY LAST_NAME\n  department_id, salary, last_name       ------------- ---------- ------------\nfrom   hr.employees                                 10       4400 Whalen\norder  by department_id, salary desc                20      13000 Martinez\nfetch first                                         20       6000 Davis\n  3 partition by department_id,                     30      11000 Li\n  2 rows only;                                      30       3100 Khoo\n\n\nselect                                   DEPARTMENT_ID HIRE_DATE    LAST_NAME   \n  department_id, hire_date, last_name    ------------- ------------ ------------\nfrom   hr.employees                                 10 17-SEP-2013  Whalen\norder  by department_id, hire_date desc             20 17-AUG-2015  Davis\nfetch first                                         30 10-AUG-2017  Colmenares\n  999999 partition by department_id,     ...\n  1 row only;                                      110 07-JUN-2012  Higgins\n ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 690, "end": 690, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 305, "end": 517, "text": "For the first three departments, \nthis returns the top 2 rows\n=> the two highest paid people", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 830, "end": 1030, "text": "For the first 999999 departments, \nthis returns the top row, sorted by hire date desc\n=> the latest person hired in each department", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": ""
+
+}
