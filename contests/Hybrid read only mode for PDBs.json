@@ -1,0 +1,24 @@
+{
+"title": "Hybrid read only mode for PDBs",
+ "sql": "\n\n\nsys> grant dba to c##dba identified by oracle container = all;\n\nGrant succeeded.\n\n-- change to the freepdb1 pluggable database\nsys> alter session set container = freepdb1;\n\nSession altered.\n\nsys> grant dba to test_dba identified by oracle container = current;\n\nGrant succeeded.\n\n-- change back to the root container\nsys> alter session set container = cdb$root;\n\nSession altered.\n\nsys> alter pluggable database freepdb1 close immediate;\n\nPluggable database altered.\n\nsys> alter pluggable database freepdb1 open hybrid read only;\n\nPluggable database altered.\n\nsys> connect c##dba/oracle@freepdb1\nConnected.\n\nc##dba> select open_mode from v$pdbs;\n\nOPEN_MODE\n----------\nREAD WRITE\n\nc##dba> delete from scott.emp;\n\n14 rows deleted.\n\nc##dba> rollback;\n\nRollback complete.\n\nc##dba> connect test_dba/oracle@freepdb1\nConnected.\n\ntest_dba> select open_mode from v$pdbs;\n\nOPEN_MODE\n----------\nREAD ONLY\n\ntest_dba> delete from scott.emp;\ndelete from scott.emp\n*\nERROR at line 1:\nORA-16000: Attempting to modify database or pluggable database that is open \n           for read-only access.\n\n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "hybrid read only",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 970, "end": 1079, "mode": "FULL_BACKGROUND", "hint": "Prevents any data modification!", "top": false},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 190, "whiteOverlay": "Developers Speed 3", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "Developers Dark Green", "fromX": 89.000000, "fromY": 100.000000, "toX": 10.000000, "toY": 0.000000,  "colors": [{"rgb": false, "red": 0.000000, "green": 0.265000, "blue": 0.300000, "opacity": 1.000000, "percent": 0}, {"rgb": false, "red": 0.000000, "green": 0.265000, "blue": 0.300000, "opacity": 1.000000, "percent": 11}, {"rgb": false, "red": 0.000000, "green": 0.247333, "blue": 0.280000, "opacity": 1.000000, "percent": 22}, {"rgb": false, "red": 0.000000, "green": 0.229667, "blue": 0.260000, "opacity": 1.000000, "percent": 33}, {"rgb": false, "red": 0.000000, "green": 0.229667, "blue": 0.260000, "opacity": 1.000000, "percent": 44}, {"rgb": false, "red": 0.000000, "green": 0.212000, "blue": 0.240000, "opacity": 1.000000, "percent": 56}, {"rgb": false, "red": 0.000000, "green": 0.194333, "blue": 0.220000, "opacity": 1.000000, "percent": 67}, {"rgb": false, "red": 0.000000, "green": 0.173333, "blue": 0.200000, "opacity": 1.000000, "percent": 78}, {"rgb": false, "red": 0.000000, "green": 0.173333, "blue": 0.200000, "opacity": 1.000000, "percent": 89}, {"rgb": false, "red": 0.000000, "green": 0.156000, "blue": 0.180000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 508, "end": 529, "text": "Closed and reopened the PDB in the \"new\" Hybrid read only mode", "durationInMS": 7773, "displayAtSemiColon": true}, {"start": 648, "end": 679, "text": "COMMON users will be in read-write mode", "durationInMS": 5029, "displayAtSemiColon": false}, {"start": 21, "end": 27, "text": "Create a COMMON user with DBA privilege", "durationInMS": 5029, "displayAtSemiColon": true}, {"start": 212, "end": 220, "text": "Create a LOCAL user with DBA privilege", "durationInMS": 4877, "displayAtSemiColon": true}, {"start": 864, "end": 894, "text": "LOCAL (PDB) users will be in read-only mode", "durationInMS": 5487, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "https://docs.oracle.com/en/database/oracle/oracle-database/23/nfcoa/cloud_operations.html#GUID-85182-1",
+ "finalWaitTime": 3000
+
+}
