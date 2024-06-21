@@ -1,16 +1,24 @@
 {
-"title": "Split data into quartiles",
- "sql": "\n\nwith rws as (                   \n  select salary,                \n    width_bucket (              \n      salary,                   \n      min ( salary ) over (), \n      max ( salary ) over () + 1, \n      4 \n    ) grp \n  from   hr.employees \n) \n  select                                     GRP   ROW#      LO      HI\n    grp, count (*) row#,                   ----- ------ ------- -------\n    min ( salary ) lo, max ( salary ) hi       1     68    2100    7500\n  from   rws                                   2     34    7700   13000\n  group  by grp                                3      4   13500   17000\n  order  by grp;                               4      1   24000   24000\n\n",
+"title": "Split data into equal ranges",
+ "sql": "\n\nwith rws as (                   \n  select salary,                \n    width_bucket (              \n      salary,                   \n      min ( salary ) over (), \n      max ( salary ) over () + 1, \n      4 \n    ) grp \n  from   hr.employees \n) \n  select                                     GRP   ROW#      LO      HI\n    grp, count (*) row#,                   ----- ------ ------- -------\n    min ( salary ) lo, max ( salary ) hi       1     68    2100    7500\n  from   rws                                   2     34    7700   13000\n  group  by grp                                3      4   13500   17000\n  order  by grp;                               4      1   24000   24000\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "width_bucket",
- "selection": {"start": 679, "end": 679, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 280, "end": 280, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 68, "end": 219, "text": "Create four buckets; the size of the range for each is ( ( max - min ) / 4 )\nPlace each value of salary in the bucket where it's within min <= sal < max"}]
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 72, "end": 218, "text": "Create four buckets; the size of the range for each is ( ( max - min ) / 4 )\nPlace each value of salary in the bucket where it's within min <= sal < max", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
