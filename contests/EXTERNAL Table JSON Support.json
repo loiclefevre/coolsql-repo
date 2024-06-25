@@ -1,0 +1,24 @@
+{
+"title": "EXTERNAL Table JSON Support",
+ "sql": "\ncreate table if not exists demo_json\n  ( c1 json )\n  organization external\n  ( type oracle_bigdata\n       access parameters(com.oracle.bigdata.fileformat = jsondoc)\n       location (TMP:'sample01.json') ) -- TMP is a DIRECTORY object\n  reject limit unlimited;\n\nTable created.\n\nselect count(*) from demo_json;\n\n  COUNT(*)\n----------\n         1\n\ncreate table if not exists demo_json\n  ( c1 json )\n  organization external\n  ( type oracle_bigdata\n       access parameters(\n             com.oracle.bigdata.json.path = '$[*]'\n             com.oracle.bigdata.fileformat = jsondoc\n             )\n       location (TMP:'sample01.json') )\n  reject limit unlimited;\n\nTable created.\n\nselect count(*) from demo_json;\n\n  COUNT(*)\n----------\n         4\n\ncreate table if not exists demo_json\n  ( c1 json )\n  organization external\n  ( type oracle_bigdata\n       access parameters(\n             com.oracle.bigdata.json.path = '$[*]'\n             com.oracle.bigdata.fileformat = jsondoc\n             )\n       location (TMP:'emp_dept*.json') )\n  reject limit unlimited;\n\nTable created.\n                                        COUNT(*)\nselect count(*) from demo_json;       ----------  \n                                              14\n                                          \n\nselect count(*)\n  from demo_json\n  external modify(\n     location(TMP:'multi_line_test.json') );\n\n  COUNT(*)\n----------\n         4\n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": false,
+ "highlightedWords": "external,com.oracle.bigdata.fileformat,jsondoc,$[*],com.oracle.bigdata.json.path,emp_dept*.json,multi_line_test.json",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.019841,
+ "selection": {"start": 1259, "end": 1355, "mode": "FULL_BACKGROUND", "hint": "Load all your JSON easily!", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 201, "whiteOverlay": "Developers Community", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "Fresh Purple", "fromX": 0.000000, "fromY": 0.847458, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 0.262745, "green": 0.796078, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 0.592157, "green": 0.031373, "blue": 0.800000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 125, "end": 164, "text": "Access parameters set to understand JSON documents.", "durationInMS": 7500, "displayAtSemiColon": true}, {"start": 1330, "end": 1350, "text": "JSON documents spanning multiple lines are supported!", "durationInMS": 5000, "displayAtSemiColon": false}, {"start": 1005, "end": 1019, "text": "Process multiple files together using wildcard.", "durationInMS": 4000, "displayAtSemiColon": false}, {"start": 909, "end": 913, "text": "To see each document in the array as a seperate row,\ninclude the JSON path to the access parameters.", "durationInMS": 9000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "https://docs.oracle.com/en/database/oracle/oracle-database/23/adjsn/loading-external-json-data.html",
+ "finalWaitTime": 1000
+
+}
