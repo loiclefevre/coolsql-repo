@@ -1,15 +1,24 @@
 {
 "title": "Combine rows into comma-separated values",
- "sql": " \n \n\n\nselect department_id dept_id, \n       listagg ( employee_id || '-' || last_name, ',' )\n         within group ( order by employee_id ) staff_by_id, \n       listagg ( employee_id || '-' || last_name, ',' )\n         within group ( order by last_name ) staff_by_name\nfrom   hr.employees e\nwhere  department_id in ( 10, 20, 90 )\ngroup  by department_id;\n\nDEPT_ID STAFF_BY_ID                      STAFF_BY_NAME                       \n     10 200-Whalen                       200-Whalen                          \n     20 201-Hartstein,202-Fay            202-Fay,201-Hartstein               \n     90 100-King,101-Kochhar,102-De Haan 102-De Haan,100-King,101-Kochhar  ",
+ "sql": " \n \n\nselect department_id dept_id, \n       listagg ( employee_id || '-' || last_name, ',' )\n         within group ( order by employee_id ) staff_by_id, \n       listagg ( employee_id || '-' || last_name, ',' )\n         within group ( order by last_name ) staff_by_name\nfrom   hr.employees e\nwhere  department_id in ( 10, 20, 90 )\ngroup  by department_id;\n\n   DEPT_ID STAFF_BY_ID                    STAFF_BY_NAME                 \n---------- ------------------------------ ------------------------------\n        10 200-Whalen                     200-Whalen                    \n        20 201-Martinez,202-Davis         202-Davis,201-Martinez        \n        90 100-King,101-Yang,102-Garcia   102-Garcia,100-King,101-Yang  \n ",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "selection": {"start": 219, "end": 219, "mode": "ROUND_SQUARE", "hint": "", "top": true},
- "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 354, "end": 354, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 11g R2 (September 2009)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": []
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 43, "end": 267, "text": "STAFF_BY_ID sorts the values in the list by EMPLOYEE_ID\nSTAFF_BY_NAME sorts the values in the last by LAST_NAME", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
