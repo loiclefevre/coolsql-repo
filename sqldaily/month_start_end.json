@@ -1,15 +1,24 @@
 {
 "title": "Find the first and last days in a month",
- "sql": " \n \nalter session set nls_date_format = 'DD-MON-YYYY';\n\nwith rws as (\n  select add_months ( date'2022-01-15', level - 1 ) dt \n  from   dual connect by level <= 3\n)\n  select \n    trunc ( dt, 'mm' ) start_of_month, \n    dt, \n    last_day ( dt ) end_of_month\n  from   rws;\n  \nSTART_OF_MONTH    DT             END_OF_MONTH    \n01-JAN-2022       15-JAN-2022    31-JAN-2022     \n01-FEB-2022       15-FEB-2022    28-FEB-2022     \n01-MAR-2022       15-MAR-2022    31-MAR-2022 ",
+ "sql": " \n \nalter session set nls_date_format = 'DD-MON-YYYY';\n\nwith rws as (\n  select add_months ( date'2024-07-15', level - 1 ) dt \n  from   dual connect by level <= 3\n)\n  select \n    trunc ( dt, 'mm' ) start_of_month, \n    dt, \n    last_day ( dt ) end_of_month\n  from   rws;\n\nSTART_OF_MONTH  DT          END_OF_MONTH   \n--------------- ----------- ---------------\n01-JUL-2024     15-JUL-2024 31-JUL-2024    \n01-AUG-2024     15-AUG-2024 31-AUG-2024    \n01-SEP-2024     15-SEP-2024 30-SEP-2024  ",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "selection": {"start": 468, "end": 468, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 488, "end": 488, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": []
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
