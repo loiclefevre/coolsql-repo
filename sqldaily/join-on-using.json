@@ -1,15 +1,24 @@
 {
 "title": "Joins: ON vs USING",
- "sql": " \n \nselect * from hr.countries c\njoin   hr.regions r\nusing  ( region_id )\nfetch  first 2 rows only;\n\n REGION_ID CO COUNTRY_NAME    REGION_NAME              \n         1 BE Belgium         Europe                   \n         1 CH Switzerland     Europe             \n\nselect * from hr.countries c\njoin   hr.regions r\non     r.region_id = c.region_id\nfetch  first 2 rows only;\n\nCO COUNTRY_NAME     REGION_ID  REGION_ID REGION_NAME              \nBE Belgium                  1          1 Europe                   \nCH Switzerland              1          1 Europe  ",
+ "sql": " \n \nselect * from hr.countries c\njoin   hr.regions r using ( region_id )\nfetch  first 2 rows only;\n\n REGION_ID CO COUNTRY_NAME     REGION_NAME              \n---------- -- ---------------- -------------------------\n        10 BE Belgium          Europe                   \n        10 CH Switzerland      Europe\n\nselect * from hr.countries c\njoin   hr.regions r on r.region_id = c.region_id\nfetch  first 2 rows only;\n\nCO  COUNTRY_NAME     REGION_ID  REGION_ID REGION_NAME              \n--- --------------- ---------- ---------- -----------------\nBE  Belgium                 10         10 Europe                   \nCH  Switzerland             10         10 Europe                   \n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
- "highlightedWords": "REGION_ID, region_id",
- "selection": {"start": 372, "end": 372, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "highlightedWords": "region_id",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 469, "end": 469, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": []
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 53, "end": 72, "text": "Both tables must have a column named REGION_ID to use this\nThe database de-duplicates this column & places it first in the results", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 359, "end": 387, "text": "With ON, you need to provide table aliases for the columns\nThe database returns two REGION_ID columns in the results, one for each table", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
