@@ -1,18 +1,24 @@
 {
 "title": "Save the results of SQL queries",
- "sql": "\n\ncreate materialized view rows_in_t as \n  select count (*) rw# from t;    \n      \nselect *                                         RW#\nfrom   rows_in_t;                         ----------\n                                                  42\ndelete t;\ncommit;\n    \nselect *                                         RW#\nfrom   rows_in_t;                         ----------\n                                                  42\nexec dbms_mview.refresh ( 'rows_in_t' );\n\nselect *                                         RW#\nfrom   rows_in_t;                         ----------\n                                                   0 ",
+ "sql": "\n\ncreate table t ( c1 int );\ncreate materialized view log on t\n  with rowid including new values;\n\ncreate materialized view mv refresh fast on commit as \n  select count(*) from t;\n\nselect *        COUNT(*)\nfrom   mv;    ----------\n                       0\n\ninsert into t select level from dual connect by level <= 123456;\ncommit;\n\nselect *        COUNT(*)\nfrom   mv;    ----------\n                  123456",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
- "highlightedWords": "rows_in_t",
- "selection": {"start": 625, "end": 625, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 179, "end": 179, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 265, "end": 335, "text": "The MV needs refreshing to see the data changes;\nit's currently \"stale\" so reports 42 rows in t as before", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 466, "end": 536, "text": "After the refresh the MV will now show zero rows in t", "durationInMS": 7560, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 99, "end": 179, "text": "This saves the result of SELECT COUNT(*) FROM t into MV\nIts a REFRESH FAST ON COMMIT mv, so the database keeps it synced with the table", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 257, "end": 329, "text": "When you commit, the database applies the changes in the MV log\nThis updates the MV to store the same result as the query", "durationInMS": 10000, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
