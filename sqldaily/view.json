@@ -1,18 +1,24 @@
 {
-"title": "Save the text of SQL queries with views",
- "sql": "\n\ncreate table t ( c1 int );\n    \ncreate or replace view rows_in_t as     \n  select count (*) rw# from t;    \n      \nselect *                                    RW#\nfrom   rows_in_t;                    ----------\n                                              0\n    \ninsert into t    \n  select level n from dual connect by level <= 42;    \n    \nselect *                                    RW#\nfrom   rows_in_t;                    ----------\n                                             42\n",
+"title": "Save SQL queries with views",
+ "sql": "\ncreate or replace view department_managers as\n  select d.*, m.first_name || ' ' || m.last_name mgr_name\n  from   hr.departments d left join hr.employees m\n  on     d.manager_id = m.employee_id;\n\nselect * from department_managers where department_name = 'IT';\n\nDEPARTMENT_ID DEPARTMENT_NAME       MANAGER_ID LOCATION_ID MGR_NAME                                      \n------------- --------------------- ---------- ----------- ----------------\n           60 IT                           103        1400 Alexander James \n\nselect mgr_name, e.first_name, e.last_name from department_managers dm\njoin   hr.employees e on dm.manager_id = e.manager_id\nwhere  department_name = 'Accounting';\n\nMGR_NAME                     FIRST_NAME            LAST_NAME                \n---------------------------- --------------------- -------------------------\nShelley Higgins              William               Gietz            ",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
- "highlightedWords": "rows_in_t",
- "selection": {"start": 1, "end": 1, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "highlightedWords": "department_managers",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 644, "end": 644, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 49, "end": 194, "text": "This outer joins departments to their managers", "durationInMS": 7200, "displayAtSemiColon": false}, {"start": 196, "end": 258, "text": "This is the same as adding the where clause to the query in the view\nThe query returns the IT department and its manager", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 520, "end": 683, "text": "This joins to the view to find the people who \nreport to the Accounting department's manager", "durationInMS": 10000, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
