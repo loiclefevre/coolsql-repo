@@ -1,6 +1,6 @@
 {
 "title": "Use default values instead of null on update",
- "sql": "\n\ncreate table t ( \n  update_ts timestamp default on null for insert and update systimestamp\n);\n\ninsert into t values ( null );\n\nselect *     UPDATE_TS\nfrom   t;    -----------------------------\n             03/05/2024 10:14:57.798518000\n\n--wait a while...\nupdate t set update_ts = null;\n\nselect *     UPDATE_TS\nfrom   t;    -----------------------------\n             03/05/2024 10:16:32.995202000\n",
+ "sql": "\n\ncreate table t ( \n  update_ts timestamp default on null for insert and update systimestamp\n);\n\ninsert into t values ( null );\n\nselect *     UPDATE_TS\nfrom   t;    ------------------------------\n             05-SEP-2024 10:14:57.798518000\n\n--wait a while...\nupdate t set update_ts = null;\n\nselect *     UPDATE_TS\nfrom   t;    ------------------------------\n             05-SEP-2024 10:16:32.995202000\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,14 +10,15 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.331746,
- "selection": {"start": 237, "end": 237, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 401, "end": 401, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
  "explanations": [{"start": 42, "end": 79, "text": "If you set this column to NULL in inserts or updates, \nthe database will use the default (SYSTIMESTAMP) instead", "durationInMS": 7508, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 10000
 
 }
