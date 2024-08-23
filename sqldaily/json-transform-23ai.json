@@ -1,0 +1,24 @@
+{
+"title": "Run arithmetic operations on JSON arrays",
+ "sql": "\n\nselect json_transform (\n  '{ items : [\n       { unitPrice : 2.71, quantity : 3 },\n       { unitPrice : 3.14, quantity : 2 }\n     ]\n   }',\n  nested path '$.items[*]' (\n    set '@.totalPrice' = path '@.unitPrice * @.quantity'\n  )\n) added_total;\n\nADDED_TOTAL\n--------------------------------------------------------------\n{ \"items\" : [\n  { \"unitPrice\" : 2.71, \"quantity\" : 3, \"totalPrice\" : 8.13 },\n  { \"unitPrice\" : 3.14, \"quantity\" : 2, \"totalPrice\" : 6.28 }\n] }\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 334, "end": 334, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 142, "end": 225, "text": "This processes all elements of the items array\nFor each it adds a totalPrice attribute, \nwhich is the product of unitPrice and quantity", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
+
+}
