@@ -1,0 +1,24 @@
+{
+"title": "Set SYSDATE based on the DB time zone",
+ "sql": "\n\nSELECT SYSDATE, SYSTIMESTAMP, DBTIMEZONE;\n\nSYSDATE              SYSTIMESTAMP                      DBTIME\n-------------------- --------------------------------- ------\n12-SEP-2024 13:36:05 12/09/2024 13:36:05.903475000 GMT +00:00\n\nALTER SYSTEM SET time_at_dbtimezone = database SCOPE = spfile;\nALTER DATABASE SET time_zone = 'Asia/Kolkata';\n\nSHUTDOWN\nSTARTUP\n\nSELECT SYSDATE, SYSTIMESTAMP, DBTIMEZONE;\n\nSYSDATE              SYSTIMESTAMP                         DBTIMEZONE  \n-------------------- ------------------------------------ ------------\n12-SEP-2024 19:06:43 12/09/2024 19:06:43.420536000 +05:30 Asia/Kolkata\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "time_at_dbtimezone",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 232, "end": 278, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 169, "end": 230, "text": "The DB is currently in UTC with a time ~13:35", "durationInMS": 4730, "displayAtSemiColon": false}, {"start": 232, "end": 294, "text": "This converts the values returned by SYSDATE/SYSTIMESTAMP \nfrom the OS to the database's DBTIMEZONE\nIt also runs all time-dependent operations in the database based on this TZ\nSet to USER_SQL to only change SYSDATE/SYSTIMESTAMP", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 546, "end": 616, "text": "Now the DB is on Kolkata time (+5:30), the date functions return a time ~19:35", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
+
+}
