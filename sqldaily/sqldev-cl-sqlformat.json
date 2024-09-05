@@ -1,0 +1,24 @@
+{
+"title": "Set the output format in SQL Developer/SQLcl",
+ "sql": "\n\nset sqlformat csv \n\nselect * from hr.departments fetch first 2 rows only;\n\n\"DEPARTMENT_ID\",\"DEPARTMENT_NAME\",\"MANAGER_ID\",\"LOCATION_ID\"\n10,\"Administration\",200,1700\n20,\"Marketing\",201,1800\n\nselect /*insert*/* from hr.departments fetch first 2 rows only;\n\nREM INSERTING into HR.DEPARTMENTS\nSET DEFINE OFF;\nInsert into HR.DEPARTMENTS (DEPARTMENT_ID,DEPARTMENT_NAME,MANAGER_ID,LOCATION_ID) \nvalues (10,'Administration',200,1700);\nInsert into HR.DEPARTMENTS (DEPARTMENT_ID,DEPARTMENT_NAME,MANAGER_ID,LOCATION_ID) \nvalues (20,'Marketing',201,1800);\n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "csv,insert, json",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 21, "end": 21, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
+
+}
