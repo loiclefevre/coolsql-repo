@@ -1,0 +1,24 @@
+{
+"title": "Get execution plan stats",
+ "sql": "\n\nalter session set statistics_level = all;\nset serveroutput off\n\nset feed only\nselect department_name, count(*) from hr.departments\njoin   hr.employees using ( department_id )\ngroup  by department_name;\nset feed on\n\nselect * from dbms_xplan.display_cursor ( format => 'ALLSTATS LAST' );\n\n Id  | Operation          | Name | Starts | E-Rows | A-Rows |   A-Time   | Buffers \n-----------------------------------------------------------------------------------\n   0 | SELECT STATEMENT   |      |      1 |        |     13 |00:00:00.01 |       7 \n   1 |  HASH GROUP BY     |      |      1 |     19 |     13 |00:00:00.01 |       7 \n   2 |   TABLE ACCESS FULL| JOBS |      1 |     19 |     19 |00:00:00.01 |       7  \n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 710, "end": 710, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 2, "end": 43, "text": "This is necessary to capture plan stats\nYou can also use the /*+ gather_plan_statistics */ hint in the query", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 66, "end": 79, "text": "This hides the query results; set feed on again to get the plan afterwards", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 457, "end": 707, "text": "The plan now includes these stats:\n Starts = how many times the operation ran\n E-rows = estimated rows\n A-rows = actual rows\n A-time = actual time\n Buffers = logical I/O", "durationInMS": 8577, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
+
+}
