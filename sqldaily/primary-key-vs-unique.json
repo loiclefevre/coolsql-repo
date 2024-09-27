@@ -1,0 +1,24 @@
+{
+"title": "Primary keys vs unique constraints",
+ "sql": "\n\n\ncreate table classes ( \n  class_id    int primary key,\n  class_code  varchar2(10) unique, \n  class_name  varchar2(255) unique,\n  description varchar2(1000)\n);\n\nalter table classes add primary key ( description );\nORA-02260: table can have only one primary key\n\ninsert into classes values ( 1, null, null, null );\n-- 1 row inserted.\n\ninsert into classes values ( null, 'SQL101', 'Intro to SQL', null );\nORA-01400: cannot insert NULL into (\"CHRIS\".\"CLASSES\".\"CLASS_ID\")",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 470, "end": 470, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 58, "end": 129, "text": "This creates two separate unique constraints", "durationInMS": 7020, "displayAtSemiColon": false}, {"start": 163, "end": 215, "text": "You can't add a second primary key, this raises an exception", "durationInMS": 9000, "displayAtSemiColon": false}, {"start": 264, "end": 470, "text": "The primary key column has an implicit NOT NULL constraint\nThe unique columns are still optional and allow nulls", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 10000
+
+}
