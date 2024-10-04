@@ -1,0 +1,24 @@
+{
+"title": "Check constraints",
+ "sql": "\n\n\n\ncreate table exam_results (\n  exam_id         integer, \n  student_id      integer,\n  percent_correct number \n    constraint exre_pct_c\n    check ( percent_correct between 0 and 100 )\n);\n\ninsert into exam_results \n  values ( 1, 1, -42 );\nORA-02290: check constraint \n  (CHRIS.EXRE_PCT_C) violated\n\ninsert into exam_results \n  values ( 1, 1, 42 ), \n         ( 2, 2, null );\n\nselect * from exam_results\nwhere  pct_correct between 0 and 100;\n\n   EXAM_ID STUDENT_ID PERCENT_CORRECT\n---------- ---------- ---------------\n         1          1              42\n\nselect * from exam_results;\n\n   EXAM_ID STUDENT_ID PERCENT_CORRECT\n---------- ---------- ---------------\n         1          1              42\n         2          2 <null>  \n",
+ "fontSize": 35,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.211111,
+ "selection": {"start": 216, "end": 216, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 151, "end": 184, "text": "The DB will reject rows where this is false\ni.e. < 0 or > 100\nBut beware null values!", "durationInMS": 8256, "displayAtSemiColon": false}, {"start": 226, "end": 239, "text": "Negative 42 is NOT between 0 and 100\n=> check is false and the DB rejects the row", "durationInMS": 8256, "displayAtSemiColon": false}, {"start": 360, "end": 374, "text": "NULL between 0 and 100 => unknown!\nThe database accepts this row", "durationInMS": 7877, "displayAtSemiColon": false}, {"start": 411, "end": 440, "text": "WHERE clauses only return rows that are true\nThe NULL percent => unknown => its not fetched", "durationInMS": 8256, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 8000
+
+}
