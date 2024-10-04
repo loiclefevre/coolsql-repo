@@ -1,22 +1,24 @@
 {
-"title": "Disallow duplicate values with primary keys",
- "sql": "\n\ncreate table students (\n  student_id    integer constraint student_pk primary key,\n  email_address varchar2(320)\n);\n\nalter table students add ( primary key ( email_address ) );\nORA-02260: table can have only one primary key\n\ninsert into students values ( 1, 'first.id@test.com' );\n1 row inserted.\n\ninsert into students values ( 1, 'duplicate.id@test.com'  );\nORA-00001: unique constraint (CHRIS.STUDENT_PK) violated\n\ninsert into students values ( null, 'null.id@test.com' );\nORA-01400: cannot insert NULL into (\"CHRIS\".\"STUDENTS\".\"STUDENT_ID\")",
- "fontSize": 18,
+"title": "Primary keys",
+ "sql": "\n\n\ncreate table class_students ( \n  class_id   integer, \n  student_id integer, \n  constraint class_student_pk\n    primary key ( class_id, student_id )\n);\n\ninsert into class_students \nvalues \n  ( 1, 1 ), ( 1, 2 ), \n  ( 2, 1 ), ( 2, 2 );\n\ninsert into class_students \nvalues \n  ( 1, 1 );\nORA-00001: unique constraint \n (CHRIS.CLASS_STUDENT_PK) violated on table \n CHRIS.CLASS_STUDENTS columns (CLASS_ID, STUDENT_ID)\nORA-03301: (ORA-00001 details) row with column \n values (CLASS_ID:1, STUDENT_ID:1) already exists\n\ninsert into class_students \nvalues \n  ( 1, null );\nORA-01400: cannot insert NULL into \n  (\"CHRIS\".\"CLASS_STUDENTS\".\"STUDENT_ID\")\n\nalter table class_students \n  add primary key ( class_id );\nORA-02260: table can have only one primary key\n\nselect index_name, uniqueness \nfrom   user_indexes\nwhere  table_name = 'CLASS_STUDENTS';\n\nINDEX_NAME           UNIQUENES\n-------------------- ---------\nCLASS_STUDENT_PK     UNIQUE  ",
+ "fontSize": 35,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
  "noMargin": false,
  "transparentBackground": false,
  "displayLineNumbers": false,
- "speedMultiplier": 1.180952,
- "selection": {"start": 477, "end": 477, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "displayTabs": false,
+ "speedMultiplier": 1.135714,
+ "selection": {"start": 749, "end": 749, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 275, "end": 283, "text": "There is already a row storing (1, 1), \nthis will error", "durationInMS": 7688, "displayAtSemiColon": false}, {"start": 550, "end": 561, "text": "Null values are disallowed in PK columns", "durationInMS": 5940, "displayAtSemiColon": false}, {"start": 642, "end": 701, "text": "The table already has a PK, \nso this raises an error", "durationInMS": 7163, "displayAtSemiColon": false}, {"start": 750, "end": 931, "text": "The database automatically creates a\nunique index to police the PK", "durationInMS": 9707, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
