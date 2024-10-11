@@ -1,0 +1,24 @@
+{
+"title": "Mandatory columns",
+ "sql": "\n\n  create table t ( \n    c1 int not null, \n    c2 int check ( c2 is not null )\n  );\n\n  insert into t ( c1, c2 ) values ( null, 1 );\n  ORA-01400: cannot insert NULL into \n    (\"CHRIS\".\"T\".\"C1\")\n\n  insert into t ( c1, c2 ) values ( 1, null );\n  ORA-02290: check constraint \n    (CHRIS.SYS_C0024441) violated\n\n  desc t;\n\n  Name Null?    Type       \n  ---- -------- -----------\n  C1   NOT NULL NUMBER(38) \n  C2            NUMBER(38) \n\n  select * from t where c1 is null;\n\n   Id  | Operation          | Name \n  ---------------------------------\n     0 | SELECT STATEMENT   |      \n  *  1 |  FILTER            |      \n     2 |   TABLE ACCESS FULL| T    \n  ---------------------------------\n  Predicate Information \n  ---------------------------------\n    1 - filter(NULL IS NOT NULL)\n\n  select * from t where c2 is null;\n\n   Id  | Operation         | Name \n  --------------------------------\n     0 | SELECT STATEMENT  |      \n  *  1 |  TABLE ACCESS FULL| T    \n  --------------------------------\n  Predicate Information \n  --------------------------------\n    1 - filter(\"C2\" IS NULL)      ",
+ "fontSize": 35,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.196032,
+ "selection": {"start": 778, "end": 778, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 26, "end": 79, "text": "Both of these columns are mandatory\nBut NOT NULL constraints have many advantages", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 88, "end": 306, "text": "The error message is clearer for NOT NULL cols", "durationInMS": 5718, "displayAtSemiColon": false}, {"start": 319, "end": 430, "text": "You can see NOT NULL columns are mandatory in\nthe data dictionary; this info is missing for \nCHECK ( IS NOT NULL ) cols", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 469, "end": 778, "text": "The NULL IS NOT NULL filter is before the \nfull table scan => the table is NEVER read!", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 817, "end": 1085, "text": "With the check constraint, the database reads\nall the rows, testing they're NOT NULL", "durationInMS": 8360, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 3000
+
+}
