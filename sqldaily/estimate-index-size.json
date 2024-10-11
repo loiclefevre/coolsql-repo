@@ -1,0 +1,24 @@
+{
+"title": "Estimate index size",
+ "sql": "\n\n  create table t ( \n    c1, c2, c3 \n  ) as \n    select level, date'2020-01-01' + level,\n           dbms_random.string ( 'a', 10 )\n    from dual\n    connect by level <= 1234;\n\n  explain plan for \n    create index t_c1_i \n    on t ( c1 );\n\n  select * \n  from   dbms_xplan.display ( \n    format => 'BASIC +NOTE' \n  );\n\n   Id  | Operation              | Name   \n  ---------------------------------------\n     0 | CREATE INDEX STATEMENT |        \n     1 |  INDEX BUILD NON UNIQUE| T_C1_I \n     2 |   SORT CREATE INDEX    |        \n     3 |    TABLE ACCESS FULL   | T      \n  ---------------------------------------\n \n  Note\n  -----\n     - estimated index size: 65536  bytes\n\n\n  create index t_c1_i \n    on t ( c1 );\n\n  select bytes\n  from   user_segments\n  where  segment_name = 'T_C1_I';\n\n       BYTES\n  ----------\n       65536\n",
+ "fontSize": 35,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.075397,
+ "selection": {"start": 239, "end": 239, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 177, "end": 238, "text": "This generates the plan to create the index\nThe index is NOT created\nThe plan notes include an estimate of its size", "durationInMS": 8805, "displayAtSemiColon": false}, {"start": 635, "end": 671, "text": "The plan estimates an index size of 64k \nLet's create it to see how accurate this is", "durationInMS": 4325, "displayAtSemiColon": false}, {"start": 788, "end": 826, "text": "The size of the real index is 64k;\nexactly what the plan predicted!", "durationInMS": 7433, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 5000
+
+}
