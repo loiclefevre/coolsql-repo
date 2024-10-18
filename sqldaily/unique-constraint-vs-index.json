@@ -1,0 +1,24 @@
+{
+"title": "Unique constraints & indexes",
+ "sql": "\n\n  create table accounts ( \n    account_id    integer unique,\n    email_address varchar2(320)\n  );\n\n  alter table accounts\n    add constraint acc_email_u\n    unique ( lower ( email_address ) );\n  ORA-03059: The expression LOWER(\"EMAIL_ADDRESS\") \n    is invalid.\n\n  create unique index acc_email_u\n    on accounts ( lower ( email_address ) );\n\n  insert into accounts \n    values ( 1, 'test@test.com' );\n\n  insert into accounts \n    values ( 2, 'TEST@TEST.COM' );\n  ORA-00001: unique constraint (CHRIS.ACC_EMAIL_U) \n    violated on table CHRIS.ACCOUNTS columns (SYS_NC00003$)\n  ORA-03301: (ORA-00001 details) row with column values \n    (SYS_NC00003$:'test@test.com') already exists\n\n  create table account_addresses ( \n    address_id    integer,\n    email_address \n      references accounts ( email_address )\n  );\n  ORA-02270: no matching unique or primary key \n    for this column-list\n\n  create table account_addresses ( \n    address_id integer,\n    account_id integer\n      references accounts ( account_id )\n  );\n\n  insert into account_addresses \n    values ( 1, 2 );\n  ORA-02291: integrity constraint (CHRIS.SYS_C008563) \n    violated - parent key not found\n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 1017, "end": 1017, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 103, "end": 194, "text": "This attemps to create a function-based constraint\nThis is invalid, so raises an error", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 266, "end": 342, "text": "You can create a function-based unique index\nSo the duplication check is case-insensitive", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 750, "end": 808, "text": "There is only a unique index on email_address\nSo foreign keys can't reference this column", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 952, "end": 1011, "text": "You can make a foreign key to the unique column", "durationInMS": 5255, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
