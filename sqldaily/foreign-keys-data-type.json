@@ -1,0 +1,24 @@
+{
+"title": "Creating foreign keys",
+ "sql": "\n\n create table departments ( \n   department_id   integer \n     constraint department_pk primary key,\n   department_name varchar2(30)\n     constraint department_u unique\n );\n\n create table employees ( \n   employee_id integer\n     constraint employee_pk primary key,\n   manager_id  \n     constraint emp_manager_fk\n     references employees,\n   department_name\n     constraint emp_dept_fk\n     references departments ( department_name )\n );\n\n select constraint_name, r_constraint_name \n from   user_constraints\n where  constraint_type = 'R';\n\n CONSTRAINT_NAME    R_CONSTRAINT_NAME\n ------------------ -----------------\n EMP_MANAGER_FK     EMPLOYEE_PK      \n EMP_DEPT_FK        DEPARTMENT_U  \n\n insert into departments \n   values ( 1, 'New dept' );\n --1 row inserted.\n\n insert into employees ( \n   employee_id, manager_id, department_name \n ) values ( 1, null, 1 );\n ORA-02291: integrity constraint \n   (CHRIS.EMP_DEPT_FK) violated - parent key not found\n\n insert into employees ( \n   employee_id, manager_id, department_name \n ) values ( 1, null, 'New dept' ),\n          ( 2,    1, 'New dept' );\n --2 rows inserted.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 1069, "end": 1069, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 269, "end": 339, "text": "This creates a self-referencing foreign key\nIt omits columns in the references clause\nSo points to the primary key & get its data type", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 343, "end": 434, "text": "This makes a foreign key to departments\nIt references the unique key => \nIt points to the unique col & has its data type", "durationInMS": 8577, "displayAtSemiColon": false}, {"start": 541, "end": 689, "text": "The manager FK points to the PK\nThe department FK points to the UC", "durationInMS": 8182, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
