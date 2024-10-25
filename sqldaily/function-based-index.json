@@ -1,0 +1,24 @@
+{
+"title": "Functions & indexes",
+ "sql": "\n\n create table orders ( order_id int, order_date date );\n\n create index ord_date_i on orders ( order_date );\n\n select count(*) from orders \n where  order_date = date'2024-11-01';\n\n  Id  | Operation         | Name       \n --------------------------------------\n    0 | SELECT STATEMENT  |            \n    1 |  SORT AGGREGATE   |            \n    2 |   INDEX RANGE SCAN| ORD_DATE_I \n\n select count(*) from orders \n where  trunc ( order_date, 'mm' ) = date'2024-11-01';\n\n  Id  | Operation          | Name   \n -----------------------------------\n    0 | SELECT STATEMENT   |        \n    1 |  SORT AGGREGATE    |        \n    2 |   TABLE ACCESS FULL| ORDERS \n\n create index ord_date_mm_i \n   on orders ( trunc ( order_date, 'mm' ) );\n\n select count(*) from orders \n where  trunc ( order_date, 'mm' ) = date'2024-11-01';\n\n  Id  | Operation         | Name          \n -----------------------------------------\n    0 | SELECT STATEMENT  |               \n    1 |  SORT AGGREGATE   |               \n    2 |   INDEX RANGE SCAN| ORD_DATE_MM_I \n\n select count(*) from orders \n where  order_date >= date'2024-11-01'\n and    order_date <  date'2024-12-01';\n\n  Id  | Operation         | Name       \n --------------------------------------\n    0 | SELECT STATEMENT  |            \n    1 |  SORT AGGREGATE   |            \n    2 |   INDEX RANGE SCAN| ORD_DATE_I \n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 986, "end": 986, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 112, "end": 179, "text": "There is an index on ORDER_DATE\nThe database can use it to process this query", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 383, "end": 466, "text": "This query TRUNCs the ORDER_DATE\nThe result of this is NOT in the index\n=> the DB has to use a tablescan instead", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 655, "end": 814, "text": "This creates an index that matches the WHERE clause\n=> the DB can do an index scan again", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 1032, "end": 1139, "text": "Instead of creating function-based indexes,\nrewrite the WHERE clause => this enables the\ndatabase to use the original index again", "durationInMS": 7682, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
