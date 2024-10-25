@@ -1,0 +1,24 @@
+{
+"title": "Index column order",
+ "sql": "\n\n\n create table t ( \n   first_col     int, \n   second_col    int, \n   unindexed_col int \n );\n\n create index two_col \n   on t ( first_col, second_col );\n\n select * from t\n where  first_col = 1;\n\n  Id  | Operation                           | Name    \n -----------------------------------------------------\n    0 | SELECT STATEMENT                    |         \n    1 |  TABLE ACCESS BY INDEX ROWID BATCHED| T       \n    2 |   INDEX RANGE SCAN                  | TWO_COL \n\n select * from t\n where  second_col = 2;\n\n  Id  | Operation         | Name \n --------------------------------\n    0 | SELECT STATEMENT  |      \n    1 |  TABLE ACCESS FULL| T    \n\n select second_col from t\n where  first_col = 1;\n\n  Id  | Operation        | Name    \n ----------------------------------\n    0 | SELECT STATEMENT |         \n    1 |  INDEX RANGE SCAN| TWO_COL \n\n select first_col from t\n where  second_col = 2;\n\n  Id  | Operation        | Name    \n ----------------------------------\n    0 | SELECT STATEMENT |         \n    1 |  INDEX FULL SCAN | TWO_COL \n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 648, "end": 648, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 155, "end": 193, "text": "The WHERE clause filters on FIRST_COL\n=> The optimizer can search the index", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 472, "end": 511, "text": "The WHERE clause only has SECOND_COL\nThese values are spread throughout the index\n=> the index is ineffective for this query\n=> The optimizer will choose a full table scan", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 651, "end": 698, "text": "This only accesses columns from the index\n& filters on FIRST_COL \n=> the query can do an index only scan\nrange scanning for entries that have FIRST_COL = 1", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 846, "end": 893, "text": "This only accesses columns from the index \n=> it can do an index only scan \nBut it only filters on SECOND_COL\n=> it reads the whole index", "durationInMS": 7682, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
