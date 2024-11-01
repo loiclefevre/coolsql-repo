@@ -1,16 +1,24 @@
 {
-"title": "Query files on the database server",
- "sql": "\n\ndeclare\n  f utl_file.file_type;\nbegin\n  f := utl_file.fopen ( 'TMP', 'test.csv', 'w' );\n  utl_file.put_line ( f, 'row1col1,row1col2' );\n  utl_file.put_line ( f, 'row2col1,row2col2' );\n  utl_file.put_line ( f, 'row3col1,row3col2' );\n  utl_file.fclose ( f );\nend;\n/\n\nselect * from external (                    C1         C2        \n  ( c1 varchar2(10), c2 varchar2(10) )      ---------- ----------\n  default directory tmp                     row1col1   row1col2  \n  location ( 'test.csv' )                   row2col1   row2col2  \n);                                          row3col1   row3col2  ",
+"title": "Query CSV files",
+ "sql": "\n\n\n -- Create a CSV file of 3 records with 2 fields\n -- Then use the EXTERNAL clause to query it\n declare\n   f utl_file.file_type;\n begin\n   f := utl_file.fopen ( \n     'TMP', 'test.csv', 'w' \n   );\n   utl_file.put_line ( f, 'row1c1,row1c2' );\n   utl_file.put_line ( f, 'row2c1,row2c2' );\n   utl_file.put_line ( f, 'row3c1,row3c2' );\n   utl_file.fclose ( f );\n end;\n /\n\n -- The EXTERNAL clause\n -- Maps fields in the CSV to columns\n -- Defines where the file is on the DB server\n select * from external ( ( \n     c1 varchar2(10), \n     c2 varchar2(10) \n   )      \n   default directory tmp\n   access parameters (\n     fields csv with embedded\n   ) \n   location ( 'test.csv' )\n );                                          \n\n C1         C2        \n ---------- ----------\n row1c1     row1c2    \n row2c1     row2c2    \n row3c1     row3c2 ",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "external",
- "selection": {"start": 596, "end": 596, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 721, "end": 721, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": []
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 617, "end": 641, "text": "This says you're reading comma-separated values\nThe record terminators are included in the data", "durationInMS": 7772, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
