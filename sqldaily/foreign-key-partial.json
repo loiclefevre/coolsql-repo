@@ -1,6 +1,6 @@
 {
-"title": "Beware multi-column nullable FKs",
- "sql": "\n\ncreate table student_courses (\n  student_id integer, course_id integer, \n  primary key ( student_id, course_id )\n);\n\ncreate table student_course_exams (\n  student_id integer, course_id integer, exam_id integer,\n  constraint stce_student_course_fk \n    foreign key ( student_id, course_id )\n    references student_courses\n);\n\ninsert into student_courses values ( 1, 1 );\n--1 row inserted.\ninsert into student_course_exams values ( 9999, null, 1 );\n--1 row inserted.",
+"title": "Nullable multicolumn FKs",
+ "sql": "\n\n\n create table student_courses (\n   student_id integer, \n   course_id  integer, \n   primary key ( \n     student_id, course_id   \n   )\n );\n\n create table student_course_exams (\n   student_id integer, \n   course_id  integer, \n   exam_id    integer,\n   constraint stce_student_course_fk \n     foreign key ( student_id, course_id )\n     references student_courses\n );\n\n insert into student_courses values ( 1, 1 );\n --1 row inserted.\n\n insert into student_course_exams \n   values ( 9999, 9999, 1 );\n ORA-02291: integrity constraint \n   (CHRIS.STCE_STUDENT_COURSE_FK) \n   violated - parent key not found\n\n insert into student_course_exams \n   values ( 9999, null, 1 );\n --1 row inserted.\n\n select * \n from   student_course_exams;\n\n STUDENT_ID  COURSE_ID    EXAM_ID\n ---------- ---------- ----------\n       9999 <null>              1",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -8,15 +8,17 @@
  "noMargin": false,
  "transparentBackground": false,
  "displayLineNumbers": false,
- "speedMultiplier": 1.196032,
- "selection": {"start": 466, "end": 466, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "displayTabs": false,
+ "speedMultiplier": 1.271429,
+ "selection": {"start": 601, "end": 601, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 430, "end": 447, "text": "There is no STUDENT_ID = 9999 in the parent table\nBut because COURSE_ID is NULL you can insert this row \nEven though there is a foreign key to STUDENT_COURSES :scream:!", "durationInMS": 8360, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 252, "end": 361, "text": "Both columns in this compound FK are nullable\nThis can lead to unexpected outcomes", "durationInMS": 7865, "displayAtSemiColon": false}, {"start": 433, "end": 496, "text": "There's no row in the parent with 9999 for\nstudent and class id => this row is rejected", "durationInMS": 7865, "displayAtSemiColon": false}, {"start": 602, "end": 684, "text": "This inserts null into course_id =>\nYou can insert student values not in the parent\nDespite the foreign key to student_courses :scream:!", "durationInMS": 8360, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
