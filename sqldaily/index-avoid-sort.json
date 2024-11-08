@@ -1,0 +1,24 @@
+{
+"title": "Indexes & sorting",
+ "sql": "\n\n\n  -- B-Tree indexes are ordered data structures\n  -- => queries with ORDER BY clauses can avoid \n  -- sorting operations if it matches the index\n  create table t ( \n    c1 int, \n    c2 int, \n    c3 varchar2(50) \n  );\n\n  select * from t\n  where  c1 = 1\n  order  by c2;\n \n   Id  | Operation          | Name \n  ---------------------------------\n     0 | SELECT STATEMENT   |      \n     1 |  SORT ORDER BY     |      \n     2 |   TABLE ACCESS FULL| T    \n\n\n  create index i12 on\n    t ( c1, c2 );\n\n  select * from t\n  where  c1 = 1\n  order  by c2;\n\n   Id  | Operation                   | Name \n  ------------------------------------------\n     0 | SELECT STATEMENT            |      \n     1 |  TABLE ACCESS BY INDEX ROWID| T    \n     2 |   INDEX RANGE SCAN          | I12  \n\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "SORT ORDER BY",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 636, "end": 636, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 223, "end": 270, "text": "There's no index on the table =>\nThe optimizer chooses a full table scan\nAnd must sort the rows by C2", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 498, "end": 545, "text": "The index sorts the entries by C1, then C2\n=> this searches the index for entries C1 = 1\nwhich are in the order requested\n=> no sort is needed!", "durationInMS": 7772, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
