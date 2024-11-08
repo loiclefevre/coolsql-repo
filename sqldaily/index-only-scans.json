@@ -1,6 +1,6 @@
 {
-"title": "Index only access grouping mandatory data ",
- "sql": "\n\n\nselect job_id, count(*) from hr.employees group by job_id\n \n Id  | Operation            | Name       \n-----------------------------------------\n   0 | SELECT STATEMENT     |            \n   1 |  SORT GROUP BY NOSORT|            \n   2 |   INDEX FULL SCAN    | EMP_JOB_IX \n\nselect manager_id, count(*) from hr.employees group by manager_id\n \n Id  | Operation          | Name      \n--------------------------------------\n   0 | SELECT STATEMENT   |           \n   1 |  HASH GROUP BY     |           \n   2 |   TABLE ACCESS FULL| EMPLOYEES ",
+"title": "Index only scans",
+ "sql": "\n\n\n  -- All the queries below only access columns\n  -- in the index I\n  -- => they can bypass the table, even though\n  -- the first indexed column is not in the WHERE\n  create table t ( \n    c1 int not null, \n    c2 int not null,\n    c3 varchar2(10)\n  );\n\n  create index i on\n    t ( c1, c2 );\n\n  select count(*) from t\n  where  c2 = 1;\n\n   Id  | Operation        | Name \n  -------------------------------\n     0 | SELECT STATEMENT |      \n     1 |  SORT AGGREGATE  |      \n     2 |   INDEX FULL SCAN| I    \n\n  select c1 from t;\n\n   Id  | Operation        | Name \n  -------------------------------\n     0 | SELECT STATEMENT |      \n     1 |  INDEX FULL SCAN | I    \n\n  select c2 from t\n  order  by c1;\n\n   Id  | Operation        | Name \n  -------------------------------\n     0 | SELECT STATEMENT |      \n     1 |  INDEX FULL SCAN | I    \n\n\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,15 +9,16 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
- "speedMultiplier": 1.331746,
- "selection": {"start": 458, "end": 458, "mode": "ROUND_SQUARE", "hint": "", "top": true},
- "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 702, "end": 702, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 240, "end": 271, "text": "JOB_ID is NOT NULL and there's an index on it\n=> the index contains all the information to answer the query\n=> the database only needs to read the index", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 507, "end": 535, "text": "There is an index on MANAGER_ID, but it's nullable\n=> Some rows may not be in the index\n=> The database has to full scan the table to process the query", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 297, "end": 336, "text": "This filters on the index's 2nd column\nBut as it has all the data needed\nThe database can to a full index scan", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 511, "end": 528, "text": "This can full scan the index \ninstead of the table; one of the indexed \ncolumns must be NOT NULL for this to work", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 669, "end": 701, "text": "This sorts by the index's first column\nThe index stores values in this order\n=> it can be an index only scan without a sort", "durationInMS": 7772, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
