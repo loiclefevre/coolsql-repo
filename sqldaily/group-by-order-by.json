@@ -1,0 +1,24 @@
+{
+"title": "group by != order by",
+ "sql": "\n\n\n  -- GROUP BY aggregates rows\n  -- ORDER BY sorts rows\n  create table t ( c1 int );\n\n  -- Load 100 rows with values 0-4\n  insert into t \n    select mod ( level, 5 ) from dual \n    connect by level <= 100;\n\n  select c1, count(*) from t\n  group  by c1;\n\n          C1   COUNT(*)\n  ---------- ----------\n           1         20\n           2         20\n           3         20\n           4         20\n           0         20\n\n  select c1, count(*) from t\n  group  by c1\n  order  by c1;\n\n          C1   COUNT(*)\n  ---------- ----------\n           0         20\n           1         20\n           2         20\n           3         20\n           4         20\n\n  -- If you want the result of grouping to be sorted\n  -- you need an ORDER BY",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 580, "end": 580, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 211, "end": 253, "text": "There's no ORDER BY in this query\n=> the database can return rows in any order", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 410, "end": 422, "text": "Zero is the lowest value, not the highest!", "durationInMS": 4896, "displayAtSemiColon": false}, {"start": 426, "end": 483, "text": "Adding ORDER BY ensures the rows are sorted\nby c1 from low -> high", "durationInMS": 7415, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
