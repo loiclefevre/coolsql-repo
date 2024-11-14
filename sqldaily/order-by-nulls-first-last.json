@@ -1,6 +1,6 @@
 {
-"title": "Place NULL top or bottom in sorted data",
- "sql": "\n\ncreate table t ( c1 int );\ninsert into t values ( null );\ninsert into t values ( 1 );\ninsert into t values ( 2 );\n\nselect * from t                         C1\norder  by c1 nulls first;       ----------\n                                <null>    \n                                         1\n                                         2\n\nselect * from t                         C1\norder  by c1 desc nulls last;   ----------\n                                         2\n                                         1\n                                <null>    \n",
+"title": "ORDER BY & NULL",
+ "sql": "\n\n\n  -- Control the postiion of NULL in sorted \n  -- results with NULLS { FIRST | LAST }\n  create table t ( c1 int );\n\n  -- Insert 1, 2, 3, & NULL\n  insert into t values ( null );\n  insert into t \n    select level from dual \n    connect by level <= 3;\n\n  select * from t\n  order  by c1;\n\n          C1\n  ----------\n           1\n           2\n           3\n  <null>  \n\n  select * from t\n  order  by c1 desc;\n\n          C1\n  ----------\n  <null>    \n           3\n           2\n           1\n\n  select * from t\n  order  by c1 desc nulls last;\n\n          C1\n  ----------\n           3\n           2\n           1\n  <null>   ",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,14 +10,15 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.331746,
- "selection": {"start": 504, "end": 504, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 443, "end": 443, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 170, "end": 184, "text": "With an ascending sort, NULL is last by default\nThis moves NULL to the top of the results", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 386, "end": 404, "text": "With an descending sort, NULL is first by default\nThis moves NULL to the bottom of the results", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 255, "end": 287, "text": "This defaults to an ascending (low -> high)\nsort with nulls last in the results", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 367, "end": 403, "text": "A descending (high -> low) sort defaults to \nplacing nulls first in the results", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 486, "end": 533, "text": "The NULLS { FIRST | LAST } clause overrides the\ndefault behaviour & places NULL where you want\nThis is a high -> low sort with null at the end", "durationInMS": 7508, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
