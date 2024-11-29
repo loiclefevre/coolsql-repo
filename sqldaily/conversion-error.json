@@ -1,15 +1,24 @@
 {
-"title": "Conversion error defaults",
- "sql": "\n\n\nselect to_date ( \n         '06-MAY-2022' \n           default '31-DEC-9999' on conversion error,\n         'DD-MON-YYYY'\n       ) valid_date,\n       to_date ( \n         'junk' \n           default '31-DEC-9999' on conversion error,\n         'DD-MON-YYYY'\n       ) converted_invalid_date\nfrom   dual;\n\nVALID_DATE  CONVERTED_INVALID_DATE     \n----------- ----------------------\n06-MAY-2022 31-DEC-9999\n",
+"title": "Handle conversion errors",
+ "sql": "\n\n  -- This table stores dates as strings:\n  create table dates_as_strings ( \n    could_be_anything varchar2(25)\n  );\n\n  -- So you can store invalid date values:\n  insert into dates_as_strings \n  values ( '2024-12-09' ),\n        ( '09-DEC-2024' ), \n        ( '00-ABC-9999' );\n\n  -- Which is a problem when you convert them:\n  select \n    to_date ( \n      could_be_anything,\n      'DD-MON-YYYY'\n    )\n  from   dates_as_strings;\n  ORA-01861: literal does not match format string\n\n  -- To avoid errors use the \n  -- DEFAULT ... ON CONVERSION ERROR clause\n  select \n    to_date ( \n      could_be_anything \n      default null on conversion error,\n      'DD-MON-YYYY'\n    ) dd_mon_yyyy_date,\n    to_date ( \n      could_be_anything \n      default '0001-01-01' on conversion error,\n      'YYYY-MM-DD'\n    ) yyyy_mm_dd_date\n  from   dates_as_strings;\n\n  DD_MON_YYYY_DATE     YYYY_MM_DD_DATE     \n  -------------------- --------------------\n  <null>               09-DEC-2024         \n  09-DEC-2024          01-JAN-0001         \n  <null>               01-JAN-0001  \n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
- "highlightedWords": "Conversion error defaults",
- "selection": {"start": 400, "end": 400, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.196032,
+ "selection": {"start": 551, "end": 551, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": []
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
 
 }
