@@ -1,23 +1,24 @@
 {
-"title": "Create calculated columns",
- "sql": "\n\ncreate table order_items (\n  order_id integer, product_id integer,\n  quantity integer, unit_cost number(10, 2),\n  total_paid as ( quantity * unit_cost )\n);\n\ninsert into order_items values ( 1, 1, 2, 1.41, 2.82 );\nORA-54013: INSERT operation disallowed on virtual columns\n\ninsert into order_items ( order_id, product_id, quantity, unit_cost ) \nvalues ( 1, 2, 3, 2.72 );\n\nselect order_id, product_id, total_paid from order_items;\n\n  ORDER_ID PRODUCT_ID TOTAL_PAID\n---------- ---------- ----------\n         1          2       8.16",
+"title": "Check type conversions",
+ "sql": "\n\n\n  -- Use validate_conversion to see if a value can be \n  -- converted into the target type using a given format\n  -- Use this to check values stored in the wrong type\n\n  create table dates_as_strings ( \n    could_be_anything varchar2(20)\n  );\n  -- The table is supposed to store date values\n  -- But it has a string data type!\n\n  -- So you can store values which could be dates\n  -- Along with invalid date values\n  insert into dates_as_strings \n  values ( '2024-12-09' ),\n        ( '09-DEC-2024' ), \n        ( '00-ABC-9999' );\n\n  select could_be_anything as valid_dd_mon_yyyy_date\n  from   dates_as_strings\n  where  validate_conversion ( \n    could_be_anything as date, \n    'DD-MON-YYYY'\n  ) = 1;\n\n  VALID_DD_MON_YYYY_DATE\n  ----------------------\n  09-DEC-2024\n\n  select could_be_anything as valid_yyyy_mm_dd_date\n  from   dates_as_strings\n  where  validate_conversion ( \n    could_be_anything as date, \n    'YYYY-MM-DD'\n  ) = 1;\n  \n  VALID_YYYY_MM_DD_DATE\n  ---------------------\n  2024-12-09",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "noMargin": false,
+ "noMargin": true,
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
- "speedMultiplier": 1.271429,
- "selection": {"start": 463, "end": 463, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 766, "end": 766, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 116, "end": 154, "text": "TOTAL_PAID is a virtual column that returns the product of QUANTITY & UNIT_COST", "durationInMS": 7865, "displayAtSemiColon": false}, {"start": 159, "end": 213, "text": "Virtual columns are always calculated; you can't set their values in INSERT or UPDATE", "durationInMS": 7865, "displayAtSemiColon": false}, {"start": 372, "end": 429, "text": "The value for TOTAL_PAID is calculated at runtime, it's not stored anywhere", "durationInMS": 7865, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 613, "end": 701, "text": "This returns the strings that can be converted\nto dates using the DD-MON-YYYY format", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 848, "end": 935, "text": "This returns the strings that can be converted\nto dates using the YYYY-MM-DD format", "durationInMS": 10000, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 2000
 
 }
