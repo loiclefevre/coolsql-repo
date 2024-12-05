@@ -1,6 +1,6 @@
 {
-"title": "Combining tables with UNION vs UNION ALL",
- "sql": "\n\ncreate table t1 as select mod ( level, 2 ) c1 from dual connect by level <= 3;\ncreate table t2 as select mod ( level, 2 ) c1 from dual connect by level <= 2;\n\nselect * from t1           C1\nunion              ----------\nselect * from t2;           0\n                            1\n\n                           C1\n                   ----------\nselect * from t1            1\nunion all                   0\nselect * from t2;           1\n                            1\n                            0\n",
+"title": "Combining tables",
+ "sql": "\n\n  create table t1 as \n    select level c1 \n    from   dual connect by level <= 2;\n  create table t2 as \n    select level c1 \n    from   dual connect by level <= 2;\n\n  select * from t1                           C1\n  union                              ----------\n  select * from t2;                           1\n                                              2\n\n  select 't1' t, t1.* from t1      T         C1\n  union                          --- ----------\n  select 't2' t, t2.* from t2;    t1          1\n                                  t1          2\n                                  t2          1\n                                  t2          2\n\n   Id  | Operation           | Name \n  ----------------------------------\n     0 | SELECT STATEMENT    |      \n     1 |  HASH UNIQUE        |      \n     2 |   UNION-ALL         |      \n     3 |    TABLE ACCESS FULL| T1   \n     4 |    TABLE ACCESS FULL| T2   \n\n  select 't1' t, t1.* from t1      T         C1\n  union  all                     --- ----------\n  select 't2' t, t2.* from t2;    t1          1\n                                  t1          2\n                                  t2          1\n                                  t2          2\n\n   Id  | Operation          | Name \n  ---------------------------------\n     0 | SELECT STATEMENT   |      \n     1 |  UNION-ALL         |      \n     2 |   TABLE ACCESS FULL| T1   \n     3 |   TABLE ACCESS FULL| T2   ",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,14 +10,15 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.301587,
- "selection": {"start": 492, "end": 492, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 1233, "end": 1233, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 161, "end": 238, "text": "UNION returns the C1 values in either table\nIt de-duplicates, so returns one row for each value\nThere are only two values (0 & 1), so this returns two rows", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 342, "end": 431, "text": "UNION ALL returns all the rows in each table\nAny duplicate values are returned as separate rows\nSo this returns five rows; three from T1 and two from T2", "durationInMS": 7682, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 169, "end": 282, "text": "Union combines the tables \nand deduplicates the values", "durationInMS": 6361, "displayAtSemiColon": false}, {"start": 362, "end": 486, "text": "This adds column showing the table name\n=> all the rows are unique", "durationInMS": 7467, "displayAtSemiColon": false}, {"start": 725, "end": 906, "text": "But the database still has a deduplication step!\nThe HASH-UNIQUE op above UNION-ALL", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 911, "end": 1035, "text": "Using UNION ALL returns all the rows from both\ntables => the result may contain duplicates", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 1275, "end": 1411, "text": "There's no deduplication step in the plan", "durationInMS": 4840, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 2000
 
 }
