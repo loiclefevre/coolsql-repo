@@ -1,0 +1,24 @@
+{
+"title": "Outer join filters",
+ "sql": "\n\n  -- Take care when filtering in outer joins\n  -- You may accidentally make it an inner join!\n  create table t1 as\n    select level c1, level c2\n    from   dual connect by level <= 3;\n\n  create table t2 as\n    select level c1, level c2\n    from   dual connect by level <= 2;\n\n  select * from t1\n  left   join t2 \n  on     t1.c1 = t2.c1;\n\n          C1         C2         C1         C2\n  ---------- ---------- ---------- ----------\n           1          1          1          1\n           2          2          2          2\n           3          3 <null>     <null>   \n\n  select * from t1\n  left   join t2 \n  on     t1.c1 = t2.c1\n  where  t2.c2 = 1;\n  \n          C1         C2         C1         C2\n  ---------- ---------- ---------- ----------\n           1          1          1          1\n\n  select * from t1\n  left   join t2 \n  on     t1.c1 = t2.c1\n  and    t2.c2 = 1;\n\n          C1         C2         C1         C2\n  ---------- ---------- ---------- ----------\n           1          1          1          1\n           2          2 <null>     <null>    \n           3          3 <null>     <null>   ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 872, "end": 872, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 280, "end": 338, "text": "This returns all the rows in T1\nAlong with any matching rows in T2", "durationInMS": 7329, "displayAtSemiColon": false}, {"start": 572, "end": 649, "text": "This filters T2 rows in the WHERE clause\n=> it only returns rows with T2.C2 = 1\n=> the query is an inner join!", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 794, "end": 871, "text": "To get all the rows from T1\nWith match rows from T2 with C2 = 1\nFilter T2 in the JOIN/ON clause", "durationInMS": 7682, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
