@@ -1,0 +1,24 @@
+{
+"title": "Merry SQLmas!",
+ "sql": "\n\n  -- Wishing you all the best over the festive\n  -- season & hope you have a fantastic 2025!\n  -- Enjoy this SQL Christmas tree\n  with tree ( l, t ) as (\n    select 1 as l, \n           lpad ( '*', 11, ' ' ) as t \n    union all\n    select l + 1 as l,\n           lpad ( \n             lpad ( \n               rpad ( '|', l + 1 , '\\' ), \n               ( ( l +1 ) * 2 ) - 1, \n              '/' \n             ), 12 + l - 1 , ' '\n           ) as t\n    from   tree\n    where  l < 8\n  )\n  select '''' || rpad ( \n           replace ( \n             replace ( t, '//', '/*' ), \n             '\\\\', '*\\' \n           ), 21, ' ' \n         ) || '''' t\n  from   tree\n  union  all\n  select lpad ( '|||', 13, ' ' )\n\n  T\n  -----------------------\n  '          *          '\n  '         /|\\         '\n  '        /*|*\\        '\n  '       /*/|*\\\\       '\n  '      /*/*|*\\*\\      '\n  '     /*/*/|*\\*\\\\     '\n  '    /*/*/*|*\\*\\*\\    '\n  '   /*/*/*/|*\\*\\*\\\\   '\n            |||",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.120635,
+ "selection": {"start": 1, "end": 129, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 5000
+
+}
