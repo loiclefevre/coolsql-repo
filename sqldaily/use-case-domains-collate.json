@@ -1,6 +1,6 @@
 {
 "title": "Case-insensitive names",
- "sql": "\n\n  -- Need case and/or accent insensitive search?\n  -- You can define this with the COLLATE clause\n  -- Use this in domains to describe the \n  -- case sensitivity of values like names\n  create domain case_insensitive\n    as varchar2(255)\n    collate binary_ci;\n  \n  create domain accent_and_case_insensitive\n    as varchar2(255)\n    collate binary_ai;\n\n  create table t ( \n    c1 varchar2(100) domain case_insensitive,\n    c2 accent_and_case_insensitive\n  );\n\n  insert into t values \n    ( 'sql', 'java' ), \n    ( 'SQL', 'JAVA' ),\n    ( 'ŠQĻ', 'JÄVÀ' );\n\n  select c1 from t\n  where  c1 = 'Sql';\n\n  C1\n  ----------\n  sql\n  SQL       \n\n  select c2 from t\n  where  c2 = 'Java';\n\n  C2\n  ----------\n  java\n  JAVA\n  JÄVÀ\n\n  -- Note: to COLLATE on columns & domains\n  -- you must max_string_size = EXTENDED",
+ "sql": "\n\n  -- Need case and/or accent insensitive search?\n  -- You can define this with the COLLATE clause\n  -- Use this in domains to describe the \n  -- case sensitivity of values like names\n  create domain case_insensitive\n    as varchar2(255)\n    collate binary_ci;\n  \n  create domain accent_and_case_insensitive\n    as varchar2(255)\n    collate binary_ai;\n\n  create table t ( \n    c1 varchar2(100) domain case_insensitive,\n    c2 accent_and_case_insensitive\n  );\n\n  insert into t values \n    ( 'sql', 'java' ), \n    ( 'SQL', 'JAVA' ),\n    ( 'ŠQĻ', 'JÄVÀ' );\n\n  select c1 from t\n  where  c1 = 'Sql';\n\n  C1\n  ----------\n  sql\n  SQL       \n\n  select c2 from t\n  where  c2 = 'Java';\n\n  C2\n  ----------\n  java\n  JAVA\n  JÄVÀ\n\n  -- Note: to COLLATE on columns & domains\n  -- you must set max_string_size = EXTENDED",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -10,7 +10,7 @@
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.301587,
- "selection": {"start": 454, "end": 454, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 778, "end": 778, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
