@@ -1,0 +1,24 @@
+{
+"title": "Linking domains & columns",
+ "sql": "\n\n  -- Usecase domains describe values\n  -- To link them to a column, the data types\n  -- must match. If the domain is STRICT there\n  -- scale/precision/length must be the same\n  create domain insert_timestamp\n    as timestamp(0);\n\n  create domain iso_currency_code\n    as char(3 char) strict;\n\n  create table prices (\n    product_id      integer, \n    price           number, \n    currency_code   char(10 char),\n    insert_datetime timestamp(6)\n  );\n\n  alter table prices \n    modify ( insert_datetime )\n    add domain insert_timestamp;\n\n  alter table prices \n    modify ( currency_code )\n    add domain iso_currency_code;\n  ORA-11517: the column data type does \n    not match the domain column\n\n  alter table prices modify ( \n      currency_code char(3 char) \n        domain iso_currency_code \n    );\n\n  ddl prices\n\n  CREATE TABLE \"PRICES\" (    \n    \"PRODUCT_ID\" NUMBER(*,0),\n    \"PRICE\" NUMBER, \n    \"CURRENCY_CODE\" CHAR(3 CHAR) \n       DOMAIN \"ISO_CURRENCY_CODE\", \n    \"INSERT_DATETIME\" TIMESTAMP (6) \n       DOMAIN \"INSERT_TIMESTAMP\"\n   )",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.301587,
+ "selection": {"start": 803, "end": 803, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 179, "end": 293, "text": "The INSERT_TIMESTAMP domain is non-strict;\nso you can assign it to any TIMESTAMP column.\nISO_CURRENCY_CODE is strict so can only be\nlinked with CHAR(3 CHAR) columns", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 454, "end": 537, "text": "The column has precision 6, the domain 0\nThe domain is non-strict, so this works", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 541, "end": 623, "text": "The column has length 10, the domain 3\nThe domain is STRICT, so this statement fails", "durationInMS": 7682, "displayAtSemiColon": false}, {"start": 699, "end": 802, "text": "This changes the column's data type to\nmatch the domain's and assigns the\ndomain to the column", "durationInMS": 7682, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
