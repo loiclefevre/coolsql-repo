@@ -1,6 +1,6 @@
 {
-"title": "Standard rules for showing and sorting data",
- "sql": "\n\ncreate usecase domain currency as (\n  amount as number(10,2), currency_code as char(3), ex_rate as number\n) order amount * ex_rate display '(' || currency_code || ')' || \n   to_char ( round ( amount * ex_rate, 2 ), '$999G990D00' );\n\nalter table order_items modify ( total_paid, currency_code, usd_ex_rate ) \n  add domain currency;\n\ninsert into order_items values (1, 1, 9.99, 'USD', 1 ), (2, 2, 8.99, 'GBP', 1.27 ),\n   (3, 3, 8.99, 'EUR', 1.09 ), (4, 4, 1399, 'JPY', 0.00697 );\n       \nselect order_id, product_id, domain_display (   ORDER_ID PRODUCT_ID USD_VALUE     \n  total_paid, currency_code, usd_ex_rate      ---------- ---------- --------------\n) usd_value                                            4          4 (JPY)   $9.75\nfrom   order_items                                     3          3 (EUR)   $9.80\norder  by domain_order (                               1          1 (USD)   $9.99\n  total_paid, currency_code, usd_ex_rate );            2          2 (GBP)  $11.42\n ",
+"title": "Data display & sorting",
+ "sql": "\n\n  -- Sort & display monetary values in different\n  -- currencies converted into a standard \n  -- currency (e.g. USD) with usecase domains\n  create usecase domain currency as (\n    amount as number(10,2),\n    currency_code as char(3), \n    ex_rate as number\n  ) order amount * ex_rate \n    display '(' || currency_code || ')' || \n      to_char ( \n        round ( amount * ex_rate, 2 ), '$990D00'\n      );\n\n  create table order_items ( \n    order_id    int,    product_id    int,\n    total_paid  number, currency_code char(3), \n    usd_ex_rate number, domain currency (\n      total_paid, currency_code, usd_ex_rate\n    )\n  );\n\n  insert into order_items values \n    (1, 1, 9.99, 'USD', 1 ), \n    (2, 2, 8.99, 'GBP', 1.27 ),\n    (3, 3, 8.99, 'EUR', 1.09 );\n        \n  select order_id, product_id, \n         domain_display ( \n           total_paid, currency_code, usd_ex_rate\n         ) usd_value                                   \n  from   order_items                                 \n  order  by domain_order (                       \n    total_paid, currency_code, usd_ex_rate \n  );\n \n    ORDER_ID PRODUCT_ID USD_VALUE    \n  ---------- ---------- -------------\n           3          3 (EUR)   $9.80\n           1          1 (USD)   $9.99\n           2          2 (GBP)  $11.42",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,15 +9,16 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
- "speedMultiplier": 1.000000,
- "selection": {"start": 488, "end": 982, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 405, "end": 405, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 2, "end": 233, "text": "This creates a multi-column currency domain for monetary values\nThe ORDER and DISPLAY expressions define a standard way to convert \nmonetary values to one currency for sorting and displaying respectively", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 235, "end": 332, "text": "This assigns the CURRENCY domain to the ORDER_ITEMS table\nThis enables you to use the domain's display & order expressions on the rows", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 488, "end": 982, "text": "To passing domain columns to DOMAIN_DISPLAY & DOMAIN_ORDER\napplies the corresponding DISPLAY & ORDER expressions to the values\nThis enables you to sort & see monetary values converted to US Dollars", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 263, "end": 405, "text": "These expressions do currency conversions:\nORDER simply runs the calculation\nDISPLAY also formats the resulting value \ninto dollars & cents", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 484, "end": 620, "text": "The DOMAIN clause assigns the \nCURRENCY domain to the listed columns\nThis enables you to use the ORDER & \nDISPLAY expressions in queries", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 766, "end": 1080, "text": "Passing domain columns to DOMAIN_DISPLAY & \nDOMAIN_ORDER applies the corresponding DISPLAY \n& ORDER expressions to the values\nThis sorts and shows all the amounts in USD", "durationInMS": 7508, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 2000
 
 }
