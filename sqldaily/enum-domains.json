@@ -1,23 +1,24 @@
 {
-"title": "Create lists of values with enum domains",
- "sql": "\n\ncreate domain statuses as enum ( open, closed, cancelled );\n\nselect *                                ENUM_NAME ENUM_VALUE\nfrom   statuses;                        --------- ----------\n                                        OPEN               1\n                                        CLOSED             2\n                                        CANCELLED          3\n\ncreate table orders ( order_id int, status statuses );\n\ninsert into orders values ( 1, statuses.open );\n\nselect order_id, status,                  ORDER_ID     STATUS NAME   \n       domain_display ( status ) name   ---------- ---------- ---------\nfrom   orders;                                   1          1 OPEN   \n",
+"title": "Create enums",
+ "sql": "\n\n  -- Define static lists of name-value pairs\n  create domain statuses as enum ( \n    open, \n    closed, \n    cancelled = 10\n  );\n\n  select *\n  from   statuses;\n\n  ENUM_NAME ENUM_VALUE\n  --------- ----------\n  OPEN               1\n  CLOSED             2\n  CANCELLED         10\n\n  create table orders ( \n    order_id int, \n    status   statuses \n  );\n\n  insert into orders values \n    ( 1, 1 ),\n    ( 2, statuses.open );\n\n  insert into orders values \n    ( 3, 42 );\n  ORA-11534: check constraint (...) involving \n  column STATUS due to domain constraint ... \n  of domain ....STATUSES violated\n\n  select order_id, status,             \n         domain_display ( status ) name\n  from   orders;\n\n    ORDER_ID     STATUS NAME     \n  ---------- ---------- ---------\n           1          1 OPEN     \n           2          1 OPEN \n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
- "highlightedWords": "",
+ "highlightedWords": "statuses",
  "noMargin": false,
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.256349,
- "selection": {"start": 615, "end": 615, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 254, "end": 254, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 63, "end": 368, "text": "You can query an enum like a table to see its names and values", "durationInMS": 7380, "displayAtSemiColon": false}, {"start": 405, "end": 420, "text": "You can use an enum as a column data type\nThis has a check constraint so it can only store the enum's values", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 456, "end": 469, "text": "You can reference enum names in SQL statements\nThis returns its corresponding values", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 474, "end": 686, "text": "Pass enum domain columns to DOMAIN_DISPLAY \nto see the name associated with the value", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 87, "end": 125, "text": "This defines these name/value pairs:\nOPEN = 1 (first name defaults to 1)\nCLOSED = 2 (the value increases by 1 each time)\nCANCELLED = 10 (10 overrides the default)", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 134, "end": 161, "text": "You can query an enum like a table \nto see its names and values", "durationInMS": 7020, "displayAtSemiColon": false}, {"start": 327, "end": 345, "text": "You can assign enums to columns\nThe column's data type matches \nthe data type of the enum's values", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 385, "end": 419, "text": "You can reference enum names in SQL statements\nThis returns its corresponding values\nBoth these insert 1 into the status column", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 424, "end": 465, "text": "The enum adds an check constraint to the column\nSo you can only insert values from the enum", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 596, "end": 690, "text": "Pass enum domain columns to DOMAIN_DISPLAY \nto see the name associated with the value", "durationInMS": 7959, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 2000
 
 }
