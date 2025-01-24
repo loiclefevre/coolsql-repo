@@ -1,0 +1,24 @@
+{
+"title": "Group by time intervals",
+ "sql": "\n\n  -- Want to group rows into N minute buckets?\n  -- 23.7 simplifies this with TIME_BUCKET\n  alter session set nls_date_format = 'HH24:MI';\n  create table times as \n    select date'2025-01-21' + ( level / 480 ) dt \n    connect by level <= 30;\n\n  select time_bucket ( \n    dt,                  -- Round this datetime\n    interval '5' minute, -- into 5 min groups\n    trunc ( dt )         -- from this origin time\n  ) grp\n  from   times;\n\n  DT      GRP    \n  ------- -------\n  00:03   00:00  \n  00:06   00:05  \n  00:09   00:05 \n  ...\n\n  select time_bucket ( \n    dt, \n    interval '20' minute,\n    trunc ( dt ),\n    start -- START is the default => round down\n  ) || ' - ' || time_bucket ( \n    dt, \n    interval '20' minute, \n    trunc ( dt ),\n    end  -- Use END to round up to the period end\n  ) grp, count(*)\n  from   times \n  group  by grp order by grp;\n\n  GRP             COUNT(*)\n  ------------- ----------\n  00:00 - 00:20          6\n  00:20 - 00:40          7\n  00:40 - 01:00          6\n  ...",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 509, "end": 509, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 536, "end": 857, "text": "This groups rows into 20 minute buckets\nIt returns the start and end time for each\nbucket and the number of rows in it", "durationInMS": 8577, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
