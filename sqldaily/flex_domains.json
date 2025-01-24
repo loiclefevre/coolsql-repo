@@ -1,0 +1,24 @@
+{
+"title": "Dynamic data validation",
+ "sql": "\n\n  -- There are many temperature scales, each with \n  -- their own traits like absolute zero point.\n  -- With flex domains, the database can choose\n  -- the rules based on the units\n  create domain celcius as number\n    constraint abs_zero_c_c \n    check ( celcius >= -273.15 );\n    \n  create domain fahrenheit as number\n    constraint abs_zero_f_c \n    check ( fahrenheit >= -459.67 );\n\n  create flexible domain temperature ( temp )\n  choose domain using ( units char(1) ) \n  from (\n    case units\n      when 'C' then celcius ( temp )\n      when 'F' then fahrenheit ( temp )\n    end\n  );\n\n  create table temp_readings (\n    temp_value number, temp_units char(1),\n    domain temperature ( temp_value )\n      using ( temp_units )\n  );\n\n  insert into temp_readings values ( -420, 'C' );\n  ORA-11534: check constraint (...) involving \n  columns TEMP_VALUE, TEMP_UNITS due to domain \n  constraint ... of domain TEMPERATURE violated\n\n  insert into temp_readings values ( -420, 'F' );\n  insert into temp_readings values (  -42, 'C' );\n\n  select * from temp_readings;\n\n  TEMP_VALUE T\n  ---------- -\n        -420 F\n         -42 C\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.256349,
+ "selection": {"start": 772, "end": 772, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 185, "end": 387, "text": "First you need to create domains for each scale\nThese describe celcius & fahrenheit properties", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 391, "end": 589, "text": "The flex domain chooses whether to apply\ncelcius or fahrenheit rules from the value of\nthe discriminant column; here that's the UNITS", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 669, "end": 729, "text": "This assigns the flex domain to the columns\nPut the discriminant column in the USING clause", "durationInMS": 7959, "displayAtSemiColon": false}, {"start": 738, "end": 785, "text": "Negative 420 is below absolute zero for celcius\nThis violates the check constraint so errors", "durationInMS": 7959, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
