@@ -1,0 +1,24 @@
+{
+"title": "Calculated columns",
+ "sql": "\n\n  -- Storing calculated values can lead to \n  -- data errors & violates third normal form\n  -- Define calculated columns to ensure the\n  -- values stay in sync with their source\n  create or replace function inc ( \n    v int, i int \n  ) return int deterministic as\n  begin\n    -- wait 1/10th of a second\n    dbms_session.sleep ( 0.1 );\n    return v + i;\n  end;\n  /\n\n  create table t ( \n    c1 int, \n    c2 int as ( inc ( c1, 1 ) ) \n      virtual,     -- calc on read\n    c3 int as ( inc ( c1, 2 ) ) \n      materialized -- calc on write\n  );\n\n  set timing on\n  -- Materialized col stores\n  -- function result on insert\n  -- runtime ~ 1 second (10 * 0.1)\n  insert into t ( c1 ) \n    select level\n    connect by level <= 10;\n  -- Elapsed: 00:00:01.062\n\n  set timing on\n  -- Virtual col calls function on query\n  -- runtime ~1 second\n  select sum ( c2 ) from t;\n  -- Elapsed: 00:00:01.051\n\n  -- Materialized col reads stored result\n  -- runtime < 0.1 second\n  select sum ( c3 ) from t;\n  -- Elapsed: 00:00:00.043",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.165873,
+ "selection": {"start": 653, "end": 653, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 23ai", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": true,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 404, "end": 536, "text": "Virtual columns were added in 11g\nMaterialized columns were added in 23ai (23.7)", "durationInMS": 8577, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
