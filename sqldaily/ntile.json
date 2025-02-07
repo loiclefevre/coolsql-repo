@@ -1,6 +1,6 @@
 {
-"title": "Split rows into equal-sized groups",
- "sql": " \n \nwith rws as (\n  select \n    ntile ( 4 ) over ( order by salary ) grp, \n    salary\n  from   hr.employees\n)\n  select grp, count(*) c, min ( salary ) mn, max ( salary ) mx\n  from   rws\n  group  by grp\n\n   GRP      C     MN     MX\n------ ------ ------ ------\n     1     27   2100   3100\n     2     27   3100   6200\n     3     27   6200   9000\n     4     26   9000  24000",
+"title": "Split rows into N groups",
+ "sql": " \n \n  -- Assign rows into N buckets with NTILE\n\n  -- This sorts rows using the ORDER BY\n  -- and assigns them to groups 1 - N\n  -- each group has the same number of rows +/-1\n\n  -- Use to split rows to quartiles, deciles, ...\n\n  -- This groups employees into salary quartiles\n  -- and returns their count, min & max salary\n  with salary_quartiles as (\n    select ntile ( 4 ) over \n             ( order by salary ) quartile,\n           salary\n    from   hr.employees\n  )\n    select quartile, \n           count (*) row#,\n           min ( salary ) mn, \n           max ( salary ) mx\n    from   salary_quartiles \n    group  by quartile\n\n    QUARTILE       ROW#         MN         MX\n  ---------- ---------- ---------- ----------\n           1         27       2100       3100\n           2         27       3100       6200\n           3         27       6200       9000\n           4         26       9000      24000",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
@@ -9,16 +9,16 @@
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
- "speedMultiplier": 1.000000,
- "selection": {"start": 230, "end": 230, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "speedMultiplier": 1.241270,
+ "selection": {"start": 9, "end": 46, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database since 10g R1 (2003)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
  "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 32, "end": 68, "text": "There are 107 rows in the employees table\nThis creates four groups with (107/4) = 27 or 26 rows in each \nThe lowest salaries are in group 1, highest in group 4", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanations": [{"start": 363, "end": 413, "text": "Sort the rows by SALARY\nThen place in groups 1-4\nWith (as close as possible) equal rows in each", "durationInMS": 10000, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
  "targetURL": "",
- "finalWaitTime": 10000
+ "finalWaitTime": 4000
 
 }
