@@ -1,0 +1,24 @@
+{
+"title": "Recover dropped tables",
+ "sql": "\n\n\n  -- Ever dropped a table by accident?\n  -- There is a trick to get it back!\n  create table oops as \n    select * from user_objects;\n\n  -- Uh-oh\n  drop table oops;\n\n  select count(*) from oops;\n  ORA-00942: table or view \"HR\".\"OOPS\" does not exist\n\n  -- Oracle Database puts the table in the recyclebin\n  select operation, original_name \n  from   recyclebin;\n\n  OPERATION ORIGINAL_NAME                                                                                                                   \n  --------- -------------\n  DROP      OOPS  \n\n  -- So you can restore the table with\n  flashback table oops \n    to before drop;\n\n  select count(*) from oops;\n\n    COUNT(*)\n  ----------\n         19\n\n  -- Adding the PURGE clause to DROP TABLE \n  -- => the table is not placed in the recyclebin...\n  drop table oops\n    purge;\n\n  -- ...which means you cannot recover it!\n  flashback table oops \n    to before drop;\n  ORA-38305: object not in RECYCLE BIN",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 549, "end": 549, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 11g R1 (September 2007)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
