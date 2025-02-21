@@ -1,16 +1,24 @@
 {
 "title": "Convert rows into columns",
- "sql": "\n \n\nwith rws as (                    DEPARTMENT_ID   ACCT_N    DEV_N  CLERK_N\n  select job_id, department_id   ------------- -------- -------- --------\n  from   hr.employees                       10        0        0        0\n)                                           20        0        0        0\nselect * from rws                           30        0        0        0\npivot (                                     40        0        0        0\n  count (*) n for job_id in (               50        0        0       20\n    'FI_ACCOUNT' acct,                      60        0        5        0\n    'IT_PROG' dev,                          70        0        0        0\n    'ST_CLERK' clerk                        80        0        0        0\n  )                                         90        0        0        0\n)                                          100        5        0        0\norder  by department_id;                   110        0        0        0\n",
+ "sql": "\n \n  -- Use the PIVOT clause to turn rows into columns\n  -- This makes the job counts/dept columns\n  with rws as (\n    select job_id, department_id\n    from   hr.employees\n    where  department_id in ( 50, 60, 100 )\n  )\n  select * from rws\n  pivot (\n    count (*) for job_id in (\n      'FI_ACCOUNT' acct,\n      'IT_PROG' dev,\n      'ST_CLERK' clerk\n    )\n  )\n  order  by department_id;\n\n  DEPARTMENT_ID       ACCT        DEV      CLERK\n  ------------- ---------- ---------- ----------\n             50          0          0         20\n             60          0          5          0\n            100          5          0          0\n\n  -- This counts rows and sums salaries by job\n  with rws as (\n    select job_id, salary, department_id\n    from   hr.employees\n    where  department_id in ( 50, 60, 100 )\n  )\n  select * from rws\n  pivot (\n    count (*) n, sum ( salary ) s \n    for job_id in (\n      'FI_ACCOUNT' acct,\n      'IT_PROG' dev\n    )\n  )\n  order  by department_id;\n\n  DEPARTMENT_ID   ACCT_N   ACCT_S    DEV_N    DEV_S\n  ------------- -------- -------- -------- --------\n             50        0 <null>          0 <null>    \n             60        0 <null>          5    28800\n            100        5    39600        0 <null>    \n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "selection": {"start": 916, "end": 916, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 944, "end": 944, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 11g R1 (September 2007)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 95, "end": 108, "text": "DEPARTMENT_ID will not be part of PIVOT\nSo it forms an implicit GROUP BY"}, {"start": 450, "end": 747, "text": "Create a column for each of these values\nThese show number of rows with that value \nin each department (the implicit group)"}]
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 119, "end": 171, "text": "DEPARTMENT_ID will not be part of PIVOT\nSo it forms an implicit GROUP BY", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 286, "end": 348, "text": "Create columns for the COUNT of these values\nThese show number of rows with that value \nin each department (the implicit group)", "durationInMS": 8467, "displayAtSemiColon": false}, {"start": 843, "end": 944, "text": "This generates a COUNT & SUM column\nfor each value in the pivot IN list\nYou must alias the functions to do this", "durationInMS": 8467, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
 
 }
