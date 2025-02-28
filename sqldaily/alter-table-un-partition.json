@@ -1,0 +1,24 @@
+{
+"title": "(Un)partition a table",
+ "sql": "\n\n\n  -- Want to add partitioning to a table?\n  -- From 12.2 you can do this with ALTER TABLE\n  create table quizzes ( \n    quiz_id   integer \n      constraint quiz_pk primary key, \n    quiz_date date \n  ); \n\n  alter table quizzes\n    modify partition by range ( quiz_date ) \n      interval ( interval '1' month ) (\n      partition p0 values less than ( \n        date'2025-01-01' \n      )\n    ) online \n    update indexes (\n      quiz_pk global partition by hash (\n        quiz_id \n      ) partitions 32\n    );\n\n  select partitioned from user_tables\n  where  table_name = 'QUIZZES';\n\n  PAR\n  ---\n  YES\n\n  -- From 23ai you can remove partitioning from a \n  -- table by making it NONPARTITIONED\n  alter table quizzes\n    modify nonpartitioned;\n\n  select partitioned from user_tables\n  where  table_name = 'QUIZZES';\n\n  PAR\n  ---\n  NO",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 59, "end": 59, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 11g R1 (September 2007)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 233, "end": 400, "text": "This makes the table range partitioned and will \nautogenerate new partitions for each month\nONLINE allows other sessions to write to the table\nwhile partitioning it", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 405, "end": 507, "text": "You can use a different partition method\nfor the indexes; this hash partitions the \nprimary key index", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
