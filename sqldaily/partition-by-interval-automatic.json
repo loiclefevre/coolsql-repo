@@ -1,0 +1,24 @@
+{
+"title": "Add new partitions on insert",
+ "sql": "\n\n  -- When you make range or list partitioned tables\n  -- you need to define the partitions. By default, \n  -- adding values not in a partition raises an error\n  create table range_part ( partition_key date ) \n    partition by range ( partition_key ) (\n      partition p0 values less than ( date'2024-01-01' )\n    );\n\n  insert into range_part values ( date'2025-12-31' );\n  ORA-14400: no partition found in table HR.RANGE_PART \n  for inserted partition key \"2025-12-31T00:00:00\"\n\n  create table list_part ( partition_key int ) \n    partition by list ( partition_key ) (\n      partition p0 values ( 1 )\n    );\n\n  insert into list_part values ( 2 );\n  ORA-14400: no partition found in table \n  HR.LIST_PART for inserted partition key 2\n\n  -- Avoid this by changing the tables to use\n  -- INTERVAL RANGE or AUTOMATIC LIST partitioning\n  alter table range_part \n    set interval ( interval '1' month );\n\n  alter table list_part \n    set automatic;\n\n  insert into range_part values ( date'2025-12-31' );\n  -- 1 row inserted.\n\n  insert into list_part values ( 2 );\n  -- 1 row inserted.\n\n  select table_name, partition_name, high_value\n  from   user_tab_partitions;\n\n  TABLE_NAME   PARTITION_NAME  HIGH_VALUE\n  ------------ --------------- -------------------------\n  RANGE_PART   P0              TO_DATE(' 2024-01-01' ...\n  RANGE_PART   SYS_P11864      TO_DATE(' 2026-01-01' ...\n  LIST_PART    P0              1                                                                                      \n  LIST_PART    SYS_P11865      2      ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 899, "end": 899, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 11g R1 (September 2007)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 835, "end": 899, "text": "The database will create a new partition every month\nSo 1 Jan, 1 Feb, 1 Mar, etc.", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 903, "end": 944, "text": "Every new value for PARTITION_KEY \nwill create a new partition", "durationInMS": 7028, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
