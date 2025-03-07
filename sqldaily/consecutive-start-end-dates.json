@@ -1,0 +1,24 @@
+{
+"title": "Consecutive start-end dates",
+ "sql": "\n\n  -- Ensure no gaps/overlaps in start-end dates/event\n  create table events ( \n    event_id int, start_date date, end_date date,\n    primary key ( event_id, start_date ), \n    unique      ( event_id, end_date ),\n    foreign key ( event_id, end_date )\n      references events \n      deferrable initially deferred,\n    check       ( start_date < end_date )\n  );\n\n  insert into events \n    values ( 1, date'2025-01-01', null );\n  commit;\n\n  -- There can be only one active row per event\n  insert into events \n    values ( 1, date'2025-02-02', null );\n  ORA-00001: unique constraint (...) violated on ...\n\n  -- Every event end date must match a start date \n  -- The FK is deferrable => error on commit\n  insert into events \n    values ( 1, date'2025-03-03', date'2025-04-04' );\n  commit;\n  ORA-02091: transaction rolled back\n  ORA-02291: integrity constraint (...) violated ...\n\n  -- To add the next row, set current end = next start \n  -- in the same transaction\n  update events \n  set    end_date = date'2025-05-05'\n  where  start_date = date'2025-01-01';\n\n  insert into events \n    values ( 1, date'2025-05-05', null );\n  commit;\n\n  select * from events;\n\n    EVENT_ID START_DATE   END_DATE            \n  ---------- ------------ --------------------\n           1 01-JAN-2025  05-MAY-2025\n           1 05-MAY-2025  <null> ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 1155, "end": 1155, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 11g R1 (September 2007)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 135, "end": 313, "text": "This creates a self-referencing foreign key\n=> every end_date must match a start_date per event\nor the end_date is null", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 440, "end": 549, "text": "The unique constraint on ( event_id, end_date ) stops \nyou storing 2 active rows (end_date is null) per event", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 702, "end": 775, "text": "There is no row that starts on 4 Apr 2025\n=> foreign key error on commit", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
