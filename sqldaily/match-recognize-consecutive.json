@@ -1,22 +1,24 @@
 {
 "title": "Find consecutive rows",
- "sql": "\nwith rws as (\n  select date'2022-12-31' + level dt from dual connect by level <= 5\n  union  all\n  select date'2023-01-10' + level dt from dual connect by level <= 3\n)\nselect * from rws match_recognize (\n  order by dt    \n  measures     \n    first ( dt ) as start_date,    \n    count (*) as consecutive_days  \n  pattern ( init consecutive* )    \n  define consecutive as dt = prev ( dt ) + 1\n);\n\nSTART_DATE    CONSECUTIVE_DAYS\n------------- ----------------\n01 Jan 2023                  5\n11 Jan 2023                  3",
+ "sql": "\n\n\n  -- Find consecutive rows with SQL pattern \n  -- matching (match_recognize)\n  with rws as (\n    select date'2024-12-31' + level dt \n    from   dual connect by level <= 5\n    union  all\n    select date'2025-02-01' + level dt \n    from   dual connect by level <= 30\n  )\n  select * from rws match_recognize (\n    order by dt    \n    measures     \n      first ( dt ) as start_date,    \n      last ( dt ) as end_date,\n      count (*) as consecutive_days  \n    pattern ( init consecutive* )    \n    define \n      consecutive as dt = prev ( dt ) + 1\n  );\n\n  START_DATE  END_DATE    CONSECUTIVE_DAYS\n  ----------- ----------- ----------------\n  01-JAN-2025 05-JAN-2025                5\n  02-FEB-2025 03-MAR-2025               30",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "noMargin": false,
+ "noMargin": true,
  "transparentBackground": false,
  "displayLineNumbers": false,
+ "displayTabs": false,
  "speedMultiplier": 1.180952,
- "selection": {"start": 394, "end": 394, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 551, "end": 551, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 312, "end": 341, "text": "Any row followed by zero or more consecutive rows", "durationInMS": 6249, "displayAtSemiColon": false}, {"start": 355, "end": 390, "text": "A row is consecutive if its date equals the previous row's date plus one", "durationInMS": 8467, "displayAtSemiColon": false}],
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 497, "end": 546, "text": "DEFINE specifies the variables in the PATTERN\nINIT is undefined => matches any row\nCONSECUTIVE matches where the \ncurrent dt equals the previous dt plus one", "durationInMS": 8467, "displayAtSemiColon": false}, {"start": 100, "end": 267, "text": "Generate two sets of consecutive dates:\n1 - 5 Jan and 2 Feb - 3 Mar", "durationInMS": 7773, "displayAtSemiColon": false}, {"start": 459, "end": 488, "text": "The PATTERN is a regular expression\nSo this finds one INIT row followed \nby zero or more CONSECUTIVE rows", "durationInMS": 8467, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
