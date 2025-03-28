@@ -1,22 +1,24 @@
 {
-"title": "Use bind variables for fast SQL",
- "sql": "\ndeclare order_rec orders%rowtype;\nbegin\n  for i in 1 .. 100000 loop\n    execute immediate 'select * from orders where order_id = ' || i \n    into order_rec;\n  end loop;\nend;\n\nElapsed: 00:02:56.73\n\ndeclare order_rec orders%rowtype;\nbegin\n  for i in 1 .. 100000 loop\n    select * into order_rec from orders where order_id = i;\n  end loop;\nend;\n\nElapsed: 00:00:01.50",
+"title": "Bind for speed",
+ "sql": "\n\n  -- Using bind variables is key for secure & fast apps\n  -- They protect you from SQL injection \n  -- and they can make queries faster\n  -- See how binds speed searches for 100,000 values\n  set timing on\n  create table bind_for_speed ( \n    bind_id primary key\n  ) as \n    select level from dual \n    connect by level <= 100000;\n  \n  Elapsed: 00:00:00.48\n\n  declare \n    bind_rec bind_for_speed%rowtype;\n  begin\n    for i in 1 .. 100000 loop\n      execute immediate '\n        select * from bind_for_speed \n        where  bind_id = ' || i \n      into bind_rec;\n    end loop;\n  end;\n  /\n\n  Elapsed: 00:01:23.86\n\n  declare \n    bind_rec bind_for_speed%rowtype;\n  begin\n    for i in 1 .. 100000 loop\n      select * into bind_rec \n      from   bind_for_speed \n      where  bind_id = i;\n    end loop;\n  end;\n  /\n\n  Elapsed: 00:00:00.90\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "noMargin": false,
+ "noMargin": true,
  "transparentBackground": false,
  "displayLineNumbers": false,
+ "displayTabs": false,
  "speedMultiplier": 1.196032,
- "selection": {"start": 237, "end": 237, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 612, "end": 612, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": false,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 91, "end": 137, "text": "This runs 100,000 unique SQL statements => lots of parsing", "durationInMS": 8820, "displayAtSemiColon": false}, {"start": 270, "end": 325, "text": "Variables accessed by static SQL in PL/SQL are bind variables =>\nThis runs the same SQL statement for all 100,000 values => little parsing", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 344, "end": 364, "text": "Using bind variables reduces the run time from nearly 3 minutes to 1.5 seconds\nOver 100x faster!", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 209, "end": 331, "text": "The table has 100,000 rows in it\nLet's see what effect querying each row \nwith and without bind variables has", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 451, "end": 541, "text": "This doesn't use bind variables \n=> it runs a different query for each value\n=> the database has to do 100,000 parses", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 705, "end": 783, "text": "Variables in SQL in PL/SQL are bind variables\n=> the statement is the same for all 100,000 runs\n=> it is only parsed once", "durationInMS": 8360, "displayAtSemiColon": false}, {"start": 812, "end": 832, "text": "Without bind variables the 100,000 lookups took ~80s\nWith bind variables this dropped to under 1s!", "durationInMS": 8360, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 3000
 
 }
