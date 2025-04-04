@@ -1,0 +1,24 @@
+{
+"title": "FIFO bin packing with SQL",
+ "sql": "\n\n  -- Use MATCH_RECOGNIZE to group rows into batches\n  -- up to a given size with first-in, first-out logic\n\n  -- e.g. sort sales by date to find out how long \n  -- each batch of 25 million worth of orders took\n  select * from sh.sales\n    match_recognize (\n      order by time_id \n      measures \n        sum ( amount_sold ) sales_bin_total,\n        count (*) sale_count, \n        last ( time_id ) - first ( time_id ) days\n      pattern ( max_25m+ )\n      define \n        max_25m as sum ( amount_sold ) <= 25000000\n    );\n\n  SALES_BIN_TOTAL SALE_COUNT       DAYS\n  --------------- ---------- ----------\n       24999159.8     189203        384\n       24999956.7     278066        402\n       24998802.4     239303        382\n       23207912.2     212271        292\n\n  select * from sh.sales\n    match_recognize (\n      order by time_id \n      measures \n        sum ( amount_sold ) sales_bin_total,\n        count (*) sale_count,\n        last ( time_id ) - first ( time_id ) days\n      pattern ( under_25m* plus_25m{0,1} )\n      define \n        under_25m as sum ( amount_sold ) < 25000000,\n        plus_25m as sum ( amount_sold ) >= 25000000\n    );\n\n  SALES_BIN_TOTAL SALE_COUNT       DAYS\n  --------------- ---------- ----------\n       25000374.8     189204        384\n       25000878.5     278067        402\n         25000015     239381        382\n       23204562.9     212191        292",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 927, "end": 927, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 307, "end": 424, "text": "This returns for each group the:\nTotal value of sales\nNumber of orders\nNumber of days it took to reach the total", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 431, "end": 516, "text": "This places rows in group up to total sales of 25M\nThe row taking the total over this starts a new group", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 984, "end": 1139, "text": "This groups rows into batches of 25M or more\nOnce the total is over 25M, it starts a new group\nplus_25m{0,1} shows latest sales with < 25M", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
