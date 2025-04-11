@@ -1,0 +1,24 @@
+{
+"title": "SELECT * EXCEPT Macro",
+ "sql": "\n\n  -- Exclude columns from select * queries \n  -- by creating a SQL macro to omit them\n  create or replace function except_cols_macro (\n    tab         dbms_tf.table_t,\n    except_cols dbms_tf.columns_t\n  ) return clob sql_macro is\n    sql_stmt    clob;\n    column_list clob;\n  begin\n\n    for col in tab.column.first .. tab.column.last loop\n      if tab.column ( col ).description.name \n          not member of except_cols then\n        column_list := column_list || \n          tab.column ( col ).description.name || ',';\n      end if;\n    end loop;\n    \n    sql_stmt := \n      'select ' || \n      rtrim ( column_list, ',' ) || \n      ' from tab';\n\n    return sql_stmt;\n    \n  end except_cols_macro;\n  /\n\n  create table omit (\n    this_one         int, \n    and_this_one     int, \n    but_not_this_one int\n  );\n  insert into omit values ( 1, 2, 42 );\n\n  select * from except_cols_macro (\n    omit, columns ( this_one, and_this_one )\n  );\n\n  BUT_NOT_THIS_ONE\n  ----------------\n                42",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 854, "end": 937, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 141, "end": 203, "text": "TAB => The table you're querying \nEXCEPT_COLS => the list of columns to exclude", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 290, "end": 549, "text": "This loops through the columns in the input table\nIf a column is not in the except_cols array, it's\nadded to the select list", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 559, "end": 647, "text": "Remove the trailing comma from the select list", "durationInMS": 5271, "displayAtSemiColon": false}, {"start": 908, "end": 930, "text": "These two columns will be excluded\nLeaving just but_not_this_one", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
