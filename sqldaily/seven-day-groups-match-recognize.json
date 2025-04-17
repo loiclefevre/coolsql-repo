@@ -1,0 +1,24 @@
+{
+"title": "Group rows in 7 day batches",
+ "sql": "\n\n\n\n  -- Find all events within 7 days of the first\n  -- Repeat, counting from the next event date\n  create table event_data (\n    event_date date\n  );\n\n  insert into event_data values \n    ( date'2025-01-01' ), ( date'2025-01-02' ),\n    ( date'2025-01-03' ), ( date'2025-01-07' ),\n    ( date'2025-01-08' ), ( date'2025-02-01' ),\n    ( date'2025-02-02' ), ( date'2025-02-03' ),\n    ( date'2025-03-01' ), ( date'2025-03-02' );\n\n  select * from event_data match_recognize (\n    order by event_date \n    measures \n      init.event_date     as start_date,\n      last ( event_date ) as end_date,\n      count (*)           as event#\n    pattern ( init within_7* )\n    define within_7 as \n      event_date < init.event_date + 7\n  );\n\n  START_DATE  END_DATE        EVENT#\n  ----------- ----------- ----------\n  01-JAN-2025 07-JAN-2025          4\n  08-JAN-2025 08-JAN-2025          1\n  01-FEB-2025 03-FEB-2025          3\n  01-MAR-2025 02-MAR-2025          2",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "VALIDATE_CONVERSION",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 725, "end": 725, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 517, "end": 626, "text": "This returns the first and last dates, \nand the number of rows in each group", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 631, "end": 720, "text": "INIT is undefined, so matches any row\nWITHIN_7 matches zero+ rows that are\nless than the start (INIT) date plus seven", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
