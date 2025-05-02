@@ -1,0 +1,24 @@
+{
+"title": "Find longest login streaks",
+ "sql": "\n\n\n  -- Find the longest number of consecutive days \n  -- each user has logged in and the streak start\n  create table user_logins as \n    select mod ( level, 3 ) + 1 user_id, \n           date'2025-01-01' + dbms_random.value ( \n             0, level \n            ) login_datetime\n    from   dual connect by level <= 300;\n\n  with streaks as ( \n    select user_id, \n           trunc ( login_datetime ) login_date,\n           trunc ( login_datetime ) - \n             row_number () over ( \n               partition by user_id\n               order by trunc ( login_datetime ) \n             ) grp\n    from   user_logins\n    group  by user_id, \n           trunc ( login_datetime )\n  )\n  select user_id, \n         count (*) streak_days, \n         min ( login_date ) streak_start\n  from   streaks\n  group  by user_id, grp\n  order  by user_id, count (*) desc \n  fetch  first 999999999999 partition by user_id, \n         1 row only;\n\n     USER_ID STREAK_DAYS STREAK_START\n  ---------- ----------- ------------\n           1           9 10-JAN-2025\n           2           6 01-JAN-2025\n           3          12 03-JAN-2025",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.316667,
+ "selection": {"start": 920, "end": 920, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 422, "end": 589, "text": "This maps consecutive days to the same date:\nROW_NUMBER assigns consecutive numbers =>\nThe gap between it and consecutive dates is constant", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 617, "end": 672, "text": "A user could login many times each day\nThis ensures at most one row/user/day", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 814, "end": 920, "text": "Oracle Database 23ai extended FETCH FIRST\nThe PARTITION BY clause returns the top \n999999999999 users. For each of these it gets\nthe row with the max streak (COUNT(*) DESC)", "durationInMS": 10000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
