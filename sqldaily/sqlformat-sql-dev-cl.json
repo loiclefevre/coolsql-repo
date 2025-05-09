@@ -1,0 +1,24 @@
+{
+"title": "Format query results",
+ "sql": "\n\n\n  -- Change format of query results in Oracle SQLcl\n  -- and Oracle SQL Developer\n  select /*csv*/department_id, department_name \n  from   hr.departments fetch first row only;\n\n  \"DEPARTMENT_ID\",\"DEPARTMENT_NAME\"\n  10,\"Administration\"\n  \n  set sqlformat json-formatted\n  \n  select department_id, department_name \n  from   hr.departments fetch first row only;\n\n  {\n    \"results\" : [\n      {\n        \"columns\" : [\n          {\n            \"name\" : \"DEPARTMENT_ID\",\n            \"type\" : \"NUMBER\"\n          },\n          {\n            \"name\" : \"DEPARTMENT_NAME\",\n            \"type\" : \"VARCHAR2\"\n          }\n        ],\n        \"items\" : [\n          {\n            \"department_id\" : 10,\n            \"department_name\" : \"Administration\"\n          }\n        ]\n      }\n    ]\n\n  select /*insert*/department_id, department_name\n  from   hr.departments fetch first row only;\n\n  REM INSERTING into HR.DEPARTMENTS\n  SET DEFINE OFF;\n  Insert into HR.DEPARTMENTS (DEPARTMENT_ID,DEPARTMENT_NAME) \n  values (10,'Administration');\n  ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.316667,
+ "selection": {"start": 853, "end": 853, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 94, "end": 101, "text": "The CSV comment returns the rows \nas comma-separated values", "durationInMS": 6835, "displayAtSemiColon": false}, {"start": 246, "end": 274, "text": "All following queries results will \nbe as pretty-printed JSON data\nin ORDS collection format", "durationInMS": 7594, "displayAtSemiColon": false}, {"start": 776, "end": 786, "text": "The INSERT comment overrides the\nJSON-formatted session setting and\nreturns the rows as insert statements", "durationInMS": 7594, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
