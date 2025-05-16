@@ -1,0 +1,24 @@
+{
+"title": "Better expression estimates",
+ "sql": "\n\n\n  create table order_items ( \n    order_id int, product_id int,\n    quantity int, unit_price number(10, 2)\n  );\n\n  insert into order_items\n    select ceil ( level / 10 ), mod ( level, 10 ) + 1,\n      mod ( level, 4 ) + 1, mod ( level, 10 ) + 0.99\n    from   dual connect by level <= 100;\n\n  exec dbms_stats.gather_table_stats ( -\n    null, 'order_items' -\n  );\n\n  select count(*) from order_items\n  where  quantity * unit_price >= 10;\n\n    COUNT(*)\n  ----------\n          50\n\n   Id  | Operation          | Name        | Rows  \n  ------------------------------------------------\n     0 | SELECT STATEMENT   |             |       \n     1 |  SORT AGGREGATE    |             |     1 \n     2 |   TABLE ACCESS FULL| ORDER_ITEMS |    20 \n\n  alter session set optimizer_dynamic_sampling = 11;\n\n  select count(*) from order_items\n  where  quantity * unit_price >= 10;\n\n    COUNT(*)\n  ----------\n          50\n\n   Id  | Operation          | Name        | Rows  \n  ------------------------------------------------\n     0 | SELECT STATEMENT   |             |       \n     1 |  SORT AGGREGATE    |             |     1 \n     2 |   TABLE ACCESS FULL| ORDER_ITEMS |    50 \n\n  Note\n  -----\n     - dynamic statistics used: dynamic sampling (level=AUTO)",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.316667,
+ "selection": {"start": 862, "end": 862, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 18c (July 2018)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 402, "end": 436, "text": "The optimizer struggles to estimate \nhow many rows this returns by default", "durationInMS": 7594, "displayAtSemiColon": false}, {"start": 694, "end": 733, "text": "The query returned 50 rows, \nBut the optimizer estimated 20\nA notable underestimate", "durationInMS": 7594, "displayAtSemiColon": false}, {"start": 737, "end": 787, "text": "This set the dynamic stats level to auto =>\nthe optimizer gather dynamic stats when necessary\nThe default is 2", "durationInMS": 7594, "displayAtSemiColon": false}, {"start": 1118, "end": 1157, "text": "The row estimate is now perfect", "durationInMS": 3554, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
