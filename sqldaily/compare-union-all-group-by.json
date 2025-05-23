@@ -1,0 +1,24 @@
+{
+"title": "UNION & GROUP to diff tables",
+ "sql": "\n\n\n  -- How to diff the rows in two tables and get the\n  -- number of extra rows in one but not other\n  -- with UNION ALL & GROUP BY\n\n  create table t1 ( c1 int, c2 int );\n  create table t2 ( c1 int, c2 int );\n\n  insert into t1 values ( 1, 1 );\n  insert into t1 values ( 2, 2 );\n  insert into t1 values ( 2, 2 );\n  insert into t1 values ( 2, 2 );\n  insert into t1 values ( 4, null );\n\n  insert into t2 values ( 2, 2 );\n  insert into t2 values ( 3, 3 );\n  insert into t2 values ( 4, null );\n\n  with combined_tables as (\n    select 1 t1, 0 t2, t1.* from t1\n    union  all \n    select 0 t1, 1 t2, t2.* from t2\n  )\n  select c1, c2, \n         case sign ( sum ( t1 ) - sum ( t2 ) ) \n           when 1 then 'T1 has '\n           else 'T2 has '\n         end || abs ( sum ( t1 ) - sum ( t2 ) ) \n         extra_rows\n  from   combined_tables \n  group  by c1, c2\n  having sum ( t1 ) <> sum ( t2 );\n\n          C1         C2 EXTRA_ROWS                                     \n  ---------- ---------- ---------------\n           1          1 T1 has 1                                       \n           2          2 T1 has 2                                       \n           3          3 T2 has 1       ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 776, "end": 776, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 523, "end": 606, "text": "This combines all the rows from both tables into one\nThe T1 & T2 columns identify the source table", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 638, "end": 804, "text": "This compares the number of duplicates for each\nset of values in each table and returns the table\nname and excess row count for the table with more", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 833, "end": 884, "text": "This returns the values where there is a different\nrow count in each of the source tables\ni.e. the extras", "durationInMS": 7508, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
