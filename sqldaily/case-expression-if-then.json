@@ -1,23 +1,24 @@
 {
-"title": "IF-THEN logic in SQL with CASE",
- "sql": "\n\nselect percent_correct, case                   PERCENT_CORRECT GRADE\n         when percent_correct >= 90 then 'A'   --------------- -----\n         when percent_correct >= 80 then 'B'             81.24 B\n         when percent_correct >= 70 then 'C'             91.10 A\n         when percent_correct >= 60 then 'D'             84.42 B\n         when percent_correct >= 50 then 'E'             56.69 E\n         else 'F'                                        72.28 C\n       end grade                                         47.40 F\nfrom   exam_results;\n\nselect exam_id,                                   EXAM_ID EXAM_NAME \n       case exam_id                            ---------- ----------\n         when 1 then 'SQL'                              1 SQL                      \n         when 2 then 'Java'                             2 Java     \n         when 3 then 'Python'                           3 Python    \n         when 4 then 'Javascript'                       4 Javascript\n       end exam_name                                    5 <null>\nfrom   exam_results; ",
+"title": "IF-THEN logic in SQL",
+ "sql": "\n\n\n  -- Use CASE expressions to do IF-THEN logic in SQL\n  -- e.g. to map exam percentages to grades\n  select percent_correct, \n         case                   \n           when percent_correct >= 90 then 'A'\n           when percent_correct >= 80 then 'B'\n           when percent_correct >= 70 then 'C'\n           when percent_correct >= 60 then 'D'\n           when percent_correct >= 50 then 'E'\n           else 'F'\n         end grade\n  from   exam_results;\n\n  PERCENT_CORRECT GRADE\n  --------------- -----\n            81.24 B\n            91.10 A\n            84.42 B\n            56.69 E\n            72.28 C\n            47.40 F\n\n  select exam_id,                               \n         case exam_id\n           when 1 then 'SQL'\n           when 2 then 'Java'\n           when 3 then 'Python'\n           when 4 then 'Javascript'\n         end exam_name\n  from   exam_results;\n\n     EXAM_ID EXAM_NAME \n  ---------- ----------\n           1 SQL                      \n           2 Java     \n           3 Python    \n           4 Javascript\n           5 <null>",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "noMargin": false,
+ "noMargin": true,
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.286508,
- "selection": {"start": 1066, "end": 1066, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 697, "end": 697, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 9, "end": 529, "text": "A searched CASE expression\n\nThe database evaluates the conditions\nIt returns the value for the first that is TRUE", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 628, "end": 1044, "text": "A simple CASE expression\n\nThe database checks if the selector (EXAM_ID here) equals any of the values\nIt returns the corresponding value for the match; if none match, it returns NULL", "durationInMS": 7772, "displayAtSemiColon": false}],
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 136, "end": 433, "text": "A searched CASE expression\n\nThe database evaluates the conditions\nIt returns the value for the first that is TRUE", "durationInMS": 9000, "displayAtSemiColon": false}, {"start": 685, "end": 847, "text": "A simple CASE expression\n\nThe database checks if the selector (EXAM_ID) \nequals any of the values in the WHEN clauses\nIf it does, it returns the value after the \ncorresponding THEN; if not it returns NULL", "durationInMS": 9000, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
