@@ -1,0 +1,24 @@
+{
+"title": "Avoid SQL inside loops",
+ "sql": "\n\n  -- A loop which processes one row at a time is slow\n  -- A statement that processes all the data is fast\n  create table t ( c1 int primary key, c2 date );\n\n  begin \n    for i in 1 .. 100000 loop\n      insert into t values ( i, sysdate );\n    end loop;\n  end;\n  /\n  Elapsed: 00:00:03.326\n  \n  begin \n    for i in 1 .. 100000 loop\n      update t \n      set    c2 = sysdate\n      where  c1 = i;\n    end loop;\n  end;\n  /\n  Elapsed: 00:00:04.219\n  \n  begin \n    for i in 1 .. 100000 loop\n      delete t \n      where  c1 = i;\n    end loop;\n  end;\n  /\n  Elapsed: 00:00:05.752\n\n  insert into t \n    select level, sysdate from dual \n    connect by level <= 100000;\n  Elapsed: 00:00:01.368\n  \n  update t \n  set    c2 = sysdate;\n  Elapsed: 00:00:00.563\n  \n  delete t;\n  Elapsed: 00:00:02.170",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 745, "end": 745, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 162, "end": 572, "text": "The loops process one row on each iteration\nEach block takes several seconds to \nload, change or remove 100,000 rows", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 576, "end": 784, "text": "These statements process all the rows in one go\nThis is signficiantly faster that the loops above\nINSERT 3.3 -> 1.3 seconds\nUPDATE 4.2 -> 0.6 seconds\nDELETE 5.8 -> 2.1 seconds", "durationInMS": 9000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 2000
+
+}
