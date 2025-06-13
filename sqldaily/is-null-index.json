@@ -1,0 +1,24 @@
+{
+"title": "Indexing IS NULL queries",
+ "sql": "\n\n  -- Oracle Database excludes wholly NULL rows from \n  -- B-tree indexes => WHERE col IS NULL will not\n  -- use an index; here are tricks to overcome this\n  create table t ( \n    c1 int, \n    c2 varchar2(100) default rpad ( 'stuff', 100, 'f' )\n  );\n\n  create index i on t ( c1 );\n\n  insert into t ( c1 ) values ( 1 );\n  insert into t ( c1 ) values ( null );\n\n  select * from t where c1 is null;\n\n   Id  | Operation         | Name \n  --------------------------------\n     0 | SELECT STATEMENT  |      \n     1 |  TABLE ACCESS FULL| T    \n\n  drop index i;\n  create index i on t ( c1, 1 );\n\n  select * from t where c1 is null;\n\n   Id  | Operation                           | Name \n  --------------------------------------------------\n     0 | SELECT STATEMENT                    |      \n     1 |  TABLE ACCESS BY INDEX ROWID BATCHED| T    \n     2 |   INDEX RANGE SCAN                  | I    \n\n  drop index i;\n  create bitmap index i on t ( c1 );\n\n  select * from t where c1 is null;\n\n   Id  | Operation                           | Name \n  --------------------------------------------------\n     0 | SELECT STATEMENT                    |      \n     1 |  TABLE ACCESS BY INDEX ROWID BATCHED| T    \n     2 |   BITMAP CONVERSION TO ROWIDS       |      \n     3 |    BITMAP INDEX SINGLE VALUE        | I    ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 2, "end": 156, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 363, "end": 396, "text": "By default, the row where c1 is NULL is unindexed\n=> this query uses a full table scan", "durationInMS": 7508, "displayAtSemiColon": false}, {"start": 557, "end": 587, "text": "Adding a constant to the end of the index means\nthere's a non-null value for every row\n=> the database can use it for IS NULL conditions", "durationInMS": 9000, "displayAtSemiColon": false}, {"start": 910, "end": 944, "text": "Unlike a B-Tree index, a bitmap includes wholly \nnull rows => IS NULL will use it\n\n** But beware! **\n\nUpdating a bitmap can lock many rows \n=> this index is unsuitable for OLTP", "durationInMS": 9000, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
