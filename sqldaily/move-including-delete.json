@@ -1,23 +1,24 @@
 {
-"title": "Remove lots of data faster",
- "sql": "\n\ncreate table t as \n  select rownum c1, d.* from dba_objects d cross join \n  ( select * from dual connect by level <= 100 );\n\ndelete t where c1 >= 74260;\n\n7351841 rows deleted.\nElapsed: 00:00:32.16\n\nrollback;\n\nalter table t move including rows where c1 < 74260;\n\nElapsed: 00:00:05.59\n",
+"title": "Remove lots of data fast",
+ "sql": "\n\n\n  -- A large delete can be slooooow\n  -- Make it fast with a filtered table move\n  create table t as \n    select rownum c1, d.* \n    from   dba_objects d \n    cross join ( \n      select * from dual \n      connect by level <= 100 \n    );\n\n\n  select count(*) from t;\n\n    COUNT(*)\n  ----------\n      926380\n\n  set timing on\n  delete t where c1 >= 74260;\n  \n  852,121 rows deleted.\n  Elapsed: 00:00:11.935\n\n  select count(*) from t;\n\n    COUNT(*)\n  ----------\n       74259\n\n  rollback;\n\n  alter table t \n    move \n    including rows where c1 < 74260;\n  \n  Table T altered.\n  Elapsed: 00:00:00.997\n\n  select count(*) from t;\n\n    COUNT(*)\n  ----------\n       74259\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "noMargin": false,
+ "noMargin": true,
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
  "speedMultiplier": 1.286508,
- "selection": {"start": 263, "end": 263, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "selection": {"start": 513, "end": 513, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 156, "end": 198, "text": "Removing 7 million+ rows (~90% of the data) takes over 30 seconds", "durationInMS": 9720, "displayAtSemiColon": false}, {"start": 211, "end": 261, "text": "This moves the rows you want to keep (~10% of the data); \nThe where clause is the opposite condition to the delete", "durationInMS": 10000, "displayAtSemiColon": false}, {"start": 264, "end": 284, "text": "The filtered move takes ~5s; about 6x faster than the delete!", "durationInMS": 9180, "displayAtSemiColon": false}],
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 327, "end": 405, "text": "Removing ~850,000 rows \n(90+% of the data) \ntakes ~12 seconds", "durationInMS": 6995, "displayAtSemiColon": false}, {"start": 489, "end": 550, "text": "This moves the rows you want to keep \n(<10% of the data); The WHERE clause \nis the opposite condition to the DELETE", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 556, "end": 596, "text": "The filtered move takes ~1s; \nabout 12x faster than the delete!", "durationInMS": 7275, "displayAtSemiColon": false}],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
