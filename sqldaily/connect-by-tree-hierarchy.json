@@ -1,0 +1,24 @@
+{
+"title": "Walk parent-child hierarchy",
+ "sql": "\n\n\n\n  -- How to follow parent-child relationships \n  -- using CONNECT BY in Oracle SQL\n  -- e.g. for company org chart manager -> reports\n\n  select first_name emp_name,\n         level lvl,\n         prior first_name manager,\n         connect_by_isleaf ic,\n         ltrim ( \n           sys_connect_by_path ( first_name, '-' ), \n           '-' \n         ) reporting_chain\n  from   hr.employees\n  start  with employee_id = 101\n  connect by prior employee_id = manager_id\n  order  siblings by first_name;\n\n  EMP_NAME     LVL MANAGER    IC REPORTING_CHAIN          \n  ----------- ---- --------- --- -------------------------\n  Neena          1 <null>      0 Neena                    \n  Hermann        2 Neena       1 Neena-Hermann            \n  Jennifer       2 Neena       1 Neena-Jennifer           \n  Nancy          2 Neena       0 Neena-Nancy              \n  Daniel         3 Nancy       1 Neena-Nancy-Daniel       \n  Ismael         3 Nancy       1 Neena-Nancy-Ismael       \n  John           3 Nancy       1 Neena-Nancy-John         \n  Jose Manuel    3 Nancy       1 Neena-Nancy-Jose Manuel  \n  Luis           3 Nancy       1 Neena-Nancy-Luis         \n  Shelley        2 Neena       0 Neena-Shelley            \n  William        3 Shelley     1 Neena-Shelley-William    \n  Susan          2 Neena       1 Neena-Susan ",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 786, "end": 786, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 198, "end": 222, "text": "Adding PRIOR gets the value of\nthis column from the parent row\n=> the manager's name", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 233, "end": 253, "text": "This returns 1 if the row has no children\nIt returns 0 otherwise\n=> is this employee an individual contributor", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 264, "end": 368, "text": "SYS_CONNECT_BY_PATH gets the values on \nthe path from the root to the current row\n=> the company reporting chain", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 393, "end": 422, "text": "START WITH defines the root row(s)\nThis is the first step in the query", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 425, "end": 466, "text": "Define the parent-child relationship\nPRIOR is the value from the parent row", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 469, "end": 498, "text": "Adding SIBLINGS sorts rows with the same parent\nSo this orders a manager's reports by their name", "durationInMS": 7772, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
