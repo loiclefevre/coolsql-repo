@@ -1,0 +1,24 @@
+{
+"title": "Recover deleted data",
+ "sql": "\n\n\n  -- Ever deleted the wrong data by accident?\n  -- You can get it back with Flashback Query\n  create table t ( c1, c2 ) as \n    select level, 'data' || level\n    from   dual \n    connect by level <= 10;\n\n  -- wait a while...\n\n  -- oops, we should not have run this delete!\n  delete t\n  where  c1 < 3;\n\n  -- ...and definitely not have committed it :(\n  commit;\n\n  -- Luckily we can find the removed rows\n  select * from t \n    as of timestamp \n    systimestamp - interval '30' second orig\n  where  not exists (\n    select * from t curr\n    where  curr.c1 = orig.c1\n  );\n\n           C1 C2                                          \n   ---------- --------------\n            1 data1                                       \n            2 data2\n\n  -- And recover them with\n  insert into t \n    select * from t \n      as of timestamp \n      systimestamp - interval '30' second orig\n    where  not exists (\n      select * from t curr\n      where  curr.c1 = orig.c1\n    );\n  \n  --2 rows inserted.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 805, "end": 805, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 429, "end": 485, "text": "The AS OF clause enables you to see old data\nThis shows how the table looked 30 seconds ago", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 493, "end": 570, "text": "This finds all the rows in the table 30s ago\nthat are not in the table now", "durationInMS": 7772, "displayAtSemiColon": false}, {"start": 770, "end": 963, "text": "This finds all the missing rows and \ninserts them back in the table", "durationInMS": 7555, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
