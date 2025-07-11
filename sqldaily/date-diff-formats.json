@@ -1,0 +1,24 @@
+{
+"title": "Date differences",
+ "sql": "\n\n\n  -- The difference between two dates is the number of\n  -- days between them. Get this as an interval with\n  -- days, hours, minutes, & seconds or years & months\n  -- instead with interval expressions\n  with dates as (\n    select \n      date'2025-01-01' d1,\n      to_date ( \n        '2025-07-07 12:34:56', \n        'yyyy-mm-dd hh24:mi:ss' \n      ) d2\n    from   dual\n  )\n  select d2 - d1 days, \n         ( d2 - d1 ) day(3) to second ds_interval,\n         ( d2 - d1 ) year to month ym_interval\n  from   dates;\n\n        DAYS DS_INTERVAL          YM_INT\n  ---------- -------------------- ------\n  187.524259 +187 12:34:56.000000 +00-06\n\n\n  -- Use EXTRACT to get a unit from an interval\n  -- e.g., days, minutes, seconds, etc.\n  with durations as ( \n    select interval '+187 12:34:56.000000' \n             day(3) to second d\n    from   dual\n  )\n  select extract ( day from d ) days,  \n         extract ( hour from d ) hours,\n         extract ( minute from d ) minutes, \n         extract ( second from d ) seconds\n  from   durations;\n\n        DAYS      HOURS    MINUTES    SECONDS\n  ---------- ---------- ---------- ----------\n         187         12         34         56\n",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.286508,
+ "selection": {"start": 638, "end": 638, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database since 12c R2 (March 2017)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [{"start": 384, "end": 496, "text": "Default difference is in days\nPlace the formula in brackets and followed by \nthe desired units to make it an interval instead", "durationInMS": 7772, "displayAtSemiColon": false}],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
