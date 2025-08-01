@@ -1,23 +1,24 @@
 {
-"title": "Create many tables in one statement",
- "sql": "\n\n\ncreate schema authorization hr\n  create table some_table ( \n    pk integer primary key \n  )\n  create table another_table ( \n    fk integer references some_table\n  );\n  \nselect table_name from user_tables\nwhere  table_name like '%TABLE';\n\nTABLE_NAME          \n--------------------\nANOTHER_TABLE\nSOME_TABLE\n",
+"title": "Make many objects in 1 DDL",
+ "sql": "\n\n  -- CREATE SCHEMA enables you to create many \n  -- tables in one statement\n  -- The AUTHORIZATION schema must match your username\n  create schema authorization wrong_user\n    create table parent_table ( \n      pk integer primary key \n    );\n  ORA-02421: missing or invalid schema \n  authorization identifier\n\n  select user from dual;\n\n  USER\n  ----\n  HR\n\n  -- This can make tables & views, and give grants\n  create schema authorization hr\n    create table parent_table ( \n      parent_id integer primary key \n    )\n    create table child_table ( \n      parent_id references parent_table,\n      child_col integer\n    )\n    create view join_view as \n      select * from parent_table \n      join   child_table \n      using ( parent_id )\n    grant select on join_view to sh;\n  --Schema AUTHORIZATION created.\n\n  select object_name, object_type \n  from   user_objects \n  where  created > sysdate - interval '1' minute;\n\n  OBJECT_NAME          OBJECT_TYPE            \n  -------------------- -----------------------\n  CHILD_TABLE          TABLE                  \n  PARENT_TABLE         TABLE                  \n  PARENT_TABLE_PK      INDEX                  \n  JOIN_VIEW            VIEW                   \n\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "noMargin": false,
+ "noMargin": true,
  "transparentBackground": false,
  "displayLineNumbers": false,
  "displayTabs": false,
- "speedMultiplier": 1.000000,
- "selection": {"start": 168, "end": 168, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "speedMultiplier": 1.180952,
+ "selection": {"start": 385, "end": 385, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
- "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 10, "end": 33, "text": "The name of the schema must match the user you're connected as", "durationInMS": 9180, "displayAtSemiColon": false}],
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
  "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
- "targetURL": ""
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
