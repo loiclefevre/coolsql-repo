@@ -1,0 +1,24 @@
+{
+"title": "Use the right data type",
+ "sql": "\n\n  -- Using the wrong data type can lead to a host of \n  -- performance problems and query errors\n  create table fake_values ( \n    fake_date  varchar2(20) -- this should be DATE!\n  );\n  \n  -- The database converts sysdate to a string\n  -- using the session NLS settings \n  insert into fake_values values ( sysdate );\n\n  select * from fake_values;\n\n  FAKE_DATE    \n  ------------\n  22-AUG-2025 \n\n  -- This indexes the string value\n  create index fake_date_i \n    on fake_values ( fake_date );\n\n  -- This query compares the string column to a date\n  -- The database converts the column to a date\n  -- => it does not use the index\n  select * from fake_values\n  where  fake_date < sysdate;\n\n   Id  | Operation         | Name        \n  ---------------------------------------\n     0 | SELECT STATEMENT  |             \n  *  1 |  TABLE ACCESS FULL| FAKE_VALUES \n\n  Predicate Information (identified by operation id):\n  ---------------------------------------------------\n   1 - filter(INTERNAL_FUNCTION(\"FAKE_DATE\")<SYSDATE@!)\n\n  -- And after changing the sessions date format\n  alter session set nls_date_format = 'YYYY-MM-DD';\n\n  -- the conversion fails => error!\n  select * from fake_values\n  where  fake_date < sysdate;\n  ORA-01858: A non-numeric character was found \n  instead of a numeric character.",
+ "fontSize": 18,
+ "fontName": "Consolas",
+ "loopGIF": true,
+ "highlightedWords": "",
+ "noMargin": true,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.331746,
+ "selection": {"start": 492, "end": 492, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "version": "Oracle Database", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
+ "overlayGlow": 100,
+ "overlayBloom": 0,
+ "tableBorders": false,
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
+
+}
