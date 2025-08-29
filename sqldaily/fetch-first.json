@@ -1,16 +1,24 @@
 {
 "title": "Get the top-N rows",
- "sql": " \n\n\n \nselect employee_id, salary           EMPLOYEE_ID     SALARY\nfrom   hr.employees                  ----------- ----------\norder  by salary                             132       2100\nfetch  first 2 rows only;                    128       2200\n\n       \n\nselect employee_id, salary           EMPLOYEE_ID     SALARY\nfrom   hr.employees                  ----------- ----------\norder  by salary                             132       2100\nfetch  first 2 rows with ties;               128       2200\n                                             136       2200\n",
+ "sql": "\n\n  -- How to use the FETCH FIRST clause to get\n  -- top-N rows from a result set\n  create table t ( c1 int );\n  insert into t \n  values ( 1 ), ( 2 ), ( 2 ), ( 3 ), ( 4 );\n\n  -- FETCH FIRST N ROWS ONLY gets up to N rows\n  select * from t\n  order  by c1\n  fetch  first 2 rows only;\n\n          C1\n  ----------\n           1\n           2\n\n  -- Get rows with the same value as the Nth\n  -- e.g. both rows with c1 = 2 in the top 2\n  -- FETCH FIRST N ROWS WITH TIES\n  select * from t\n  order  by c1\n  fetch  first 2 rows with ties;\n\n          C1\n  ----------\n           1\n           2\n           2\n\n  -- Get a percentage of the rows with\n  -- N PERCENT ROWS [ ONLY | WITH TIES ]\n  select * from t\n  order  by c1\n  fetch  first 40 percent rows only;\n\n          C1\n  ----------\n           1\n           2\n",
  "fontSize": 18,
  "fontName": "Consolas",
  "loopGIF": true,
  "highlightedWords": "",
- "selection": {"start": 556, "end": 556, "mode": "ROUND_SQUARE", "hint": "", "top": true},
+ "noMargin": false,
+ "transparentBackground": false,
+ "displayLineNumbers": false,
+ "displayTabs": false,
+ "speedMultiplier": 1.000000,
+ "selection": {"start": 424, "end": 424, "mode": "ROUND_SQUARE", "hint": "", "top": true},
  "version": "Oracle Database since 12c R1 (June 2013)", "codePanelTransparency": 255, "whiteOverlay": "None", "overlayTransparency": 255,
  "overlayGlow": 100,
  "overlayBloom": 0,
  "tableBorders": true,
- "gradient": {"fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
- "explanations": [{"start": 186, "end": 211, "text": "Sort by SALARY - low to high - and return at most two rows"}, {"start": 436, "end": 466, "text": "Rows two and three have the same value for SALARY\nAdding WITH TIES returns both"}]
+ "gradient": {"name": "White", "fromX": 0.000000, "fromY": 0.000000, "toX": 100.000000, "toY": 100.000000,  "colors": [{"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 10}, {"rgb": true, "red": 1.000000, "green": 1.000000, "blue": 1.000000, "opacity": 1.000000, "percent": 100}]},
+ "explanations": [],
+ "explanationsBorderColor": {"rgb": true, "red": 0.407843, "green": 0.882353, "blue": 0.815686, "opacity": 1.000000, "percent": 100},
+ "targetURL": "",
+ "finalWaitTime": 4000
 
 }
